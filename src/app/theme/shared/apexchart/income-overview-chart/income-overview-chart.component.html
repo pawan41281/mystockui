@@ -1,0 +1,15 @@
+<h5 class="mb-3 mt-2">Party Challans Report (Last 07 Days)</h5>
+<app-card [showHeader]="false">
+  <apx-chart
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [plotOptions]="chartOptions.plotOptions"
+    [dataLabels]="chartOptions.dataLabels"
+    [xaxis]="chartOptions.xaxis"
+    [colors]="chartOptions.colors"
+    [stroke]="chartOptions.stroke"
+    [yaxis]="chartOptions.yaxis"
+    [grid]="chartOptions.grid"
+    [tooltip]="chartOptions.tooltip"
+  ></apx-chart>
+</app-card>

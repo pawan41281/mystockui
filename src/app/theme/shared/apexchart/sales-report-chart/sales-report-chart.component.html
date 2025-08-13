@@ -1,0 +1,19 @@
+<h5 class="mb-3">Challans Report (Last 07 Days)</h5>
+<div class="card">
+  <div class="card-body">
+    <div id="chart">
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [dataLabels]="chartOptions.dataLabels"
+        [legend]="chartOptions.legend"
+        [xaxis]="chartOptions.xaxis"
+        [colors]="chartOptions.colors"
+        [stroke]="chartOptions.stroke"
+        [grid]="chartOptions.grid"
+        [plotOptions]="chartOptions.plotOptions"
+        [tooltip]="chartOptions.tooltip"
+      ></apx-chart>
+    </div>
+  </div>
+</div>
