@@ -36,6 +36,7 @@ export class DefaultComponent {
   constructor() {
     this.iconService.addIcon(...[RiseOutline, FallOutline, SettingOutline, GiftOutline, MessageOutline]);
   }
+  
 
   recentOrder = tableData;
 
