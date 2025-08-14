@@ -39,22 +39,33 @@ export class DefaultComponent {
 
   recentOrder = tableData;
 
-  AnalyticEcommerce = [
+  monthlyChallanCountData = [
     {
-      title: "Party Challans",
-      amount: '236'
+      title: "Challan To Party In Current Month",
+      challancount: '236'
     },
     {
-      title: "Contractor Challans",
-      amount: '250'
+      title: "Challan To Contractor In Current Month",
+      challancount: '250'
     },
     {
-      title: 'Total Designs',
-      amount: '100'
+      title: 'Challan From Contractor In Current Month',
+      challancount: '100'
+    }
+  ];
+
+  yesterdayChallanCountData = [
+    {
+      title: "Challan To Party On Yesterday",
+      challancount: '16'
     },
     {
-      title: 'Total Colors',
-      amount: '78'
+      title: "Challan To Contractor On Yesterday",
+      challancount: '20'
+    },
+    {
+      title: 'Challan From Contractor On Yesterday',
+      challancount: '12'
     }
   ];
 

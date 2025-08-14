@@ -1,10 +1,18 @@
 <div class="row">
-  @for (analytic of AnalyticEcommerce; track analytic) {
-    <div class="col-md-6 col-xl-3">
+  @for (analytic of monthlyChallanCountData; track analytic) {
+    <div class="col-md-6 col-xl-4">
+      <app-card [showHeader]="false" blockClass="dashboard-card">
+        <h6 class="mb-2 f-w-400 text-muted">{{ analytic.title }}</h6>
+        <h4 class="mb-3">{{ analytic.challancount }}</h4>
+      </app-card>
+    </div>
+  }
+  @for (analytic of yesterdayChallanCountData; track analytic) {
+    <div class="col-md-6 col-xl-4">
       <app-card [showHeader]="false" blockClass="dashboard-card">
         <h6 class="mb-2 f-w-400 text-muted">{{ analytic.title }}</h6>
         <h4 class="mb-3">
-          {{ analytic.amount }}
+          {{ analytic.challancount }}
         </h4>
       </app-card>
     </div>
