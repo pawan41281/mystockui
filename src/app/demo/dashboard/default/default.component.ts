@@ -1,60 +1,128 @@
 // angular import
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // project import
 import tableData from 'src/fake-data/default-data.json';
-
-import { MonthlyBarChartComponent } from 'src/app/theme/shared/apexchart/monthly-bar-chart/monthly-bar-chart.component';
-import { IncomeOverviewChartComponent } from 'src/app/theme/shared/apexchart/income-overview-chart/income-overview-chart.component';
-import { AnalyticsChartComponent } from 'src/app/theme/shared/apexchart/analytics-chart/analytics-chart.component';
 import { SalesReportChartComponent } from 'src/app/theme/shared/apexchart/sales-report-chart/sales-report-chart.component';
 
 // icons
-import { IconService, IconDirective } from '@ant-design/icons-angular';
+import { IconService } from '@ant-design/icons-angular';
 import { FallOutline, GiftOutline, MessageOutline, RiseOutline, SettingOutline } from '@ant-design/icons-angular/icons';
 import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
+import { DataService } from 'src/app/services/data-service';
+import { contractorChallanInfo } from 'src/app/model/contractorChallanInfo';
+import { clientChallanInfo } from 'src/app/model/clientChallanInfo';
 
 @Component({
   selector: 'app-default',
   imports: [
     CommonModule,
     CardComponent,
-    IconDirective,
-    MonthlyBarChartComponent,
-    IncomeOverviewChartComponent,
-    AnalyticsChartComponent,
     SalesReportChartComponent
   ],
   templateUrl: './default.component.html',
   styleUrls: ['./default.component.scss']
 })
-export class DefaultComponent {
+export class DefaultComponent implements OnInit {
   private iconService = inject(IconService);
+  private dataService = inject(DataService)
 
-  // constructor
+  contractorChallanIssuedInfoList: contractorChallanInfo[] = [];
+  contractorChallanRecievedInfoList: contractorChallanInfo[] = [];
+  clientChallanInfoRecieveList: clientChallanInfo[] = [];
+  clientChallanInfoIssueList: clientChallanInfo[] = [];
+
+  clientChallanInfourl: string = 'dashboard/clients/challans/challantype'
+  contractorChallanInfourl: string = 'dashboard/contractors/challans/challantype'
+
+  clientChallanRecord: number;
+
+
   constructor() {
     this.iconService.addIcon(...[RiseOutline, FallOutline, SettingOutline, GiftOutline, MessageOutline]);
   }
 
   recentOrder = tableData;
 
-  AnalyticEcommerce = [
+  ngOnInit(): void {
+    this.getClientInfoData()
+    this.getContractorInfoData()
+  }
+
+  getClientInfoData = () => {
+    this.dataService.get(this.clientChallanInfourl)
+      .subscribe((res: any) => {
+
+        if (res.status === 'success') {
+          res.data.forEach(e => {
+            if (e.challanType === 'R') {
+              this.getQuantinty(e)
+              this.clientChallanInfoRecieveList.push(e)
+            } else {
+              this.getQuantinty(e)
+              this.clientChallanInfoIssueList.push(e)
+            }
+          })
+          this.clientChallanRecord = res.metadata.recordcount
+        }
+
+      })
+  }
+
+  getQuantinty(e: any) {
+    let quantity = 0;
+    e.challanItems.forEach(c => quantity += c.quantity)
+    e.quantity = quantity;
+  }
+
+  getContractorInfoData = () => {
+    this.dataService.get(this.contractorChallanInfourl)
+      .subscribe((res: any) => {
+        if (res.status === 'success') {
+          res.data.forEach(e => {
+            if (e.challanType === 'R') {
+              this.getQuantinty(e)
+              this.contractorChallanRecievedInfoList.push(e)
+            } else {
+              this.getQuantinty(e)
+              this.contractorChallanIssuedInfoList.push(e)
+            }
+          })
+          this.clientChallanRecord = res.metadata.recordcount
+        }
+
+      })
+  }
+
+
+  monthlyChallanCountData = [
     {
-      title: "Party Challans",
-      amount: '236'
+      title: "Challan To Party In Current Month",
+      challancount: '236'
     },
     {
-      title: "Contractor Challans",
-      amount: '250'
+      title: "Challan To Contractor In Current Month",
+      challancount: '250'
     },
     {
-      title: 'Total Designs',
-      amount: '100'
+      title: 'Challan From Contractor In Current Month',
+      challancount: '100'
+    }
+  ];
+
+  yesterdayChallanCountData = [
+    {
+      title: "Challan To Party On Yesterday",
+      challancount: '16'
     },
     {
-      title: 'Total Colors',
-      amount: '78'
+      title: "Challan To Contractor On Yesterday",
+      challancount: '20'
+    },
+    {
+      title: 'Challan From Contractor On Yesterday',
+      challancount: '12'
     }
   ];
 

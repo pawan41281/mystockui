@@ -1,0 +1,26 @@
+[
+    {
+        "client": {
+            "new": "/create-client",
+            "list": "/list-client"
+        }
+    },
+    {
+        "customer": {
+            "new": "/create-contractor",
+            "list": "/list-contractor"
+        }
+    },
+    {
+        "design": {
+            "new": "/design",
+            "list": "/design"
+        }
+    },
+    {
+        "color": {
+            "new": "/create-color",
+            "list": "/list-color"
+        }
+    }
+]

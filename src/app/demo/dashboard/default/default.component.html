@@ -1,20 +1,28 @@
 <div class="row">
-  @for (analytic of AnalyticEcommerce; track analytic) {
-    <div class="col-md-6 col-xl-3">
-      <app-card [showHeader]="false" blockClass="dashboard-card">
-        <h6 class="mb-2 f-w-400 text-muted">{{ analytic.title }}</h6>
-        <h4 class="mb-3">
-          {{ analytic.amount }}
-        </h4>
-      </app-card>
-    </div>
+  @for (analytic of monthlyChallanCountData; track analytic) {
+  <div class="col-md-6 col-xl-4">
+    <app-card [showHeader]="false" blockClass="dashboard-card">
+      <h6 class="mb-2 f-w-400 text-muted">{{ analytic.title }}</h6>
+      <h4 class="mb-3">{{ analytic.challancount }}</h4>
+    </app-card>
+  </div>
+  }
+  @for (analytic of yesterdayChallanCountData; track analytic) {
+  <div class="col-md-6 col-xl-4">
+    <app-card [showHeader]="false" blockClass="dashboard-card">
+      <h6 class="mb-2 f-w-400 text-muted">{{ analytic.title }}</h6>
+      <h4 class="mb-3">
+        {{ analytic.challancount }}
+      </h4>
+    </app-card>
+  </div>
   }
   <div class="col-md-12 col-xl-12">
     <app-sales-report-chart />
   </div>
 
   <div class="col-md-12">
-    <h5 class="mb-3">Recent Contracter Challans</h5>
+    <h5 class="mb-3">Todays Contracter Issued Challans</h5>
     <div class="card tbl-card">
       <div class="table-responsive">
         <table class="table table-hover mb-0">
@@ -22,31 +30,28 @@
             <tr>
               <th>CHALLAN DATE</th>
               <th>CHALLAN NO.</th>
-              <th>CHALLAN TYPE</th>
-              <th>CONTRACTOR</th>
-              <th>DESIGN COUNT</th>
+              <th>PARTY</th>
+              <th>GST NO.</th>
               <th>QUANTITY</th>
             </tr>
           </thead>
           <tbody>
-            @for (order of recentOrder; track order) {
-              <tr>
-                <td>{{ order.date }}</td>
-                <td>{{ order.id }}</td>
-                <td>{{ order.type }}</td>
-                <td>{{ order.cotractor }}</td>
-                <td>{{ order.designcount }}</td>
-                <td>{{ order.quantity }}</td>
-              </tr>
+            @for (challan of contractorChallanIssuedInfoList; track challan) {
+            <tr>
+              <td>{{ challan.challanDate }}</td>
+              <td>{{ challan.challanNumber }}</td>
+              <td>{{ challan.contractor.contractorName }}</td>
+              <td>{{ challan.contractor.gstNo }}</td>
+              <td>{{ challan.quantity }}</td>
+            </tr>
             }
           </tbody>
         </table>
       </div>
     </div>
   </div>
-
   <div class="col-md-12">
-    <h5 class="mb-3">Recent Party Challans</h5>
+    <h5 class="mb-3">Todays Contracter Recieved Challans</h5>
     <div class="card tbl-card">
       <div class="table-responsive">
         <table class="table table-hover mb-0">
@@ -54,22 +59,49 @@
             <tr>
               <th>CHALLAN DATE</th>
               <th>CHALLAN NO.</th>
-              <th>CHALLAN TYPE</th>
-              <th>Party</th>
-              <th>DESIGN COUNT</th>
+              <th>PARTY</th>
+              <th>GST NO.</th>
               <th>QUANTITY</th>
             </tr>
           </thead>
           <tbody>
-            @for (order of recentOrder; track order) {
-              <tr>
-                <td>{{ order.date }}</td>
-                <td>{{ order.id }}</td>
-                <td>{{ order.type }}</td>
-                <td>{{ order.cotractor }}</td>
-                <td>{{ order.designcount }}</td>
-                <td>{{ order.quantity }}</td>
-              </tr>
+            @for (challan of contractorChallanRecievedInfoList; track challan) {
+            <tr>
+              <td>{{ challan.challanDate }}</td>
+              <td>{{ challan.challanNumber }}</td>
+              <td>{{ challan.contractor.contractorName }}</td>
+              <td>{{ challan.contractor.gstNo }}</td>
+              <td>{{ challan.quantity }}</td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <h5 class="mb-3">Todays Party Issued Challans</h5>
+    <div class="card tbl-card">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead>
+            <tr>
+              <th>CHALLAN DATE</th>
+              <th>CHALLAN NO.</th>
+              <th>PARTY</th>
+              <th>GST NO.</th>
+              <th>QUANTITY</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (challan of clientChallanInfoIssueList; track challan) {
+            <tr>
+              <td>{{ challan.challanDate }}</td>
+              <td>{{ challan.challanNumber }}</td>
+              <td>{{ challan.client.clientName }}</td>
+              <td>{{ challan.client.gstNo }}</td>
+              <td>{{ challan.quantity }}</td>
+            </tr>
             }
           </tbody>
         </table>

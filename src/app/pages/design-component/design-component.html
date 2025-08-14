@@ -1,0 +1,104 @@
+<div class="row">
+    <div class="row">
+        <div class="col-12 mt-3">
+            <!-- <div *ngIf="showSuccessMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ successMessage }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div> -->
+            @if (isInactiveDesign) {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                Design already InActive statue.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            }
+
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <app-card cardTitle="Design">
+            <form #form="ngForm" class="row g-3 needs-validation div-margin-top" novalidate>
+                <div class="col-md-5">
+                    <label for="designName" class="form-label fw-bold">Design Name <span
+                            class="text-danger">*</span></label>
+                    <input type="text" class="form-control" #designName="ngModel" name="designName"
+                        [(ngModel)]="designObj.designName" id="designName" required>
+
+                    <div class="text-danger">
+                        <span *ngIf="designName.errors?.['required'] && designName.touched && designName.dirty">This
+                            field is
+                            mendatory</span>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <label for="description" class="form-label fw-bold">Description</label>
+                    <input type="text" class="form-control" name="description" [(ngModel)]="designObj.description"
+                        id="description">
+                </div>
+
+                <div class="col-md-1">
+                    <label for="active" class="form-label fw-bold">Status</label>
+                    <select class="form-select" name="active" [(ngModel)]="designObj.active" id="active">
+                        <option value="true">Active</option>
+                        <option value="false">InActive</option>
+                    </select>
+                </div>
+
+                <div class="col-md-1 margin-top-45">
+                    <button [disabled]="form.invalid" class="btn btn-primary align-left" type="submit"
+                        (click)="onSave()">Save</button>
+                </div>
+
+            </form>
+
+            <div class="row margin-top-30">
+                <div class="col-12">
+
+                    <div class="row">
+                        <div class="col-2 div-margin-top align-left font-bold">Record Count : {{totalRecord}}</div>
+                        <div class="col-9"></div>
+                        <div class="col-1 ">
+                            <i class="bi bi-filetype-csv font-size-30" (click)="onBtnExport()"></i>
+                            <i class="bi bi-filetype-xls font-size-30" (click)="onBtnExportExcel()"></i>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <ag-grid-angular class="ag-theme-quartz grid-height" [rowData]="designList"
+                                [columnDefs]="colDefs" [defaultColDef]="defaultColDef" (gridReady)="onGridReady($event)"
+                                [pagination]="true" [paginationPageSize]="10"
+                                [paginationPageSizeSelector]="[10, 20, 50]" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </app-card>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Deactivate Design</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Do you want to deactivate the Design?
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" (click)="deleteDesign()"
+                    data-bs-dismiss="modal">Yes</button>
+            </div>
+
+        </div>
+    </div>
+</div>
