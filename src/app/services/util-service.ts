@@ -12,27 +12,27 @@ export class UtilService {
 
   public challanTypes = [{ val: "I", name: "Issue" }, { val: "R", name: "Recieve" }]
 
-  // public buildUrl(obj: any) {
-  //   let search_url = '';
-  //   Object.entries(obj).forEach(([key, value]) => {
-  //     if (value) {
-  //       if (!search_url) {
-  //         search_url += `?${key}=${value}`
-  //       } else {
-  //         search_url += `&${key}=${value}`
-  //       }
-  //     }
-  //   });
-  //   return search_url;
-  // }
-  public buildUrl(params: Record<string, any>): string {
-    const query = Object.entries(params)
-      .filter(([_, value]) => value != null && value !== '') // skip null/undefined/empty
-      .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
-      .join('&');
-
-    return query ? `?${query}` : '';
+  public buildUrl(obj: any) {
+    let search_url = '';
+    Object.entries(obj).forEach(([key, value]) => {
+      if (value) {
+        if (!search_url) {
+          search_url += `?${key}=${value}`
+        } else {
+          search_url += `&${key}=${value}`
+        }
+      }
+    });
+    return search_url;
   }
+  // public buildUrl(params: Record<string, any>): string {
+  //   const query = Object.entries(params)
+  //     .filter(([_, value]) => value != null && value !== '' && value != 0) // skip null/undefined/empty
+  //     .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+  //     .join('&');
+
+  //   return query ? `?${query}` : '';
+  // }
 
   public numberOnly(event: any): boolean {
     return /^[0-9]$/.test(event.key);

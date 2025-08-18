@@ -1,1 +1,152 @@
-<p>contractor-challan-register-component works!</p>
+<div class="row div-margin-botton">
+
+    <form #form="ngForm" class="row g-3 needs-validation" novalidate>
+        <div class="col-md-2">
+            <label for="challannumber" class="form-label fw-bold">challan Number</label>
+            <input type="text" class="form-control" maxlength="8" #challannumber="ngModel" name="challannumber"
+                [(ngModel)]="filterObj.challannumber" id="challannumber">
+        </div>
+        <div class="col-md-3">
+            <label for="party" class="form-label fw-bold">Contractor</label>
+            <div class="input-group has-validation">
+                <!-- <span class="input-group-text" id="inputGroupPrepend">&#64;</span> -->
+                <select class="form-select" name="party" [(ngModel)]="filterObj.contractorid" id="party">
+                    <option value="">Select Options</option>
+                    @for (party of dropdownData; track party.id) {
+                    <option [value]="party.id">{{ party.contractorName }}</option>
+                    }
+                </select>
+                <div class="invalid-feedback">
+                    Please Select paryt.
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <label for="fromDate" class="form-label fw-bold">From Date</label>
+            <div class="input-group">
+                <input matInput [matDatepicker]="picker1" id="fromDate" [(ngModel)]="fromDate" name="fromDate"
+                    (dateChange)="formatDate($event)" class="form-control height-39" #challanDate="ngModel" />
+                <span class="input-group-text height-39" style="cursor: pointer;">
+                    <mat-datepicker-toggle [for]="picker1"></mat-datepicker-toggle>
+                </span>
+            </div>
+            <mat-datepicker #picker1></mat-datepicker>
+            <div class="text-danger">
+                @if(challanDate.errors?.['required'] && challanDate.touched && challanDate.dirty) {
+                <span>This field is mendatory</span>
+                }
+            </div>
+        </div>
+        <div class="col-md-2">
+            <label for="toDate" class="form-label fw-bold">To Date</label>
+            <div class="input-group">
+                <input matInput [matDatepicker]="picker" id="toDate" [(ngModel)]="toDate" name="toDate"
+                    class="form-control height-39" #challanDate="ngModel" />
+                <span class="input-group-text height-39" style="cursor: pointer;">
+                    <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+                </span>
+            </div>
+            <mat-datepicker #picker></mat-datepicker>
+            <div class="text-danger">
+                @if(challanDate.errors?.['required'] && challanDate.touched && challanDate.dirty) {
+                <span>This field is mendatory</span>
+                }
+            </div>
+        </div>
+        <!-- <div class="col-md-2">
+            <label for="challantype" class="form-label fw-bold">Challan Type <span class="text-danger">*</span></label>
+            <select class="form-select" name="challantype" id="challantype" [disabled]="action=='view'"
+                [(ngModel)]="filterObj.challantype" id="challantype">
+                <option value="I" selected>Issue</option>
+                <option value="R">Recive</option>
+            </select>
+        </div> -->
+        <div class="col-md-2">
+            <label class="form-label fw-bold d-block">Challan Type</label>
+            <div class="d-flex gap-3">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="challanType" id="challantypeIssue"
+                        [(ngModel)]="filterObj.challantype" [value]="'I'" />
+                    <label class="form-check-label" for="challantypeIssue">
+                        Issue
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="challanType" id="challantypeReceive"
+                        [(ngModel)]="filterObj.challantype" [value]="'R'" />
+                    <label class="form-check-label" for="challantypeReceive">
+                        Receive
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-1 align-right">
+            <button class="margin-top-30 btn btn-primary" name="search" (click)="searchContractorChallan()" id="search">
+                Search </button>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <div class="col-2 div-margin-top align-left font-bold">Record Count : {{totalRecord}}</div>
+    <div class="col-9"></div>
+    <div class="col-1 ">
+        <i class="bi bi-filetype-csv font-size-30" (click)="onBtnExport()"></i>
+        <i class="bi bi-filetype-xls font-size-30" (click)="onBtnExportExcel()"></i>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <ag-grid-angular class="ag-theme-quartz grid-height" [rowData]="contractorChallans" [columnDefs]="colDefs"
+            [defaultColDef]="defaultColDef" (gridReady)="onGridReady($event)" [pagination]="true"
+            [paginationPageSize]="10" [paginationPageSizeSelector]="[10, 20, 50]" />
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Challan Items</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ag-grid-angular class="ag-theme-quartz" style="height: 300px;" [rowData]="itemDetails"
+                    [columnDefs]="itemDetailsColDefs" [defaultColDef]="defaultColDef"
+                    (gridReady)="onGridReady($event)" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Cancel Challan</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Do you want to cancel the Challan?
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" (click)="cancelChallan()"
+                    data-bs-dismiss="modal">Yes</button>
+            </div>
+
+        </div>
+    </div>
+</div>

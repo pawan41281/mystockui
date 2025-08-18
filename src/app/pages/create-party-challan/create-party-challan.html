@@ -1,0 +1,166 @@
+<div class="row">
+    <div class="col-sm-12">
+        <app-card cardTitle="New Party Challan">
+            <div class="row">
+                <div class="col-12 mt-3">
+                    @if (showSuccessMessage) {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ successMessage }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    }
+                    @if (isDuplicateChallan) {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        Challan Number should be unique
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <form #form="ngForm" class="row g-3 needs-validation mt-3" novalidate>
+                <!-- Challan Date -->
+
+                <div class="col-md-3">
+                    <label for="challanDate" class="form-label fw-bold">Challan Date <span
+                            class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <input matInput [matDatepicker]="picker" id="challanDate" name="challanDate"
+                            class="form-control height-39" [(ngModel)]="challanDate" required
+                            #challanDateModel="ngModel" />
+                        <span class="input-group-text  height-39" style="cursor: pointer;">
+                            <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+                        </span>
+                    </div>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <div class="text-danger"
+                        *ngIf="challanDateModel.invalid && (challanDateModel.dirty || challanDateModel.touched)">
+                        <span *ngIf="challanDateModel.errors?.['required']">This field is required.</span>
+                    </div>
+                </div>
+
+                <!-- Challan Type -->
+                <div class="col-md-3">
+                    <label class="form-label fw-bold d-block">Challan Type</label>
+                    <div class="d-flex gap-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="challanType" id="challantypeIssue"
+                                [disabled]="action == 'view'" [(ngModel)]="clientChallanObj.challanType"
+                                [value]="'I'" />
+                            <label class="form-check-label" for="challantypeIssue">
+                                Issue
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="challanType" id="challantypeReceive"
+                                [disabled]="action == 'view'" [(ngModel)]="clientChallanObj.challanType"
+                                [value]="'R'" />
+                            <label class="form-check-label" for="challantypeReceive">
+                                Receive
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Party -->
+                <div class="col-md-3">
+
+                    <div class="dropdown">
+                        <label for="selectedClient" class="form-label fw-bold">Party</label>
+                        <input type="text" class="form-control" [(ngModel)]="selectedClient" #party="ngModel"
+                            list="datalistOptions" name="selectedClient" id="selectedClient"
+                            placeholder="Type to search..." (change)="selectedParty($any($event.target).value)"
+                            required>
+                        <datalist id="datalistOptions">
+                            @for (party of clients; track party.id) {
+                            <option [value]="party.clientName"></option>
+                            }
+                        </datalist>
+                    </div>
+                    <div class="text-danger">
+                        @if(party.errors?.['required'] && party.touched && party.dirty) {
+                        <span>This field is mendatory</span>
+                        }
+                    </div>
+                </div>
+
+                <!-- Challan Number -->
+                <div class="col-md-3">
+                    <label for="challanNumber" class="form-label fw-bold">Challan Number<span
+                            class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="challanNumber" name="challanNumber" maxlength="8"
+                        (keyup)="onChallanNumberChange()" [(ngModel)]="clientChallanObj.challanNumber"
+                        #challanNumber="ngModel" required />
+
+                    <div class="text-danger">
+                        @if(challanNumber.errors?.['required'] && challanNumber.touched && challanNumber.dirty) {
+                        <span>This field is mendatory</span>
+                        }
+                    </div>
+                </div>
+                <!-- Design -->
+                <div class="col-md-3">
+                    <label for="design" class="form-label fw-bold">Design</label>
+                    <select id="design" class="form-select" name="design" [(ngModel)]="clientChallanObj.design"
+                        [disabled]="action === 'view'" (blur)="onInputBlur()">
+                        @for (design of designs; track $index) {
+                        <option [value]="design.id">{{ design.designName }}</option>
+                        }
+
+                    </select>
+                    <div class="invalid-feedback">Please select a design.</div>
+                </div>
+
+                <!-- Color -->
+                <div class="col-md-3">
+                    <label for="color" class="form-label fw-bold">Color</label>
+                    <select id="color" class="form-select" name="color" [(ngModel)]="clientChallanObj.color"
+                        [disabled]="action === 'view'" (blur)="onInputBlur()">
+                        @for (color of colors; track $index) {
+                        <option [value]="color.id">{{ color.colorName }}</option>
+                        }
+                    </select>
+                    <div class="invalid-feedback">Please select a color.</div>
+                </div>
+
+                <!-- Quantity -->
+                <div class="col-md-3">
+                    <label for="quantity" class="form-label fw-bold">Quantity</label>
+                    <input id="quantity" type="text" class="form-control" name="quantity"
+                        [(ngModel)]="clientChallanObj.quantity" [readonly]="action === 'view'"
+                        (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()" />
+                    <div class="invalid-feedback">Please enter quantity.</div>
+                </div>
+                <!-- Add Button -->
+                <div class="col-md-3 align-self-end">
+                    <button type="button" class="btn btn-primary" [disabled]="disableAdd"
+                        (click)="addItems()">Add</button>
+                </div>
+                @if (isItemExist) {
+                <div class="col-12">
+                    <span class="text-danger">Design and Color already added</span>
+                </div>
+                }
+
+                <!-- Data Grid -->
+                <div class="mt-4">
+                    <div class="col-12">
+                        <ag-grid-angular class="ag-theme-quartz" style="height: 340px;" [rowData]="items"
+                            [columnDefs]="colDefs" [defaultColDef]="defaultColDef" (gridReady)="onGridReady($event)"
+                            [getRowId]="getRowId" (cellValueChanged)="onCellValueChanged($event)"></ag-grid-angular>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="col-12 text-end mt-4">
+                    <button type="button" class="btn btn-primary"
+                        [disabled]="form.invalid || items.length <= 0 || isDuplicateChallan" (click)="onSave()">
+                        Submit
+                    </button>
+                    <button type="button" class="btn btn-primary ms-2" (click)="cancel()">Cancel</button>
+                </div>
+            </form>
+        </app-card>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
 import { ColDef, GridApi, GridReadyEvent, Params } from 'ag-grid-community';
@@ -35,10 +35,6 @@ export class ColorComponent {
   }
 
   ngOnInit(): void {
-    this.router.queryParams.subscribe((params: Params) => {
-      console.log('id :: ', params['id']);
-      console.log('id :: ', params['action'])
-    });
     this.getColorData();
   }
 

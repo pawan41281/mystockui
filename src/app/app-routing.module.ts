@@ -20,11 +20,9 @@ const routes: Routes = [
         path: 'dashboard/default',
         loadComponent: () => import('./demo/dashboard/default/default.component').then((c) => c.DefaultComponent)
       },
-
-
       {
         path: 'newcontractorchallan',
-        loadComponent: () => import('./demo/others/sample-page/sample-page.component').then((c) => c.SamplePageComponent)
+        loadComponent: () => import('./pages/create-contractor-challan/create-contractor-challan').then((c) => c.CreateContractorChallan)
       },
       {
         path: 'searchcontractorchallan',
@@ -32,16 +30,12 @@ const routes: Routes = [
       },
       {
         path: 'newpartychallan',
-        loadComponent: () => import('./demo/others/sample-page/sample-page.component').then((c) => c.SamplePageComponent)
+        loadComponent: () => import('./pages/create-party-challan/create-party-challan').then((c) => c.CreatePartyChallan)
       },
       {
         path: 'searchpartychallan',
         loadComponent: () => import('./demo/others/sample-page/sample-page.component').then((c) => c.SamplePageComponent)
       },
-
-
-
-
       {
         path: 'stockregister',
         loadComponent: () => import('./pages/stock-register-component/stock-register-component').then((c) => c.StockRegisterComponent)
@@ -58,10 +52,6 @@ const routes: Routes = [
         path: 'contractorchallanregister',
         loadComponent: () => import('./pages/contractor-challan-register-component/contractor-challan-register-component').then((c) => c.ContractorChallanRegisterComponent)
       },
-
-
-
-
       {
         path: 'color',
         loadComponent: () => import('./pages/color-component/color-component').then((c) => c.ColorComponent)
@@ -78,10 +68,6 @@ const routes: Routes = [
         path: 'contractor',
         loadComponent: () => import('./pages/color-component/color-component').then((c) => c.ColorComponent)
       },
-
-
-
-
       {
         path: 'newcolor',
         loadComponent: () => import('./demo/component/basic-component/color/color.component').then((c) => c.ColorComponent)
@@ -90,8 +76,6 @@ const routes: Routes = [
         path: 'searchcolor',
         loadComponent: () => import('./demo/component/basic-component/color/color.component').then((c) => c.ColorComponent)
       },
-
-
       {
         path: 'newuser',
         loadComponent: () => import('./demo/others/sample-page/sample-page.component').then((c) => c.SamplePageComponent)
