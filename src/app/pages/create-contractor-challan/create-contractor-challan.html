@@ -125,7 +125,7 @@
                 </div>
 
                 <!-- Quantity -->
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label for="quantity" class="form-label fw-bold">Quantity</label>
                     <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
                         class="form-control" name="quantity" [readOnly]="action=='view'"
@@ -133,7 +133,7 @@
                 </div>
 
                 <!-- Add Button -->
-                <div class="col-3 margin-top-45 align-right">
+                <div class="col-1 margin-top-48">
                     <button class="btn btn-primary align-left" [disabled]="disableAdd" type="submit"
                         (click)="addItems()">Add</button>
                 </div>

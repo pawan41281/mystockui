@@ -94,6 +94,10 @@ File: style.css
     margin-top: 45px !important;
 }
 
+.margin-top-48 {
+    margin-top: 48px !important;
+}
+
 .align-center {
     text-align: center;
 }
@@ -145,5 +149,18 @@ body {
 
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+.pading-top-3 {
+    padding-top: 3px;
+}

@@ -125,7 +125,7 @@
                 </div>
 
                 <!-- Quantity -->
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label for="quantity" class="form-label fw-bold">Quantity</label>
                     <input id="quantity" type="text" class="form-control" name="quantity"
                         [(ngModel)]="clientChallanObj.quantity" [readonly]="action === 'view'"
@@ -133,7 +133,7 @@
                     <div class="invalid-feedback">Please enter quantity.</div>
                 </div>
                 <!-- Add Button -->
-                <div class="col-md-3 align-self-end">
+                <div class="col-md-1 margin-top-48">
                     <button type="button" class="btn btn-primary" [disabled]="disableAdd"
                         (click)="addItems()">Add</button>
                 </div>
