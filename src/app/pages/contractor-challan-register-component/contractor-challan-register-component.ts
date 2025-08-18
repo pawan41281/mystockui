@@ -137,24 +137,14 @@ export class ContractorChallanRegisterComponent {
   };
 
   cancelChallan() {
-    // this.dataService.delete(this.url + this.id)
-    //   .subscribe((res: any) => {
-    //     this.contractorChallans = res.data;
-    //     this.totalRecord = res.metadata.recordcount;
-    //     this.searchContractorChallan()
-    //   })
+    this.dataService.delete(`${this.url}/${this.id}`)
+      .subscribe((res: any) => {
+        this.contractorChallans = res.data;
+        this.totalRecord = res.metadata.recordcount;
+        this.searchContractorChallan()
+      })
 
   }
-
-  // deleteClient() {
-  //   this.dataService.update(this.id, false, this.url)
-  //     .subscribe((res: any) => {
-  //       this.contractorChallans[0] = res;
-
-  //     })
-  //   this.getClientData();
-  //   this.route.navigate(["/list-client"])
-  // }
 
   searchContractorChallan = () => {
     console.log('search obj ', this.filterObj)

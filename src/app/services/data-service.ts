@@ -42,7 +42,7 @@ export class DataService {
     return this.http.patch<T>(fullUrl, null);
   }
   delete = (url: string) => {
-    console.log(`URL :: ${this.baseUrl}${url}`)
-    return this.http.delete(`${this.baseUrl}${url}`);
+    console.log(`URL :: ${this.baseUrl}/${url}`)
+    return this.http.delete(`${this.baseUrl}/${url}`);
   }
 }

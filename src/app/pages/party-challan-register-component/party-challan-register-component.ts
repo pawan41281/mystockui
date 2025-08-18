@@ -131,7 +131,7 @@ export class PartyChallanRegisterComponent {
   };
 
   cancelChallan() {
-    this.dataService.delete(this.url + this.id)
+    this.dataService.delete(`${this.url}/${this.id}`)
       .subscribe((res: any) => {
         this.clientChallans = res.data;
         this.totalRecord = res.metadata.recordcount;
