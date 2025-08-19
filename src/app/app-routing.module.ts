@@ -66,7 +66,7 @@ const routes: Routes = [
       },
       {
         path: 'contractor',
-        loadComponent: () => import('./pages/color-component/color-component').then((c) => c.ColorComponent)
+        loadComponent: () => import('./pages/contractor-component/contractor-component').then((c) => c.ContractorComponent)
       },
       {
         path: 'newcolor',

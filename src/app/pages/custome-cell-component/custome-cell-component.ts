@@ -59,7 +59,7 @@ export class CustomeCellComponent {
   }
 
 
-  editClient() {
+  edit() {
     this.utilService.commondata.data = this.param.data;
     this.utilService.commondata.action = 'edit'
     this.utilService.commondata.page = this.param.page.name

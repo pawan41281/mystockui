@@ -1,1 +1,170 @@
-<p>contractor-component works!</p>
+<div class="row">
+
+    <div class="col-sm-12">
+        <app-card cardTitle="Contractor">
+            <div class="row">
+                <div class="col-12 mt-3">
+                    @if (showSuccessMessage) {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ successMessage }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    }
+                </div>
+            </div>
+            <form #form="ngForm" class="row g-3 needs-validation div-margin-top" novalidate>
+                <div class="col-md-4">
+                    <label for="contractorName" class="form-label fw-bold">Contractor Name
+                        <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" maxlength="100" [readOnly]="action=='view'"
+                        #contractorName="ngModel" name="contractorName" [(ngModel)]="contractorObj.contractorName"
+                        id="contractorName" required>
+
+                    <div class="text-danger">
+                        <span *ngIf="contractorName.errors?.['required'] && contractorName.touched">This field is
+                            mendatory</span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="email" class="form-label fw-bold">Email <span class="text-danger">*</span></label>
+                    <input type="email" email class="form-control" maxlength="50" #email="ngModel" name="email"
+                        [readOnly]="action=='view'" [(ngModel)]="contractorObj.email" id="email" required>
+
+                    <div class="text-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+                        <small *ngIf="email.errors?.['required']">This field is mendatory</small>
+                        <small *ngIf="email.errors?.['email']">Enter a valid email address.</small>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="mobile" class="form-label fw-bold">Mobile Number <span
+                            class="text-danger">*</span></label>
+                    <!-- <div class="input-group has-validation"> -->
+
+                    <input type="text" maxlength="10" class="form-control" name="mobile" [readOnly]="action=='view'"
+                        #mobile="ngModel" [(ngModel)]="contractorObj.mobile" id="mobile"
+                        aria-describedby="inputGroupPrepend" (keypress)="utilsService.numberOnly($event)" required>
+
+                    <div class="text-danger">
+                        <span *ngIf="mobile.errors?.['required'] && mobile.touched">This field is mendatory</span>
+                    </div>
+
+                    <div class="invalid-feedback">
+                        Please Enter Mobile Number.
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <label for="address" class="form-label fw-bold">Address</label>
+                    <input type="text" class="form-control" maxlength="100" name="address" [readOnly]="action=='view'"
+                        [(ngModel)]="contractorObj.address" id="address">
+                    <div class="invalid-feedback">
+                        Please Enter Address.
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="city" class="form-label fw-bold">City</label>
+                    <input type="text" class="form-control" maxlength="30" name="city" [readOnly]="action=='view'"
+                        [(ngModel)]="contractorObj.city" id="city">
+                    <div class="invalid-feedback">
+                        Please Enter City.
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="state" class="form-label fw-bold">State </label>
+                    <input type="text" class="form-control" maxlength="30" [readOnly]="action=='view'" #state="ngModel"
+                        name="state" [(ngModel)]="contractorObj.state" id="state">
+                </div>
+
+                <div class="col-md-4">
+                    <label for="country" class="form-label fw-bold">Country</label>
+                    <input type="text" class="form-control" maxlength="30" name="country" [readOnly]="action=='view'"
+                        [(ngModel)]="contractorObj.country" id="country">
+                    <div class="invalid-feedback">
+                        Please Enter Country.
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="gstNo" class="form-label fw-bold">GST Number <span class="text-danger">*</span></label>
+
+                    <input type="text" maxlength="15" class="form-control" (keyup)="validateGst()" #gstNo="ngModel"
+                        name="gstNo" [readOnly]="action=='view'" [(ngModel)]="contractorObj.gstNo" id="gstNo" required>
+
+                    <div class="text-danger">
+                        <span *ngIf="gstNo.errors?.['required'] && gstNo.touched">This field is mendatory</span>
+                    </div>
+
+                    <div class="text-danger">
+                        @if(isValidGst) {
+                        <span>GST No should be 15 character</span>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="active" class="form-label fw-bold">Status</label>
+                    <select class="form-select" name="active" [disabled]="action=='view'"
+                        [(ngModel)]="contractorObj.active" id="active">
+                        <option value="true">Active</option>
+                        <option value="false">InActive</option>
+                    </select>
+                </div>
+                <div class="col-md-2 margin-top-45 align-right">
+                    <button [disabled]="form.invalid" class="btn btn-primary align-left" type="submit"
+                        (click)="save()">Save</button>
+                    <button class="btn btn-primary margin-left-10" type="submit" (click)="cancel()">Close</button>
+
+                </div>
+            </form>
+
+            <div class="row margin-top-30">
+                <div class="col-12">
+
+                    <div class="row">
+                        <div class="col-2 div-margin-top align-left font-bold">Record Count : {{totalRecord}}</div>
+                        <div class="col-9"></div>
+                        <div class="col-1 align-right">
+                            <i class="bi bi-filetype-csv font-size-30" (click)="onBtnExport()"></i>
+                            <i class="bi bi-filetype-xls font-size-30" (click)="onBtnExportExcel()"></i>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <ag-grid-angular class="ag-theme-quartz grid-height" [rowData]="contractor"
+                                [columnDefs]="colDefs" [defaultColDef]="defaultColDef" (gridReady)="onGridReady($event)"
+                                [pagination]="true" [paginationPageSize]="10"
+                                [paginationPageSizeSelector]="[10, 20, 50]" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </app-card>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Deactivate Party</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Do you want to deactivate the Party?
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" (click)="deleteClient()"
+                    data-bs-dismiss="modal">Yes</button>
+            </div>
+
+        </div>
+    </div>
+</div>

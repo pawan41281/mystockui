@@ -4,11 +4,12 @@
         <app-card cardTitle="Party">
             <div class="row">
                 <div class="col-12 mt-3">
-                    <div *ngIf="showSuccessMessage" class="alert alert-success alert-dismissible fade show"
-                        role="alert">
+                    @if (showSuccessMessage) {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ successMessage }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
+                    }
                 </div>
             </div>
             <form #form="ngForm" class="row g-3 needs-validation div-margin-top" novalidate>
@@ -102,12 +103,9 @@
                 </div>
 
                 <div class="col-md-2 margin-top-45 align-right">
-                    <button [disabled]="form.invalid" *ngIf="action != 'view'" class="btn btn-primary align-left"
-                        type="submit" (click)="save()">Save</button>
-                    <button *ngIf="action=='view'" class="btn btn-primary margin-left-10" type="submit"
-                        (click)="cancel()">Close</button>
-                    <button *ngIf="action!='view'" class="btn btn-primary margin-left-10" type="submit"
-                        (click)="cancel()">Cancel</button>
+                    <button [disabled]="form.invalid" class="btn btn-primary align-left" type="submit"
+                        (click)="save()">Save</button>
+                    <button class="btn btn-primary margin-left-10" type="submit" (click)="cancel()">Close</button>
                 </div>
             </form>
 
