@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import { commonData } from '../model/commonData';
+import { client } from '../model/client';
+import { contractor } from '../model/contractor';
+import { design } from '../model/design';
+import { color } from '../model/color';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +11,6 @@ import { commonData } from '../model/commonData';
 export class UtilService {
 
   commondata: commonData = new commonData();
-
   constructor() { }
 
   public challanTypes = [{ val: "I", name: "Issue" }, { val: "R", name: "Recieve" }]

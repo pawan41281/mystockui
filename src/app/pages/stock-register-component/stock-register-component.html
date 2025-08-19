@@ -1,1 +1,47 @@
-<p>stock-register-component works!</p>
+<div class="row div-margin-botton">
+
+    <form #form="ngForm" class="row g-3 needs-validation" novalidate>
+        <!-- Design -->
+        <div class="col-md-3">
+            <label for="design" class="form-label fw-bold">Design</label>
+            <select id="design" class="form-select" name="design" [(ngModel)]="filterObj.designName">
+                <option value="">Any</option>
+                <option *ngFor="let design of designs" [value]="design.designName">{{ design.designName }}</option>
+            </select>
+            <div class="invalid-feedback">Please select a design.</div>
+        </div>
+
+        <!-- Color -->
+        <div class="col-md-3">
+            <label for="color" class="form-label fw-bold">Color</label>
+            <select id="color" class="form-select" name="color" [(ngModel)]="filterObj.colorName">
+                <option value="">Any</option>
+                <option *ngFor="let color of colors" [value]="color.colorName">{{ color.colorName }}</option>
+            </select>
+            <div class="invalid-feedback">Please select a color.</div>
+        </div>
+
+
+        <div class="col-1 align-right">
+            <button class="margin-top-30 btn btn-primary" name="search" id="search" (click)="searchStock()">
+                Search </button>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col-2 div-margin-top align-left font-bold">Record Count : {{totalRecord}}</div>
+        <div class="col-9"></div>
+        <div class="col-1 align-right">
+            <i class="bi bi-filetype-csv font-size-30" (click)="onBtnExport()"></i>
+            <i class="bi bi-filetype-xls font-size-30" (click)="onBtnExportExcel()"></i>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <ag-grid-angular class="ag-theme-quartz grid-height" [rowData]="stockRegister" [columnDefs]="colDefs"
+                [defaultColDef]="defaultColDef" [pagination]="true" [paginationPageSize]="10"
+                [paginationPageSizeSelector]="[10, 20, 50]" />
+        </div>
+    </div>
+</div>
