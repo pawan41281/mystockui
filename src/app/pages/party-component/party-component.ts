@@ -83,9 +83,7 @@ export class PartyComponent {
       filter: false,
       cellRenderer: CustomeCellComponent,
       onCellClicked: (event) => {
-        if (this.utilsService.commondata.action == 'edit') {
-          this.clientObj = this.utilsService.commondata.data;
-        }
+        this.clientObj = this.utilsService.commondata.data;
       },
       cellRendererParams: {
         page: { name: "client" }
@@ -156,7 +154,8 @@ export class PartyComponent {
   }
 
   deleteClient() {
-    this.dataService.delete(`${this.url} / ${this.id}`)
+    console.log(`id is ${this.clientObj.id}`)
+    this.dataService.patch(this.url, this.clientObj.id)
       .subscribe((res: any) => {
         this.clients[0] = res;
         this.searchClient();

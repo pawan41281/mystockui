@@ -118,7 +118,7 @@ export class ColorComponent {
   deactivateColor() {
     console.log('this is delete method', this.utilsService.commondata.data)
 
-    this.dataService.update(this.url, this.utilsService.commondata.data.id)
+    this.dataService.patch(this.url, this.utilsService.commondata.data.id)
       .subscribe((res: any) => {
         if (res.status === 'success') {
           this.colorObj = new color();

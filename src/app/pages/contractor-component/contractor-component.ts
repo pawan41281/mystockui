@@ -84,9 +84,8 @@ export class ContractorComponent {
       filter: false,
       cellRenderer: CustomeCellComponent,
       onCellClicked: (event) => {
-        if (this.utilsService.commondata.action == 'edit') {
-          this.contractorObj = this.utilsService.commondata.data;
-        }
+        this.contractorObj = this.utilsService.commondata.data;
+
       },
       cellRendererParams: {
         page: { name: "contractor" }
@@ -158,8 +157,9 @@ export class ContractorComponent {
   }
 
   deleteClient() {
-    this.dataService.delete(`${this.url} / ${this.id}`)
+    this.dataService.patch(this.url, this.contractorObj.id)
       .subscribe((res: any) => {
+        this.contractor[0] = res;
         this.searchContractor();
       })
   }

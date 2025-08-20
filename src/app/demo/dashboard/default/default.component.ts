@@ -13,6 +13,7 @@ import { CardComponent } from 'src/app/theme/shared/components/card/card.compone
 import { DataService } from 'src/app/services/data-service';
 import { contractorChallanInfo } from 'src/app/model/contractorChallanInfo';
 import { clientChallanInfo } from 'src/app/model/clientChallanInfo';
+import { graphs } from 'src/app/model/graphs';
 
 @Component({
   selector: 'app-default',
@@ -32,7 +33,6 @@ export class DefaultComponent implements OnInit {
   contractorChallanRecievedInfoList: contractorChallanInfo[] = [];
   clientChallanInfoRecieveList: clientChallanInfo[] = [];
   clientChallanInfoIssueList: clientChallanInfo[] = [];
-
   clientChallanInfourl: string = 'dashboard/clients/challans/challantype'
   contractorChallanInfourl: string = 'dashboard/contractors/challans/challantype'
 
@@ -108,6 +108,10 @@ export class DefaultComponent implements OnInit {
     {
       title: 'Challan From Contractor In Current Month',
       challancount: '100'
+    },
+    {
+      title: 'Challan To Contractor In Current Month',
+      challancount: '100'
     }
   ];
 
@@ -122,6 +126,10 @@ export class DefaultComponent implements OnInit {
     },
     {
       title: 'Challan From Contractor On Yesterday',
+      challancount: '12'
+    },
+    {
+      title: 'Challan To Contractor On Yesterday',
       challancount: '12'
     }
   ];

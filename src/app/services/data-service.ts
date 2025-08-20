@@ -19,14 +19,6 @@ export class DataService {
       })
     );
   }
-  // get1<T>(endpoint: string): Observable<T> {
-  //   return this.http.get<T>(`${this.baseUrl}/${endpoint}`).pipe(
-  //     catchError(error => {
-  //       console.error(`Error fetching data from ${endpoint}:`, error);
-  //       return throwError(() => new Error(`Failed to fetch data from ${endpoint}`));
-  //     })
-  //   );
-  // }
 
   post<T>(endpoint: string, data: any): Observable<T> {
     return this.http.post<T>(`${this.baseUrl}/${endpoint}`, data).pipe(
@@ -37,7 +29,7 @@ export class DataService {
     );
   }
 
-  update<T>(endpoint: string, id: number): Observable<T> {
+  patch<T>(endpoint: string, id: number): Observable<T> {
     const fullUrl = `${this.baseUrl}/${endpoint}/${id}/false`;
     return this.http.patch<T>(fullUrl, null);
   }

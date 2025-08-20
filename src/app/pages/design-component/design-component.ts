@@ -126,7 +126,7 @@ export class DesignComponent implements OnInit {
   deleteDesign() {
     console.log('this is delete method', this.designObj)
 
-    this.dataService.update(this.url, this.designObj.id)
+    this.dataService.patch(this.url, this.designObj.id)
       .subscribe((res: any) => {
         if (res.status === 'success') {
           this.designObj = new design();

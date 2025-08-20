@@ -6,7 +6,7 @@
             <input type="text" class="form-control" maxlength="8" #challannumber="ngModel" name="challannumber"
                 [(ngModel)]="filterObj.challannumber" id="challannumber">
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <label for="party" class="form-label fw-bold">Contractor</label>
             <div class="input-group has-validation">
                 <!-- <span class="input-group-text" id="inputGroupPrepend">&#64;</span> -->
@@ -61,7 +61,7 @@
                 <option value="R">Recive</option>
             </select>
         </div> -->
-        <div class="col-md-1">
+        <div class="col-md-2">
             <label class="form-label fw-bold d-block">Challan Type</label>
             <div class="d-flex gap-3 margin-top-18 font-size-16">
                 <div class="form-check">
@@ -80,7 +80,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-1">
+        <div class="col-md-2">
             <button class="margin-top-30 btn btn-primary" name="search" (click)="searchContractorChallan()" id="search">
                 Search </button>
         </div>
@@ -88,8 +88,8 @@
 </div>
 <div class="row">
     <div class="col-2 div-margin-top align-left font-bold">Record Count : {{totalRecord}}</div>
-    <div class="col-9"></div>
-    <div class="col-1 align-right">
+    <div class="col-8"></div>
+    <div class="col-2 align-right">
         <i class="bi bi-filetype-csv font-size-30" (click)="onBtnExport()"></i>
         <i class="bi bi-filetype-xls font-size-30" (click)="onBtnExportExcel()"></i>
     </div>
