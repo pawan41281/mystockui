@@ -4,8 +4,6 @@ import { CommonModule } from '@angular/common';
 
 // project import
 import tableData from 'src/fake-data/default-data.json';
-import { SalesReportChartComponent } from 'src/app/theme/shared/apexchart/sales-report-chart/sales-report-chart.component';
-
 // icons
 import { IconService } from '@ant-design/icons-angular';
 import { FallOutline, GiftOutline, MessageOutline, RiseOutline, SettingOutline } from '@ant-design/icons-angular/icons';
@@ -13,14 +11,16 @@ import { CardComponent } from 'src/app/theme/shared/components/card/card.compone
 import { DataService } from 'src/app/services/data-service';
 import { contractorChallanInfo } from 'src/app/model/contractorChallanInfo';
 import { clientChallanInfo } from 'src/app/model/clientChallanInfo';
-import { graphs } from 'src/app/model/graphs';
+import { PartyReportChart } from 'src/app/theme/shared/apexchart/party-report-chart/party-report-chart';
+import { ContractorReportChart } from 'src/app/theme/shared/apexchart/contractor-report-chart/contractor-report-chart';
 
 @Component({
   selector: 'app-default',
   imports: [
     CommonModule,
     CardComponent,
-    SalesReportChartComponent
+    PartyReportChart,
+    ContractorReportChart
   ],
   templateUrl: './default.component.html',
   styleUrls: ['./default.component.scss']
@@ -35,7 +35,19 @@ export class DefaultComponent implements OnInit {
   clientChallanInfoIssueList: clientChallanInfo[] = [];
   clientChallanInfourl: string = 'dashboard/clients/challans/challantype'
   contractorChallanInfourl: string = 'dashboard/contractors/challans/challantype'
+  cardsInfourl: string = 'dashboard/cards'
 
+  currentMonthPartyIssuedChallanCount: number = 0
+  currentMonthPartyRecievedChallanCount: number = 0
+  previousDayPartyIssuedChallanCount: number = 0
+  previousDayPartyRecievedChallanCount: number = 0
+
+  currentMonthContractorIssuedChallanCount: number = 0
+  currentMonthContractorRecievedChallanCount: number = 0
+  previousDayContractorIssuedChallanCount: number = 0
+  previousDayContractorRecievedChallanCount: number = 0
+  monthlyChallanCountData: any;
+  yesterdayChallanCountData: any;
   clientChallanRecord: number;
 
 
@@ -48,6 +60,7 @@ export class DefaultComponent implements OnInit {
   ngOnInit(): void {
     this.getClientInfoData()
     this.getContractorInfoData()
+    this.getCardsInfoData()
   }
 
   getClientInfoData = () => {
@@ -95,44 +108,63 @@ export class DefaultComponent implements OnInit {
       })
   }
 
+  getCardsInfoData = () => {
+    this.dataService.get(this.cardsInfourl)
+      .subscribe((res: any) => {
+        if (res.status === 'success') {
+          this.currentMonthPartyIssuedChallanCount = res.data.dashboardCurrentMonthClientCardVos[0].challanCount
+          this.currentMonthPartyRecievedChallanCount = res.data.dashboardCurrentMonthClientCardVos[1].challanCount
+          this.previousDayPartyIssuedChallanCount = res.data.dashboardCurrentMonthClientCardVos[0].challanCount
+          this.previousDayPartyRecievedChallanCount = res.data.dashboardCurrentMonthClientCardVos[0].challanCount
 
-  monthlyChallanCountData = [
-    {
-      title: "Challan To Party In Current Month",
-      challancount: '236'
-    },
-    {
-      title: "Challan To Contractor In Current Month",
-      challancount: '250'
-    },
-    {
-      title: 'Challan From Contractor In Current Month',
-      challancount: '100'
-    },
-    {
-      title: 'Challan To Contractor In Current Month',
-      challancount: '100'
-    }
-  ];
+          this.currentMonthContractorIssuedChallanCount = res.data.dashboardPreviousDayContractorCardVos[0] ? res.data.dashboardPreviousDayContractorCardVos[0].challanCount : 0
+          this.currentMonthContractorRecievedChallanCount = res.data.dashboardPreviousDayContractorCardVos[1] ? res.data.dashboardPreviousDayContractorCardVos[1].challanCount : 0
+          this.previousDayContractorIssuedChallanCount = res.data.dashboardPreviousDayClientCardVos[0] ? res.data.dashboardPreviousDayClientCardVos[0].challanCount : 0
+          this.previousDayContractorRecievedChallanCount = res.data.dashboardPreviousDayClientCardVos[1] ? res.data.dashboardPreviousDayClientCardVos[1].challanCount : 0
+        }
 
-  yesterdayChallanCountData = [
-    {
-      title: "Challan To Party On Yesterday",
-      challancount: '16'
-    },
-    {
-      title: "Challan To Contractor On Yesterday",
-      challancount: '20'
-    },
-    {
-      title: 'Challan From Contractor On Yesterday',
-      challancount: '12'
-    },
-    {
-      title: 'Challan To Contractor On Yesterday',
-      challancount: '12'
-    }
-  ];
+        this.monthlyChallanCountData = [
+          {
+            title: "Challan To Party In Current Month",
+            challancount: this.currentMonthPartyIssuedChallanCount
+          },
+          {
+            title: "Challan To Contractor In Current Month",
+            challancount: this.currentMonthPartyRecievedChallanCount
+          },
+          {
+            title: 'Challan From Contractor In Current Month',
+            challancount: this.previousDayPartyIssuedChallanCount
+          },
+          {
+            title: 'Challan To Contractor In Current Month',
+            challancount: this.previousDayPartyRecievedChallanCount
+          }
+        ];
+
+        this.yesterdayChallanCountData = [
+          {
+            title: "Challan To Party On Yesterday",
+            challancount: this.currentMonthContractorIssuedChallanCount
+          },
+          {
+            title: "Challan To Contractor On Yesterday",
+            challancount: this.currentMonthContractorRecievedChallanCount
+          },
+          {
+            title: 'Challan From Contractor On Yesterday',
+            challancount: this.previousDayContractorIssuedChallanCount
+          },
+          {
+            title: 'Challan To Contractor On Yesterday',
+            challancount: this.previousDayContractorRecievedChallanCount
+          }
+        ];
+      })
+  }
+
+
+
 
   transaction = [
     {
