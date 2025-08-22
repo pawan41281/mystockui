@@ -95,8 +95,12 @@ export class StockRegisterComponent {
       field: "colorName",
     },
     {
-      headerName: "Stock Balance",
-      field: "stockBalance",
+      headerName: "Opening Balance",
+      field: "openingBalance",
+    },
+    {
+      headerName: "Closing Balance",
+      field: "closingBalance",
     }
   ];
   onBtnExport() {
@@ -111,7 +115,8 @@ export class StockRegisterComponent {
     return this.stockRegister.map(e => ({
       'Design Name': e.designName,
       'Color Name': e.colorName,
-      'Stock Balance': e.stockBalance,
+      'Opening Balance': e.openingBalance,
+      'Closing Balance': e.closingBalance,
     }));
   }
 

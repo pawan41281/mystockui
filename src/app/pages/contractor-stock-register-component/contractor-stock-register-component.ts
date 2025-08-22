@@ -113,7 +113,7 @@ export class ContractorStockRegisterComponent {
     },
     {
       headerName: "Stock Balance",
-      field: "stockBalance",
+      field: "closingBalance",
     }
   ];
   onBtnExport() {
@@ -129,7 +129,7 @@ export class ContractorStockRegisterComponent {
       'Contractor Name': e.contractorName,
       'Design Name': e.designName,
       'Color Name': e.colorName,
-      'Stock Balance': e.stockBalance,
+      'Stock Balance': e.closingBalance,
     }));
   }
 

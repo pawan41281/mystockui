@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-sm-12">
+        <app-card cardTitle="New Contractor Challan">
+            <div class="row">
+                <div class="col-12 mt-3">
+                    @if (showSuccessMessage) {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ successMessage }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    }
+
+                    @if (isDuplicateChallan) {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        Challan Number should be unique
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    }
+
+                </div>
+            </div>
+
+            <form #form="ngForm" class="row g-3 needs-validation div-margin-top" novalidate>
+
+                <!-- Design -->
+                <div class="col-md-3">
+                    <label for="design" class="form-label fw-bold">Desing</label>
+                    <select class="form-select" name="design" (blur)="onInputBlur()"
+                        [(ngModel)]="contractorChallanObj.design" id="design">
+                        @for (design of designs; track design.id) {
+                        <option [value]="design.id">{{ design.designName }}</option>
+                        }
+
+                    </select>
+                </div>
+
+                <!-- Color -->
+
+                <div class="col-md-3">
+                    <label for="color" class="form-label fw-bold">Color</label>
+                    <select class="form-select" name="color" (blur)="onInputBlur()"
+                        [(ngModel)]="contractorChallanObj.color" id="color">
+                        @for (color of colors; track color.id) {
+                        <option [value]="color.id">{{ color.colorName }}</option>
+                        }
+
+                    </select>
+                </div>
+
+                <!-- Quantity -->
+                <div class="col-md-2">
+                    <label for="quantity" class="form-label fw-bold">Quantity</label>
+                    <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
+                        class="form-control" name="quantity" [(ngModel)]="contractorChallanObj.quantity" id="quantity">
+                </div>
+
+                <!-- Add Button -->
+                <div class="col-1 margin-top-48">
+                    <button class="btn btn-primary align-left" [disabled]="disableAdd" type="submit"
+                        (click)="addItems()">Add</button>
+                </div>
+                @if (isItemExist) {
+                <div class="col-12">
+                    <span class="text-danger">Design and Color already added</span>
+                </div>
+                }
+
+                <div class="margin-top-30">
+                    <div class="col-12">
+                        <ag-grid-angular class="ag-theme-quartz" style="height: 340px;" [rowData]="items"
+                            [columnDefs]="colDefs" [defaultColDef]="defaultColDef" (gridReady)="onGridReady($event)"
+                            [getRowId]="getRowId" (cellValueChanged)="onCellValueChanged($event)" />
+                    </div>
+                </div>
+
+                <!-- Cancel Button -->
+                <div class="col-10">
+
+                </div>
+                <div class="col-2 align-right">
+                    <button [disabled]="form.invalid || items.length <= 0 || isDuplicateChallan" class="btn btn-primary"
+                        type="submit" (click)="onSave()">Save</button>
+                </div>
+            </form>
+        </app-card>
+    </div>
+</div>

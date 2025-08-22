@@ -6,11 +6,11 @@
             <input type="text" class="form-control" maxlength="8" #challannumber="ngModel" name="challannumber"
                 [(ngModel)]="filterObj.challannumber" id="challannumber">
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="dropdown">
 
                 <label for="party" class="form-label fw-bold">Party</label>
-                <input class="form-control" list="datalistOptions" [(ngModel)]="filterObj.clientid" name="party"
+                <input class="form-control" list="datalistOptions" [(ngModel)]="filterObj.clientName" name="party"
                     id="party" placeholder="Type to search..." (change)="selectedParty($any($event.target).value)">
                 <datalist id="datalistOptions">
                     <option *ngFor="let party of dropdownData" [value]="party.clientName">
@@ -50,7 +50,7 @@
             </div>
         </div>
 
-        <div class="col-md-1">
+        <div class="col-md-2">
             <label class="form-label fw-bold d-block">Challan Type</label>
             <div class="d-flex gap-3 margin-top-18 font-size-16">
                 <div class="form-check">
@@ -69,7 +69,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-1">
+        <div class="col-md-2">
             <button class="margin-top-30 btn btn-primary" name="search" (click)="searchClientChallan()" id="search">
                 Search
             </button>

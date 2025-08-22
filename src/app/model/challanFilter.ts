@@ -1,13 +1,15 @@
 export class challanFilter {
     challannumber: string;
-    clientid: string;
+    clientid: number;
+    clientName: string
     fromchallandate: string;
     tochallandate: string;
     challantype: number;
 
     constructor() {
         this.challannumber = "";
-        this.clientid = '';
+        this.clientid = 0;
+        this.clientName = '';
         this.fromchallandate = '';
         this.tochallandate = '';
         this.challantype = 0;

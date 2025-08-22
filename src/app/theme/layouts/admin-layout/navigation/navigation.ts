@@ -154,6 +154,14 @@ export const NavigationItems: NavigationItem[] = [
         classes: 'nav-item',
         url: '/contractor',
         icon: 'ant-design'
+      },
+      {
+        id: 'openingStock',
+        title: 'Opening Stock',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/opening-stock',
+        icon: 'ant-design'
       }
     ]
   },

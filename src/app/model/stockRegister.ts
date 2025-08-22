@@ -3,6 +3,7 @@ export interface stockRegisger {
     contractorName: string;
     designName: string
     colorName: string
-    stockBalance: string
+    closingBalance: string
+    openingBalance: string
 
 }

@@ -142,6 +142,7 @@ export class PartyChallanRegisterComponent {
   searchClientChallan = () => {
     this.filterObj.fromchallandate = this.fromDate ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
     this.filterObj.tochallandate = this.toDate ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
+    this.filterObj.clientid = this.dropdownData.find(e => e.clientName === this.filterObj.clientName).id
     console.log('search obj ', this.filterObj)
     let finalUrl = '';
     finalUrl = this.url + this.utilsService.buildUrl(this.filterObj);
@@ -158,7 +159,7 @@ export class PartyChallanRegisterComponent {
   selectedParty(party: any) {
 
     const obj = this.dropdownData.find(e => e.clientName === party);
-    this.filterObj.clientid = obj?.id != undefined ? obj?.id + '' : '';
+    this.filterObj.clientName = obj?.clientName != undefined ? obj?.clientName + '' : '';
   }
   filterData(event: any) {
     this.dropdownData = this.clients.filter(e => e.clientName.includes(event.target.value.toUpperCase()))
