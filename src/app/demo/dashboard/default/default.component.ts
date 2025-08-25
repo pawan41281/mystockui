@@ -110,38 +110,38 @@ export class DefaultComponent implements OnInit {
 
         this.monthlyChallanCountData = [
           {
-            title: "Challan To Party In Current Month",
+            title: "Challan Issue To Party In Current Month",
             challancount: this.getChallanCount(this.cardsData.dashboardCurrentMonthClientCardVos[0])
           },
           {
-            title: "Challan To Contractor In Current Month",
+            title: "Challan Recieved From Party In Current Month",
             challancount: this.getChallanCount(this.cardsData.dashboardCurrentMonthClientCardVos[1])
           },
           {
-            title: 'Challan From Contractor In Current Month',
-            challancount: this.getChallanCount(this.cardsData.dashboardCurrentMonthClientCardVos[0])
+            title: 'Challan Issue TO Contractor In Current Month',
+            challancount: this.getChallanCount(this.cardsData.dashboardCurrentMonthContractorCardVos[0])
           },
           {
-            title: 'Challan To Contractor In Current Month',
-            challancount: this.getChallanCount(this.cardsData.dashboardCurrentMonthClientCardVos[0])
+            title: 'Challan Recieved From Contractor In Current Month',
+            challancount: this.getChallanCount(this.cardsData.dashboardCurrentMonthContractorCardVos[1])
           }
         ];
 
         this.yesterdayChallanCountData = [
           {
-            title: "Challan To Party On Yesterday",
+            title: "Challan Issue To Party On Yesterday",
             challancount: this.getChallanCount(this.cardsData.dashboardPreviousDayContractorCardVos[0])
           },
           {
-            title: "Challan To Contractor On Yesterday",
+            title: "Challan Recieved From Party On Yesterday",
             challancount: this.getChallanCount(this.cardsData.dashboardPreviousDayContractorCardVos[1])
           },
           {
-            title: 'Challan From Contractor On Yesterday',
+            title: 'Challan Issue TO Contractor On Yesterday',
             challancount: this.getChallanCount(this.cardsData.dashboardPreviousDayClientCardVos[0])
           },
           {
-            title: 'Challan To Contractor On Yesterday',
+            title: 'Challan Recieved From Contractor On Yesterday',
             challancount: this.getChallanCount(this.cardsData.dashboardPreviousDayClientCardVos[1])
           }
         ];
