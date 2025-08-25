@@ -157,10 +157,18 @@ export const NavigationItems: NavigationItem[] = [
       },
       {
         id: 'openingStock',
-        title: 'Opening Stock',
+        title: 'Design Opening Stock',
         type: 'item',
         classes: 'nav-item',
         url: '/opening-stock',
+        icon: 'ant-design'
+      },
+      {
+        id: 'contractorOpeningStock',
+        title: 'Contractor Opening Stock',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/contractor-opening-stock',
         icon: 'ant-design'
       }
     ]

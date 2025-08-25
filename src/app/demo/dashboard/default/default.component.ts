@@ -13,6 +13,7 @@ import { contractorChallanInfo } from 'src/app/model/contractorChallanInfo';
 import { clientChallanInfo } from 'src/app/model/clientChallanInfo';
 import { PartyReportChart } from 'src/app/theme/shared/apexchart/party-report-chart/party-report-chart';
 import { ContractorReportChart } from 'src/app/theme/shared/apexchart/contractor-report-chart/contractor-report-chart';
+import { dashboardCard } from 'src/app/model/dashboardCard';
 
 @Component({
   selector: 'app-default',
@@ -37,19 +38,11 @@ export class DefaultComponent implements OnInit {
   contractorChallanInfourl: string = 'dashboard/contractors/challans/challantype'
   cardsInfourl: string = 'dashboard/cards'
 
-  currentMonthPartyIssuedChallanCount: number = 0
-  currentMonthPartyRecievedChallanCount: number = 0
-  previousDayPartyIssuedChallanCount: number = 0
-  previousDayPartyRecievedChallanCount: number = 0
-
-  currentMonthContractorIssuedChallanCount: number = 0
-  currentMonthContractorRecievedChallanCount: number = 0
-  previousDayContractorIssuedChallanCount: number = 0
-  previousDayContractorRecievedChallanCount: number = 0
   monthlyChallanCountData: any;
   yesterdayChallanCountData: any;
   clientChallanRecord: number;
 
+  cardsData: dashboardCard;
 
   constructor() {
     this.iconService.addIcon(...[RiseOutline, FallOutline, SettingOutline, GiftOutline, MessageOutline]);
@@ -112,56 +105,50 @@ export class DefaultComponent implements OnInit {
     this.dataService.get(this.cardsInfourl)
       .subscribe((res: any) => {
         if (res.status === 'success') {
-          this.currentMonthPartyIssuedChallanCount = res.data.dashboardCurrentMonthClientCardVos[0].challanCount
-          this.currentMonthPartyRecievedChallanCount = res.data.dashboardCurrentMonthClientCardVos[1].challanCount
-          this.previousDayPartyIssuedChallanCount = res.data.dashboardCurrentMonthClientCardVos[0].challanCount
-          this.previousDayPartyRecievedChallanCount = res.data.dashboardCurrentMonthClientCardVos[0].challanCount
-
-          this.currentMonthContractorIssuedChallanCount = res.data.dashboardPreviousDayContractorCardVos[0] ? res.data.dashboardPreviousDayContractorCardVos[0].challanCount : 0
-          this.currentMonthContractorRecievedChallanCount = res.data.dashboardPreviousDayContractorCardVos[1] ? res.data.dashboardPreviousDayContractorCardVos[1].challanCount : 0
-          this.previousDayContractorIssuedChallanCount = res.data.dashboardPreviousDayClientCardVos[0] ? res.data.dashboardPreviousDayClientCardVos[0].challanCount : 0
-          this.previousDayContractorRecievedChallanCount = res.data.dashboardPreviousDayClientCardVos[1] ? res.data.dashboardPreviousDayClientCardVos[1].challanCount : 0
+          this.cardsData = res.data;
         }
 
         this.monthlyChallanCountData = [
           {
             title: "Challan To Party In Current Month",
-            challancount: this.currentMonthPartyIssuedChallanCount
+            challancount: this.getChallanCount(this.cardsData.dashboardCurrentMonthClientCardVos[0])
           },
           {
             title: "Challan To Contractor In Current Month",
-            challancount: this.currentMonthPartyRecievedChallanCount
+            challancount: this.getChallanCount(this.cardsData.dashboardCurrentMonthClientCardVos[1])
           },
           {
             title: 'Challan From Contractor In Current Month',
-            challancount: this.previousDayPartyIssuedChallanCount
+            challancount: this.getChallanCount(this.cardsData.dashboardCurrentMonthClientCardVos[0])
           },
           {
             title: 'Challan To Contractor In Current Month',
-            challancount: this.previousDayPartyRecievedChallanCount
+            challancount: this.getChallanCount(this.cardsData.dashboardCurrentMonthClientCardVos[0])
           }
         ];
 
         this.yesterdayChallanCountData = [
           {
             title: "Challan To Party On Yesterday",
-            challancount: this.currentMonthContractorIssuedChallanCount
+            challancount: this.getChallanCount(this.cardsData.dashboardPreviousDayContractorCardVos[0])
           },
           {
             title: "Challan To Contractor On Yesterday",
-            challancount: this.currentMonthContractorRecievedChallanCount
+            challancount: this.getChallanCount(this.cardsData.dashboardPreviousDayContractorCardVos[1])
           },
           {
             title: 'Challan From Contractor On Yesterday',
-            challancount: this.previousDayContractorIssuedChallanCount
+            challancount: this.getChallanCount(this.cardsData.dashboardPreviousDayClientCardVos[0])
           },
           {
             title: 'Challan To Contractor On Yesterday',
-            challancount: this.previousDayContractorRecievedChallanCount
+            challancount: this.getChallanCount(this.cardsData.dashboardPreviousDayClientCardVos[1])
           }
         ];
       })
   }
+
+  getChallanCount = (data) => { return data ? data.challanCount : 0 }
 
 
 

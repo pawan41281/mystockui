@@ -154,7 +154,6 @@ export class PartyComponent {
   }
 
   deleteClient() {
-    console.log(`id is ${this.clientObj.id}`)
     this.dataService.patch(this.url, this.clientObj.id)
       .subscribe((res: any) => {
         this.clients[0] = res;

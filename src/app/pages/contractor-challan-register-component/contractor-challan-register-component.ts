@@ -58,8 +58,6 @@ export class ContractorChallanRegisterComponent {
       .subscribe((res: any) => {
         this.contractors = res.data;
         this.dropdownData = this.contractors;
-
-        console.log('client data ', this.contractors)
       })
   }
 
@@ -117,8 +115,6 @@ export class ContractorChallanRegisterComponent {
   myCellRenderer(params: any) {
     let totalQuantity = 0;
     params.node.data.challanItems.forEach((e: { quantity: number; }) => totalQuantity += e.quantity);
-    //let count = this.peaceCount(params.node.data.challanItems);
-    // console.log('count data ', count)
     return `<span>${totalQuantity}</span>`;
   }
 
@@ -147,20 +143,17 @@ export class ContractorChallanRegisterComponent {
   }
 
   searchContractorChallan = () => {
-    console.log('search obj ', this.filterObj)
 
     this.filterObj.fromchallandate = this.fromDate ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
     this.filterObj.tochallandate = this.toDate ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
     let url = '';
     url = this.url + this.utilsService.buildUrl(this.filterObj);
-    console.log('url ', url)
     this.dataService.get(url)
       .subscribe((res: any) => {
         this.contractorChallans = res.data;
         this.contractorChallans.forEach(e1 => { e1.challanType = this.utilsService.challanTypes?.find(e => e.val === e1.challanType)?.name ?? '' })
         this.totalRecord = res.metadata.recordcount;
       })
-    console.log(' this.contractorChallans ', this.contractorChallans)
   }
 
   search = (text$: Observable<string>) =>
@@ -208,11 +201,8 @@ export class ContractorChallanRegisterComponent {
   }
 
   formatDate(event: any) {
-    console.log(' date formate ', event.value, 'converted date ', formatDate(event.value, 'dd-MM-yyyy', 'en-US'))
-
     const [day, month, year] = formatDate(event.value, 'dd-MM-yyyy', 'en-US').split('-').map(Number);
     const dateObj = new Date(year, month - 1, day)
-    console.log('dateObj ', dateObj)
     this.fromDate = dateObj;
   }
   //=================Items details =============
@@ -236,9 +226,9 @@ export class ContractorChallanRegisterComponent {
 
 class challanFilter {
   challannumber: string;
-  contractorid: String;
-  fromchallandate: String;
-  tochallandate: String;
+  contractorid: string;
+  fromchallandate: string;
+  tochallandate: string;
   challantype: string;
 
   constructor() {

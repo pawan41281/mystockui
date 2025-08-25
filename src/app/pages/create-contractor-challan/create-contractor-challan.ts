@@ -82,7 +82,6 @@ export class CreateContractorChallan {
     this.dataService.get('contractors')
       .subscribe((res: any) => {
         this.constructors = res.data;
-        console.log('client data ', this.constructors)
       })
   }
 
@@ -92,17 +91,14 @@ export class CreateContractorChallan {
     this.dataService.get('designs')
       .subscribe((res: any) => {
         this.designs = res.data;
-        console.log('designs data ', this.designs)
       })
   }
 
   // fetch color list
   getColors = () => {
-    console.log(' marster data ', this.dataService)
     this.dataService.get('colors')
       .subscribe((res: any) => {
         this.colors = res.data;
-        console.log('colors data ', this.colors)
       })
   }
 
@@ -149,12 +145,11 @@ export class CreateContractorChallan {
 
   onButtonClick(params: any) {
     const rowData = params.data;
-    console.log('Button clicked for row:', rowData);
 
     // Example: remove the row
     this.gridApi.applyTransaction({ remove: [rowData] });
 
-    let index = this.items.findIndex(obj => obj.id === rowData.id);
+    const index = this.items.findIndex(obj => obj.id === rowData.id);
     if (index !== -1) {
       this.items.splice(index, 1);
     }
@@ -177,7 +172,6 @@ export class CreateContractorChallan {
   save = () => {
 
     let obj = this.buildReqObj();
-    console.log(this.url, 'boj :: ', obj)
     this.dataService.post(this.url, obj)
       .subscribe((res: any) => {
         if (res.status === 'success') {
@@ -204,7 +198,7 @@ export class CreateContractorChallan {
   onSave = () => {
 
     this.filterObj.challannumber = this.contractorChallanObj.challanNumber
-    let finalUrl = this.url + this.utilsService.buildUrl(this.filterObj);
+    const finalUrl = this.url + this.utilsService.buildUrl(this.filterObj);
     this.dataService.get(finalUrl)
       .subscribe((res: any) => {
         if (res.data.length <= 0) {
@@ -216,8 +210,8 @@ export class CreateContractorChallan {
   }
 
   buildReqObj = () => {
-    console.log('challanDate ', this.challanDate)
-    let obj = {
+
+    const obj = {
       "challanNumber": this.contractorChallanObj.challanNumber,
       "challanDate": this.utilsService.formatDate_dd_MM_YYYY(this.challanDate),
       "contractor": {
@@ -243,10 +237,6 @@ export class CreateContractorChallan {
     return arr;
   }
 
-  ngOnDestroy(): void {
-
-  }
-
   updateForm = (key: string, event: any) => {
     this.clientChallanFromData.update((data: clientChallanInfo) =>
       ({ ...data, [key]: event.target.value })
@@ -265,7 +255,6 @@ export class CreateContractorChallan {
   }
 
   onGridReady(params: GridReadyEvent): void {
-    console.log('calling on grid ready function')
     this.gridApi = params.api;
   }
 
@@ -291,7 +280,6 @@ export class CreateContractorChallan {
         'colorName': this.getColorData(this.contractorChallanObj.color),
         'quantity': this.contractorChallanObj.quantity
       })
-      console.log(this.contractorChallanObj, 'this.items', this.items)
       this.gridApi.applyTransaction({ remove: this.items });
       this.gridApi.applyTransaction({ add: this.items });
       this.clearItems();
@@ -310,7 +298,6 @@ export class CreateContractorChallan {
     this.contractorChallanObj.quantity = Number(this.contractorChallanObj.quantity)
     this.isItemExist = this.itemExist();
     const { design, color, quantity } = this.contractorChallanObj;
-    quantity
     this.disableAdd = !(design && color && quantity > 0 && !this.isItemExist);
 
   }

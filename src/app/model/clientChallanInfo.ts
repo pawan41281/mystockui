@@ -7,9 +7,9 @@ export class clientChallanInfo {
 
     id: Number;
     challanNumber: string;
-    challanDate: String;
+    challanDate: string;
     client: client;
-    challanType: String;
+    challanType: string;
     challanItems: challanItems[];
     party: number;
     design: number;

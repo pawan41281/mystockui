@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-sm-12">
-        <app-card cardTitle="Design Opening Stock">
+        <app-card cardTitle="Contractor Opening Stock">
             <div class="row">
                 <div class="col-12 mt-3">
                     @if (showSuccessMessage) {
@@ -13,6 +13,19 @@
             </div>
 
             <form #form="ngForm" class="row g-3 needs-validation div-margin-top" novalidate>
+
+                <!-- Contractor -->
+                <div class="col-md-3">
+                    <div class="dropdown">
+                        <label for="contractor" class="form-label fw-bold">Contractor</label>
+                        <input type="text" class="form-control" [(ngModel)]="contractorName" #contractor="ngModel"
+                            list="constructors" name="contractor" id="contractor" placeholder="Type to search...">
+                        <datalist id="constructors">
+                            <option *ngFor="let party of contractors" [value]="party.contractorName">
+                            </option>
+                        </datalist>
+                    </div>
+                </div>
 
                 <!-- Design -->
                 <div class="col-md-3">
@@ -70,7 +83,7 @@
 
                 </div>
                 <div class="col-2 align-right">
-                    <button [disabled]="form.invalid || items.length <= 0" class="btn btn-primary" type="submit"
+                    <button [disabled]="form.invalid || items.length <= 0 " class="btn btn-primary" type="submit"
                         (click)="onSave()">Save</button>
                 </div>
 

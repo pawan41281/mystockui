@@ -7,7 +7,7 @@ export class challanItems {
     design: design;
     color: color;
     quantity: number;
-    createdOn: String;
+    createdOn: string;
 
 
     constructor() {

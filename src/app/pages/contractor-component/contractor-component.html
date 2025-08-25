@@ -16,9 +16,8 @@
                 <div class="col-md-4">
                     <label for="contractorName" class="form-label fw-bold">Contractor Name
                         <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" maxlength="100" [readOnly]="action=='view'"
-                        #contractorName="ngModel" name="contractorName" [(ngModel)]="contractorObj.contractorName"
-                        id="contractorName" required>
+                    <input type="text" class="form-control" maxlength="100" #contractorName="ngModel"
+                        name="contractorName" [(ngModel)]="contractorObj.contractorName" id="contractorName" required>
 
                     <div class="text-danger">
                         <span *ngIf="contractorName.errors?.['required'] && contractorName.touched">This field is
@@ -29,7 +28,7 @@
                 <div class="col-md-4">
                     <label for="email" class="form-label fw-bold">Email <span class="text-danger">*</span></label>
                     <input type="email" email class="form-control" maxlength="50" #email="ngModel" name="email"
-                        [readOnly]="action=='view'" [(ngModel)]="contractorObj.email" id="email" required>
+                        [(ngModel)]="contractorObj.email" id="email" required>
 
                     <div class="text-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
                         <small *ngIf="email.errors?.['required']">This field is mendatory</small>
@@ -42,9 +41,9 @@
                             class="text-danger">*</span></label>
                     <!-- <div class="input-group has-validation"> -->
 
-                    <input type="text" maxlength="10" class="form-control" name="mobile" [readOnly]="action=='view'"
-                        #mobile="ngModel" [(ngModel)]="contractorObj.mobile" id="mobile"
-                        aria-describedby="inputGroupPrepend" (keypress)="utilsService.numberOnly($event)" required>
+                    <input type="text" maxlength="10" class="form-control" name="mobile" #mobile="ngModel"
+                        [(ngModel)]="contractorObj.mobile" id="mobile" aria-describedby="inputGroupPrepend"
+                        (keypress)="utilsService.numberOnly($event)" required>
 
                     <div class="text-danger">
                         <span *ngIf="mobile.errors?.['required'] && mobile.touched">This field is mendatory</span>
@@ -57,7 +56,7 @@
                 </div>
                 <div class="col-md-4">
                     <label for="address" class="form-label fw-bold">Address</label>
-                    <input type="text" class="form-control" maxlength="100" name="address" [readOnly]="action=='view'"
+                    <input type="text" class="form-control" maxlength="100" name="address"
                         [(ngModel)]="contractorObj.address" id="address">
                     <div class="invalid-feedback">
                         Please Enter Address.
@@ -65,21 +64,21 @@
                 </div>
                 <div class="col-md-4">
                     <label for="city" class="form-label fw-bold">City</label>
-                    <input type="text" class="form-control" maxlength="30" name="city" [readOnly]="action=='view'"
-                        [(ngModel)]="contractorObj.city" id="city">
+                    <input type="text" class="form-control" maxlength="30" name="city" [(ngModel)]="contractorObj.city"
+                        id="city">
                     <div class="invalid-feedback">
                         Please Enter City.
                     </div>
                 </div>
                 <div class="col-md-4">
                     <label for="state" class="form-label fw-bold">State </label>
-                    <input type="text" class="form-control" maxlength="30" [readOnly]="action=='view'" #state="ngModel"
-                        name="state" [(ngModel)]="contractorObj.state" id="state">
+                    <input type="text" class="form-control" maxlength="30" #state="ngModel" name="state"
+                        [(ngModel)]="contractorObj.state" id="state">
                 </div>
 
                 <div class="col-md-4">
                     <label for="country" class="form-label fw-bold">Country</label>
-                    <input type="text" class="form-control" maxlength="30" name="country" [readOnly]="action=='view'"
+                    <input type="text" class="form-control" maxlength="30" name="country"
                         [(ngModel)]="contractorObj.country" id="country">
                     <div class="invalid-feedback">
                         Please Enter Country.
@@ -89,7 +88,7 @@
                     <label for="gstNo" class="form-label fw-bold">GST Number <span class="text-danger">*</span></label>
 
                     <input type="text" maxlength="15" class="form-control" (keyup)="validateGst()" #gstNo="ngModel"
-                        name="gstNo" [readOnly]="action=='view'" [(ngModel)]="contractorObj.gstNo" id="gstNo" required>
+                        name="gstNo" [(ngModel)]="contractorObj.gstNo" id="gstNo" required>
 
                     <div class="text-danger">
                         <span *ngIf="gstNo.errors?.['required'] && gstNo.touched">This field is mendatory</span>
@@ -103,8 +102,7 @@
                 </div>
                 <div class="col-md-2">
                     <label for="active" class="form-label fw-bold">Status</label>
-                    <select class="form-select" name="active" [disabled]="action=='view'"
-                        [(ngModel)]="contractorObj.active" id="active">
+                    <select class="form-select" name="active" [(ngModel)]="contractorObj.active" id="active">
                         <option value="true">Active</option>
                         <option value="false">InActive</option>
                     </select>

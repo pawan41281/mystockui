@@ -16,24 +16,28 @@ import { MatInputModule } from '@angular/material/input';
 import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
 import { intilaStock } from 'src/app/model/initialStock';
 import { stock } from 'src/app/model/stock';
+import { contractor } from 'src/app/model/contractor';
 import { DownloadSerivceService } from 'src/app/services/download-serivce-service';
 
+
 @Component({
-  selector: 'app-opening-stock',
+  selector: 'app-contractor-opening-stock',
   imports: [FormsModule, CommonModule, AgGridAngular, MatDatepickerModule,
     MatNativeDateModule, MatInputModule, CardComponent],
-  templateUrl: './opening-stock.html',
+  templateUrl: './contractor-opening-stock.html',
+  styleUrl: './contractor-opening-stock.scss'
 })
-export class OpeningStock implements OnInit {
+export class ContractorOpeningStock implements OnInit {
 
 
   id: string = '';
-  private allStockUrl: string = 'stocks'
-  url: string = 'stocks/bulk';
+  private allStockUrl: string = 'contractorstocks'
+  url: string = 'contractorstocks/bulk';
   http = inject(HttpClient)
   dataService = inject(DataService)
   contractorChallanObj: contractorChallan = new contractorChallan();
   private readonly downloadService = inject(DownloadSerivceService);
+  totalRecord: number = 0;
   utilsService: UtilService = inject(UtilService);
   private gridApi!: GridApi;
   rowCnt: number;
@@ -42,12 +46,14 @@ export class OpeningStock implements OnInit {
   stockData: intilaStock[] = []
   designs: design[] = [];
   colors: color[] = [];
+  contractors: contractor[] = [];
   disableAdd: boolean = true;
   isItemExist: boolean = false;
   showSuccessMessage: boolean = false;
   successMessage: string = '';
+
   filterObj: challanFilter = new challanFilter();
-  totalRecord: number = 0;
+  contractorName: string;
 
 
   constructor() {
@@ -55,6 +61,7 @@ export class OpeningStock implements OnInit {
     this.getDesignts();
     this.getColors();
     this.getAllInitialStock()
+    this.getContractor()
   }
 
   getAllInitialStock = () => {
@@ -65,6 +72,12 @@ export class OpeningStock implements OnInit {
       })
   }
 
+  getContractor = () => {
+    this.dataService.get('contractors')
+      .subscribe((res: any) => {
+        this.contractors = res.data;
+      })
+  }
   ngOnInit() {
     if (this.id) {
       this.dataService.get(`${this.id}/${this.url}`)
@@ -101,6 +114,10 @@ export class OpeningStock implements OnInit {
   // Column Definitions: Defines & controls grid columns.
   colDefs: ColDef<stock>[] = [
     {
+      headerName: "Contractor",
+      field: "contractorName",
+    },
+    {
       headerName: "Design",
       field: "designName",
     },
@@ -127,7 +144,12 @@ export class OpeningStock implements OnInit {
     }
   ];
 
+
   colDefs_opening_stock: ColDef<intilaStock>[] = [
+    {
+      headerName: "Contractor",
+      field: "contractor.contractorName",
+    },
     {
       headerName: "Design",
       field: "design.designName",
@@ -161,7 +183,6 @@ export class OpeningStock implements OnInit {
 
   onButtonClick(params: any) {
     const rowData = params.data;
-
     // Example: remove the row
     this.gridApi.applyTransaction({ remove: [rowData] });
 
@@ -187,7 +208,7 @@ export class OpeningStock implements OnInit {
 
   onSave = () => {
 
-    const obj = { 'stockVos': this.buildItemsData() }
+    const obj = { 'contractorStockVos': this.buildItemsData() }
     this.dataService.post(this.url, obj)
       .subscribe((res: any) => {
         if (res.status === 'success') {
@@ -195,6 +216,7 @@ export class OpeningStock implements OnInit {
           this.successMessage = 'Data saved successfully!';
           this.showSuccessMessage = true;
           this.contractorChallanObj = new contractorChallan();
+          this.contractorName = ''
           this.getAllInitialStock();
           setTimeout(() => {
             this.showSuccessMessage = false;
@@ -215,6 +237,7 @@ export class OpeningStock implements OnInit {
 
     this.items.forEach(e => {
       arr.push({
+        contractor: { id: e.contractorId },
         design: { id: e.designId },
         color: { id: e.colorId },
         openingBalance: e.quantity,
@@ -250,12 +273,15 @@ export class OpeningStock implements OnInit {
 
       this.items.push({
         'id': this.rowCnt++,
+        'contractorId': this.contractors.find(e => e.contractorName == this.contractorName).id,
+        'contractorName': this.contractorName,
         'designId': this.contractorChallanObj.design,
         'designName': this.getDesignName(this.contractorChallanObj.design),
         'colorId': this.contractorChallanObj.color,
         'colorName': this.getColorData(this.contractorChallanObj.color),
         'quantity': this.contractorChallanObj.quantity
       })
+      console.log(this.contractorChallanObj, 'this.items', this.items)
       this.gridApi.applyTransaction({ remove: this.items });
       this.gridApi.applyTransaction({ add: this.items });
       this.clearItems();
@@ -279,11 +305,11 @@ export class OpeningStock implements OnInit {
   }
 
   onBtnExport() {
-    this.downloadService.exportToCSV(this.getReportData(), 'opening_stock_report.csv')
+    this.downloadService.exportToCSV(this.getReportData(), 'contractor_opening_stock_report.csv')
   }
 
   onBtnExportExcel() {
-    this.downloadService.exportToExcel(this.getReportData(), 'opening_stock_report.xlsx')
+    this.downloadService.exportToExcel(this.getReportData(), 'contractor_opening_stock_report.xlsx')
   }
 
   getReportData() {
@@ -295,5 +321,4 @@ export class OpeningStock implements OnInit {
       'Current Balance': e.balance
     }));
   }
-
 }

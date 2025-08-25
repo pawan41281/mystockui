@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
 import { commonData } from '../model/commonData';
-import { client } from '../model/client';
-import { contractor } from '../model/contractor';
-import { design } from '../model/design';
-import { color } from '../model/color';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +33,7 @@ export class UtilService {
   //   return query ? `?${query}` : '';
   // }
 
-  public numberOnly(event: any): boolean {
+  public numberOnly(event: KeyboardEvent): boolean {
     return /^[0-9]$/.test(event.key);
   }
 
@@ -49,14 +45,14 @@ export class UtilService {
     return `${year}-${month}-${day}`;
   }
 
-  public getStatus(params: any) {
+  public getStatus(params) {
 
     const isActive = params.node.data.active;
     const statusDotClass = isActive ? 'dot-green' : 'dot-red';
     return `<span class="${statusDotClass}"></span>`;
   }
 
-  public validateGST(gstNo: String) {
+  public validateGST(gstNo: string) {
     return gstNo && gstNo.length < 15 ? true : false;
   }
 

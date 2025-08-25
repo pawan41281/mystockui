@@ -2,16 +2,16 @@
 export class client {
 
   id: number;
-  clientName: String;
-  address: String;
-  city: String;
-  state: String;
-  country: String;
-  email: String;
-  mobile: String;
+  clientName: string;
+  address: string;
+  city: string;
+  state: string;
+  country: string;
+  email: string;
+  mobile: string;
   gstNo: string;
   active: boolean;
-  createdOn: String;
+  createdOn: string;
   name: any;
 
 

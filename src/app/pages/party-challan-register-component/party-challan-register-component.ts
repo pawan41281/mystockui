@@ -143,7 +143,6 @@ export class PartyChallanRegisterComponent {
     this.filterObj.fromchallandate = this.fromDate ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
     this.filterObj.tochallandate = this.toDate ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
     this.filterObj.clientid = this.dropdownData.find(e => e.clientName === this.filterObj.clientName).id
-    console.log('search obj ', this.filterObj)
     let finalUrl = '';
     finalUrl = this.url + this.utilsService.buildUrl(this.filterObj);
 
@@ -152,7 +151,7 @@ export class PartyChallanRegisterComponent {
         this.clientChallans = res.data;
         this.totalRecord = res.metadata.recordcount;
       })
-    console.log(' this.clientChallans ', this.clientChallans)
+
   }
 
 

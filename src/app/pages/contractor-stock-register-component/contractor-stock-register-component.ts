@@ -32,6 +32,8 @@ export class ContractorStockRegisterComponent {
 
   filterObj: StockFilter = new StockFilter();
   dataService = inject(DataService)
+  router = inject(ActivatedRoute)
+  route = inject(Router)
   utilsService: UtilService = inject(UtilService);
   private readonly downloadService = inject(DownloadSerivceService);
   designs: design[] = [];
@@ -41,7 +43,7 @@ export class ContractorStockRegisterComponent {
   stockRegister: stockRegisger[] = [];
   private url: string = 'contractorstockreports'
   totalRecord: number = 0;
-  constructor(public router: ActivatedRoute, public route: Router) {
+  constructor() {
     this.getDesignts();
     this.getColors();
     this.searchStock()
@@ -55,17 +57,14 @@ export class ContractorStockRegisterComponent {
     this.dataService.get('designs')
       .subscribe((res: any) => {
         this.designs = res.data;
-        console.log('designs data ', this.designs)
       })
   }
 
   // fetch color list
   getColors = () => {
-    console.log(' marster data ', this.dataService)
     this.dataService.get('colors')
       .subscribe((res: any) => {
         this.colors = res.data;
-        console.log('colors data ', this.colors)
       })
   }
 
@@ -73,7 +72,6 @@ export class ContractorStockRegisterComponent {
     this.dataService.get('contractors')
       .subscribe((res: any) => {
         this.constructors = res.data;
-        console.log('client data ', this.constructors)
       })
   }
   searchStock() {
@@ -85,7 +83,6 @@ export class ContractorStockRegisterComponent {
       .subscribe((res: any) => {
         this.stockRegister = res.data;
         this.totalRecord = res.metadata.recordcount
-        console.log('stock data ', this.stockRegister)
       })
 
   }
@@ -112,7 +109,11 @@ export class ContractorStockRegisterComponent {
       field: "colorName",
     },
     {
-      headerName: "Stock Balance",
+      headerName: "Opening Balance",
+      field: "openingBalance",
+    },
+    {
+      headerName: "Current Balance",
       field: "closingBalance",
     }
   ];
@@ -136,7 +137,7 @@ export class ContractorStockRegisterComponent {
 }
 class StockFilter {
   colorName: string;
-  designName: String;
+  designName: string;
   contractorName: string;
 
   constructor() {

@@ -2,16 +2,16 @@
 export class contractor {
 
     id: number;
-    contractorName: String;
-    address: String;
-    city: String;
-    state: String;
-    country: String;
-    email: String;
-    mobile: String;
-    gstNo: String;
+    contractorName: string;
+    address: string;
+    city: string;
+    state: string;
+    country: string;
+    email: string;
+    mobile: string;
+    gstNo: string;
     active: boolean;
-    createdOn: String;
+    createdOn: string;
 
 
     constructor() {

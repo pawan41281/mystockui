@@ -77,7 +77,6 @@ export class CreatePartyChallan {
     this.dataService.get('clients')
       .subscribe((res: any) => {
         this.clients = res.data;
-        console.log('client data ', this.clients)
       })
   }
 
@@ -87,17 +86,14 @@ export class CreatePartyChallan {
     this.dataService.get('designs')
       .subscribe((res: any) => {
         this.designs = res.data;
-        console.log('designs data ', this.designs)
       })
   }
 
   // fetch color list
   getColors = () => {
-    console.log(' marster data ', this.dataService)
     this.dataService.get('colors')
       .subscribe((res: any) => {
         this.colors = res.data;
-        console.log('colors data ', this.colors)
       })
   }
 
@@ -156,12 +152,12 @@ export class CreatePartyChallan {
   };
 
   onCellValueChanged(event: any): void {
-    console.log('Cell changed:', event);
+
   }
 
   save = () => {
     const obj = this.buildRequestObject();
-    console.log('boj :: ', obj)
+
     this.dataService.post(this.url, obj).subscribe((res: any) => {
       if (res.status === 'success') {
 
@@ -187,7 +183,7 @@ export class CreatePartyChallan {
   onSave = () => {
 
     this.filterObj.challannumber = this.clientChallanObj.challanNumber
-    let finalUrl = this.url + this.utilsService.buildUrl(this.filterObj);
+    const finalUrl = this.url + this.utilsService.buildUrl(this.filterObj);
     this.dataService.get(finalUrl)
       .subscribe((res: any) => {
         if (res.data.length <= 0) {

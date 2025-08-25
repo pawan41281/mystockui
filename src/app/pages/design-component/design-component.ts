@@ -72,7 +72,7 @@ export class DesignComponent implements OnInit {
       sortable: false,
       filter: false,
       cellRenderer: CustomeCellComponent,
-      onCellClicked: (event) => {
+      onCellClicked: () => {
         if (this.utilsService.commondata.action == 'edit') {
           this.designObj = this.utilsService.commondata.data;
         }
@@ -124,7 +124,6 @@ export class DesignComponent implements OnInit {
   }
 
   deleteDesign() {
-    console.log('this is delete method', this.designObj)
 
     this.dataService.patch(this.url, this.designObj.id)
       .subscribe((res: any) => {

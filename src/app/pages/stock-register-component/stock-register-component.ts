@@ -49,17 +49,14 @@ export class StockRegisterComponent {
     this.dataService.get('designs')
       .subscribe((res: any) => {
         this.designs = res.data;
-        console.log('designs data ', this.designs)
       })
   }
 
   // fetch color list
   getColors = () => {
-    console.log(' marster data ', this.dataService)
     this.dataService.get('colors')
       .subscribe((res: any) => {
         this.colors = res.data;
-        console.log('colors data ', this.colors)
       })
   }
 
@@ -72,7 +69,6 @@ export class StockRegisterComponent {
       .subscribe((res: any) => {
         this.stockRegister = res.data;
         this.totalRecord = res.metadata.recordcount
-        console.log('stock data ', this.stockRegister)
       })
 
   }
@@ -123,7 +119,7 @@ export class StockRegisterComponent {
 }
 class StockFilter {
   colorName: string;
-  designName: String;
+  designName: string;
 
   constructor() {
     this.colorName = "";
