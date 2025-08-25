@@ -66,11 +66,11 @@ export class PartyReportChart {
       },
       series: [
         {
-          name: 'Stock Issued to Contractors',
+          name: 'Stock Issued to Party',
           data: this.partyIssueQuentity// [180, 90, 135, 114, 120, 145, 180]
         },
         {
-          name: 'Stock Received from Contractors',
+          name: 'Stock Received from Party',
           data: this.partyRecieveQuentity
         }
       ],
