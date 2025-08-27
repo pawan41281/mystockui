@@ -151,7 +151,7 @@ export class CreatePartyChallan {
 
   };
 
-  onCellValueChanged(event: any): void {
+  onCellValueChanged(): void {
 
   }
 
@@ -169,8 +169,6 @@ export class CreatePartyChallan {
           this.successMessage = '';
         }, 3000);
         this.items = [];
-      } else {
-        console.log(res.message)
       }
     })
   }
@@ -226,7 +224,6 @@ export class CreatePartyChallan {
   }
 
   onGridReady(params: GridReadyEvent): void {
-    console.log('calling on grid ready function')
     this.gridApi = params.api;
   }
 
@@ -249,7 +246,6 @@ export class CreatePartyChallan {
       }
 
       this.items.push(newItem);
-      console.log(this.clientChallanObj, 'this.items', this.items)
       this.gridApi.applyTransaction({ remove: this.items });
       this.gridApi.applyTransaction({ add: this.items });
       this.clearItemInputs();

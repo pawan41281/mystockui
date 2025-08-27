@@ -148,7 +148,7 @@
                     <div class="col-12">
                         <ag-grid-angular class="ag-theme-quartz" style="height: 340px;" [rowData]="items"
                             [columnDefs]="colDefs" [defaultColDef]="defaultColDef" (gridReady)="onGridReady($event)"
-                            [getRowId]="getRowId" (cellValueChanged)="onCellValueChanged($event)"></ag-grid-angular>
+                            [getRowId]="getRowId" (cellValueChanged)="onCellValueChanged()"></ag-grid-angular>
                     </div>
                 </div>
 

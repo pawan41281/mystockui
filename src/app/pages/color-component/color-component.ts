@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
-import { ColDef, GridApi, GridReadyEvent, Params } from 'ag-grid-community';
+import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
 import { UtilService } from 'src/app/services/util-service';
 import { design } from 'src/app/model/design';
 import { DataService } from 'src/app/services/data-service';
@@ -18,21 +18,20 @@ import { color } from 'src/app/model/color';
   templateUrl: './color-component.html',
   styleUrl: './color-component.scss'
 })
-export class ColorComponent {
+export class ColorComponent implements OnInit {
 
   totalRecord: number = 0;
   utilsService: UtilService = inject(UtilService);
   dataService = inject(DataService);
   downloadService = inject(DownloadSerivceService)
+  router = inject(ActivatedRoute)
+  route = inject(Router)
   colorList: color[] = [];
   private gridApi!: GridApi;
   url: string = 'colors';
   colorObj: color = new color();
   delObj: design = new design();
   isInactiveDesign: boolean = false;
-
-  constructor(public router: ActivatedRoute, public route: Router) {
-  }
 
   ngOnInit(): void {
     this.getColorData();
@@ -65,7 +64,7 @@ export class ColorComponent {
       sortable: false,
       filter: false,
       cellRenderer: CustomeCellComponent,
-      onCellClicked: (event) => {
+      onCellClicked: () => {
         if (this.utilsService.commondata.action == 'edit') {
           this.colorObj = this.utilsService.commondata.data;
         }
@@ -109,8 +108,6 @@ export class ColorComponent {
         if (res.status === 'success') {
           this.colorObj = new color();
           this.getColorData();
-        } else {
-          console.log(res.message)
         }
       })
   }
@@ -122,8 +119,6 @@ export class ColorComponent {
         if (res.status === 'success') {
           this.colorObj = new color();
           this.getColorData();
-        } else {
-          console.log(res.message)
         }
       })
 

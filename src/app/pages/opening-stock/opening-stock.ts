@@ -180,9 +180,7 @@ export class OpeningStock implements OnInit {
 
   };
 
-  onCellValueChanged(event: any): void {
-    console.log('Cell changed:', event);
-    console.log(this.items, 'New row data:', event.data); // updated row
+  onCellValueChanged(): void {
   }
 
   onSave = () => {
@@ -202,8 +200,6 @@ export class OpeningStock implements OnInit {
           }, 3000);
           this.items = [];
           //this.cancel();
-        } else {
-          console.log(res.message)
         }
       })
   }

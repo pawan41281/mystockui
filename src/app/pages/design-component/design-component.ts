@@ -30,14 +30,7 @@ export class DesignComponent implements OnInit {
   delObj: design = new design();
   isInactiveDesign: boolean = false;
 
-  constructor(public router: ActivatedRoute, public route: Router) {
-  }
-
   ngOnInit(): void {
-    this.router.queryParams.subscribe((params: Params) => {
-      console.log('id :: ', params['id']);
-      console.log('id :: ', params['action'])
-    });
     this.getDesignData();
   }
 
@@ -117,8 +110,6 @@ export class DesignComponent implements OnInit {
         if (res.status === 'success') {
           this.designObj = new design();
           this.getDesignData();
-        } else {
-          console.log(res.message)
         }
       })
   }
@@ -130,8 +121,6 @@ export class DesignComponent implements OnInit {
         if (res.status === 'success') {
           this.designObj = new design();
           this.getDesignData();
-        } else {
-          console.log(res.message)
         }
       })
 

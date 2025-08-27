@@ -38,7 +38,6 @@ export class CustomeCellComponent {
   agInit(params: ICellRendererParams): void {
     this.refresh(params);
     this.param = params
-    console.log('this.param.page.name ', this.param.page.name)
     if (this.param.page.name === 'color') {
       this.isViewVisible = false;
     } else {

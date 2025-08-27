@@ -164,14 +164,12 @@ export class CreateContractorChallan {
 
   };
 
-  onCellValueChanged(event: any): void {
-    console.log('Cell changed:', event);
-    console.log(this.items, 'New row data:', event.data); // updated row
+  onCellValueChanged(): void {
   }
 
   save = () => {
 
-    let obj = this.buildReqObj();
+    const obj = this.buildReqObj();
     this.dataService.post(this.url, obj)
       .subscribe((res: any) => {
         if (res.status === 'success') {
@@ -185,8 +183,6 @@ export class CreateContractorChallan {
           }, 3000);
           this.items = [];
           //this.cancel();
-        } else {
-          console.log(res.message)
         }
       })
   }
@@ -227,7 +223,6 @@ export class CreateContractorChallan {
     let arr: any = []
 
     this.items.forEach(e => {
-      console.log(e)
       arr.push({
         design: { id: e.designId },
         color: { id: e.colorId },

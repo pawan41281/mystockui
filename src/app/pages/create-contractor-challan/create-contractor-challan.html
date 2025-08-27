@@ -147,7 +147,7 @@
                     <div class="col-12">
                         <ag-grid-angular class="ag-theme-quartz" style="height: 340px;" [rowData]="items"
                             [columnDefs]="colDefs" [defaultColDef]="defaultColDef" (gridReady)="onGridReady($event)"
-                            [getRowId]="getRowId" (cellValueChanged)="onCellValueChanged($event)" />
+                            [getRowId]="getRowId" (cellValueChanged)="onCellValueChanged()" />
                     </div>
                 </div>
 
@@ -156,8 +156,8 @@
 
                 </div>
                 <div class="col-2 align-right">
-                    <button [disabled]="form.invalid || items.length <= 0 || isDuplicateChallan"
-                        *ngIf="action != 'view'" class="btn btn-primary" type="submit" (click)="onSave()">Save</button>
+                    <button [disabled]="form.invalid || items.length <= 0 || isDuplicateChallan" class="btn btn-primary"
+                        type="submit" (click)="onSave()">Save</button>
                     <!-- <button class="btn btn-primary margin-left-10" type="submit" (click)="cancel()">Cancel</button> -->
                 </div>
             </form>

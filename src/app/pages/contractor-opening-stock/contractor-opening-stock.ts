@@ -201,9 +201,8 @@ export class ContractorOpeningStock implements OnInit {
 
   };
 
-  onCellValueChanged(event: any): void {
-    console.log('Cell changed:', event);
-    console.log(this.items, 'New row data:', event.data); // updated row
+  onCellValueChanged(): void {
+
   }
 
   onSave = () => {
@@ -224,8 +223,6 @@ export class ContractorOpeningStock implements OnInit {
           }, 3000);
           this.items = [];
           //this.cancel();
-        } else {
-          console.log(res.message)
         }
       })
   }
@@ -281,7 +278,6 @@ export class ContractorOpeningStock implements OnInit {
         'colorName': this.getColorData(this.contractorChallanObj.color),
         'quantity': this.contractorChallanObj.quantity
       })
-      console.log(this.contractorChallanObj, 'this.items', this.items)
       this.gridApi.applyTransaction({ remove: this.items });
       this.gridApi.applyTransaction({ add: this.items });
       this.clearItems();

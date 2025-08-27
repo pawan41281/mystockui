@@ -24,14 +24,6 @@ export class UtilService {
     });
     return search_url;
   }
-  // public buildUrl(params: Record<string, any>): string {
-  //   const query = Object.entries(params)
-  //     .filter(([_, value]) => value != null && value !== '' && value != 0) // skip null/undefined/empty
-  //     .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
-  //     .join('&');
-
-  //   return query ? `?${query}` : '';
-  // }
 
   public numberOnly(event: KeyboardEvent): boolean {
     return /^[0-9]$/.test(event.key);
@@ -55,5 +47,7 @@ export class UtilService {
   public validateGST(gstNo: string) {
     return gstNo && gstNo.length < 15 ? true : false;
   }
+
+
 
 }
