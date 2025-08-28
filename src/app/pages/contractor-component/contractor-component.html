@@ -26,14 +26,9 @@
                 </div>
 
                 <div class="col-md-4">
-                    <label for="email" class="form-label fw-bold">Email <span class="text-danger">*</span></label>
-                    <input type="email" email class="form-control" maxlength="50" #email="ngModel" name="email"
-                        [(ngModel)]="contractorObj.email" id="email" required>
-
-                    <div class="text-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
-                        <small *ngIf="email.errors?.['required']">This field is mendatory</small>
-                        <small *ngIf="email.errors?.['email']">Enter a valid email address.</small>
-                    </div>
+                    <label for="email" class="form-label fw-bold">Email</label>
+                    <input type="email" email class="form-control" maxlength="50" name="email"
+                        [(ngModel)]="contractorObj.email" id="email">
                 </div>
 
                 <div class="col-md-4">
@@ -48,9 +43,9 @@
                     <div class="text-danger">
                         <span *ngIf="mobile.errors?.['required'] && mobile.touched">This field is mendatory</span>
                     </div>
-
-                    <div class="invalid-feedback">
-                        Please Enter Mobile Number.
+                    <div *ngIf="mobile.touched && contractorObj.mobile.length > 0 && contractorObj.mobile.length < 10"
+                        class="text-danger" role="alert">
+                        Please Enter Valid Mobile Number.
                     </div>
 
                 </div>
@@ -85,14 +80,10 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <label for="gstNo" class="form-label fw-bold">GST Number <span class="text-danger">*</span></label>
+                    <label for="gstNo" class="form-label fw-bold">GST Number </label>
 
                     <input type="text" maxlength="15" class="form-control" (keyup)="validateGst()" #gstNo="ngModel"
-                        name="gstNo" [(ngModel)]="contractorObj.gstNo" id="gstNo" required>
-
-                    <div class="text-danger">
-                        <span *ngIf="gstNo.errors?.['required'] && gstNo.touched">This field is mendatory</span>
-                    </div>
+                        name="gstNo" [(ngModel)]="contractorObj.gstNo" id="gstNo">
 
                     <div class="text-danger">
                         @if(isValidGst) {
@@ -110,7 +101,6 @@
                 <div class="col-md-2 margin-top-45 align-right">
                     <button [disabled]="form.invalid" class="btn btn-primary align-left" type="submit"
                         (click)="save()">Save</button>
-                    <button class="btn btn-primary margin-left-10" type="submit" (click)="cancel()">Close</button>
 
                 </div>
             </form>

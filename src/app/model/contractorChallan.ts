@@ -15,6 +15,7 @@ export class contractorChallan {
     color: number;
     quantity: number;
     createdOn: string;
+    quantityStr: string;
 
     constructor() {
         this.id = 0;
@@ -28,6 +29,7 @@ export class contractorChallan {
         this.challanType = "I";
         this.color = 0;
         this.quantity = 0;
+        this.quantityStr = '';
     }
 
 }

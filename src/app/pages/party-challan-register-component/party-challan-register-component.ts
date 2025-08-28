@@ -142,7 +142,7 @@ export class PartyChallanRegisterComponent {
   searchClientChallan = () => {
     this.filterObj.fromchallandate = this.fromDate ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
     this.filterObj.tochallandate = this.toDate ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
-    this.filterObj.clientid = this.dropdownData.find(e => e.clientName === this.filterObj.clientName).id
+    this.filterObj.clientid = this.dropdownData.find(e => e.clientName === this.filterObj.clientName)?.id
     let finalUrl = '';
     finalUrl = this.url + this.utilsService.buildUrl(this.filterObj);
 

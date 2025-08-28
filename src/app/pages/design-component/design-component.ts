@@ -66,9 +66,7 @@ export class DesignComponent implements OnInit {
       filter: false,
       cellRenderer: CustomeCellComponent,
       onCellClicked: () => {
-        if (this.utilsService.commondata.action == 'edit') {
-          this.designObj = this.utilsService.commondata.data;
-        }
+        this.designObj = this.utilsService.commondata.data;
       },
       cellRendererParams: {
         page: { name: "design" }

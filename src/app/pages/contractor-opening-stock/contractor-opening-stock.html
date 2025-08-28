@@ -17,9 +17,10 @@
                 <!-- Contractor -->
                 <div class="col-md-3">
                     <div class="dropdown">
-                        <label for="contractor" class="form-label fw-bold">Contractor</label>
-                        <input type="text" class="form-control" [(ngModel)]="contractorName" #contractor="ngModel"
-                            list="constructors" name="contractor" id="contractor" placeholder="Type to search...">
+                        <label for="contractor" class="form-label fw-bold">Contractor</label>{{contractorName}}
+                        <input type="text" class="form-control" [(ngModel)]="contractorName" (change)="onInputBlur()"
+                            #contractor="ngModel" list="constructors" name="contractor" id="contractor"
+                            placeholder="Type to search...">
                         <datalist id="constructors">
                             <option *ngFor="let party of contractors" [value]="party.contractorName">
                             </option>
@@ -56,7 +57,8 @@
                 <div class="col-md-2">
                     <label for="quantity" class="form-label fw-bold">Quantity</label>
                     <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
-                        class="form-control" name="quantity" [(ngModel)]="contractorChallanObj.quantity" id="quantity">
+                        class="form-control" name="quantity" [(ngModel)]="contractorChallanObj.quantityStr"
+                        id="quantity">
                 </div>
 
                 <!-- Add Button -->
@@ -66,7 +68,7 @@
                 </div>
                 @if (isItemExist) {
                 <div class="col-12">
-                    <span class="text-danger">Design and Color already added</span>
+                    <span class="text-danger">Contractor, Design and Color already added into challan </span>
                 </div>
                 }
 

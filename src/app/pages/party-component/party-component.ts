@@ -1,16 +1,13 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
-import { ColDef, GridApi, GridReadyEvent, Params } from 'ag-grid-community';
+import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
 import { UtilService } from 'src/app/services/util-service';
-import { design } from 'src/app/model/design';
 import { DataService } from 'src/app/services/data-service';
 import { CustomeCellComponent } from '../custome-cell-component/custome-cell-component';
 import { DownloadSerivceService } from 'src/app/services/download-serivce-service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { color } from 'src/app/model/color';
 import { client } from 'src/app/model/client';
 
 
@@ -20,10 +17,9 @@ import { client } from 'src/app/model/client';
   templateUrl: './party-component.html',
   styleUrl: './party-component.scss'
 })
-export class PartyComponent {
+export class PartyComponent implements OnInit {
 
   id: string = '';
-  action: string = '';
   url: string = 'clients';
   clientObj: client = new client();
   dataService = inject(DataService);
@@ -37,26 +33,17 @@ export class PartyComponent {
   showSuccessMessage: boolean = false;
   successMessage: string = '';
 
-  constructor(public router: ActivatedRoute, public route: Router) {
-  }
 
   ngOnInit() {
     this.searchClient();
   }
 
 
-  // updateForm = (key: string, event: any) => {
-  //   this.clientFromData.update((data: client) =>
-  //     ({ ...data, [key]: event.target.value })
-  //   )
-  // }
 
   validateGst() {
     this.isValidGst = this.utilsService.validateGST(this.clientObj.gstNo);
   }
-  cancel = () => {
-    this.route.navigate(["/list-client"])
-  }
+
   colDefs: ColDef<client>[] = [
     {
       headerName: "Status",
@@ -82,7 +69,7 @@ export class PartyComponent {
       sortable: false,
       filter: false,
       cellRenderer: CustomeCellComponent,
-      onCellClicked: (event) => {
+      onCellClicked: () => {
         this.clientObj = this.utilsService.commondata.data;
       },
       cellRendererParams: {

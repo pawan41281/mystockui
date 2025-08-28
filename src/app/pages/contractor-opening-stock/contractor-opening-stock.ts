@@ -127,7 +127,7 @@ export class ContractorOpeningStock implements OnInit {
     },
     {
       field: 'quantity',
-      headerName: 'Quantity',
+      headerName: 'quantityStr',
       editable: true, // 👈 make this column editable
       cellEditor: 'agTextCellEditor' // default is already agTextCellEditor
     },
@@ -259,7 +259,8 @@ export class ContractorOpeningStock implements OnInit {
   }
 
   itemExist() {
-    return this.items.some(e => e.designId == this.contractorChallanObj.design && e.colorId == this.contractorChallanObj.color)
+
+    return this.items.some(e => e.designId == this.contractorChallanObj.design && e.colorId == this.contractorChallanObj.color && e.contractorName == this.contractorName)
   }
 
   addItems = () => {
@@ -276,7 +277,7 @@ export class ContractorOpeningStock implements OnInit {
         'designName': this.getDesignName(this.contractorChallanObj.design),
         'colorId': this.contractorChallanObj.color,
         'colorName': this.getColorData(this.contractorChallanObj.color),
-        'quantity': this.contractorChallanObj.quantity
+        'quantity': this.contractorChallanObj.quantityStr
       })
       this.gridApi.applyTransaction({ remove: this.items });
       this.gridApi.applyTransaction({ add: this.items });
@@ -286,17 +287,16 @@ export class ContractorOpeningStock implements OnInit {
   }
 
   clearItems() {
-    this.contractorChallanObj.design = 0;
-    this.contractorChallanObj.color = 0
-    this.contractorChallanObj.quantity = 0
+    this.contractorChallanObj = new contractorChallan();
     this.disableAdd = true;
+    this.contractorName = '';
   }
 
   onInputBlur = () => {
-    this.contractorChallanObj.quantity = Number(this.contractorChallanObj.quantity)
+    //this.contractorChallanObj.quantity = Number(this.contractorChallanObj.quantityStr)
     this.isItemExist = this.itemExist();
-    const { design, color, quantity } = this.contractorChallanObj;
-    this.disableAdd = !(design && color && quantity > 0 && !this.isItemExist)
+    const { design, color, quantityStr } = this.contractorChallanObj;
+    this.disableAdd = !(design && color && quantityStr && !this.isItemExist)
 
   }
 

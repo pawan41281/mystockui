@@ -26,7 +26,7 @@ export class UtilService {
   }
 
   public numberOnly(event: KeyboardEvent): boolean {
-    return /^[0-9]$/.test(event.key);
+    return /^-?\d*$/.test(event.key);
   }
 
   public formatDate_dd_MM_YYYY(date: Date): string {

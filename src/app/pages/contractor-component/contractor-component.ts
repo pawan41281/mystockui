@@ -1,17 +1,14 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
-import { ColDef, GridApi, GridReadyEvent, Params } from 'ag-grid-community';
+import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
 import { UtilService } from 'src/app/services/util-service';
-import { design } from 'src/app/model/design';
 import { DataService } from 'src/app/services/data-service';
 import { CustomeCellComponent } from '../custome-cell-component/custome-cell-component';
 import { DownloadSerivceService } from 'src/app/services/download-serivce-service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { color } from 'src/app/model/color';
-import { client } from 'src/app/model/client';
+import { Router } from '@angular/router';
 import { contractor } from 'src/app/model/contractor';
 
 
@@ -21,7 +18,7 @@ import { contractor } from 'src/app/model/contractor';
   templateUrl: './contractor-component.html',
   styleUrl: './contractor-component.scss'
 })
-export class ContractorComponent {
+export class ContractorComponent implements OnInit {
 
   id: string = '';
   action: string = '';
@@ -30,6 +27,7 @@ export class ContractorComponent {
   dataService = inject(DataService);
   utilsService: UtilService = inject(UtilService);
   downloadService = inject(DownloadSerivceService)
+  route = inject(Router)
   isValidGst: boolean = false;
   showStatus: boolean = false;
   private gridApi!: GridApi;
@@ -38,26 +36,16 @@ export class ContractorComponent {
   showSuccessMessage: boolean = false;
   successMessage: string = '';
 
-  constructor(public router: ActivatedRoute, public route: Router) {
-  }
 
   ngOnInit() {
     this.searchContractor()
   }
 
 
-  // updateForm = (key: string, event: any) => {
-  //   this.clientFromData.update((data: client) =>
-  //     ({ ...data, [key]: event.target.value })
-  //   )
-  // }
-
   validateGst() {
     this.isValidGst = this.utilsService.validateGST(this.contractorObj.gstNo);
   }
-  cancel = () => {
-    this.route.navigate(["/list-client"])
-  }
+
   colDefs: ColDef<contractor>[] = [
     {
       headerName: "Status",
@@ -83,7 +71,7 @@ export class ContractorComponent {
       sortable: false,
       filter: false,
       cellRenderer: CustomeCellComponent,
-      onCellClicked: (event) => {
+      onCellClicked: () => {
         this.contractorObj = this.utilsService.commondata.data;
 
       },

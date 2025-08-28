@@ -11,6 +11,10 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { color } from 'src/app/model/color';
+import { CommonService } from 'src/app/services/common-service';
+import { ResponseData } from 'src/app/model/Response';
+import { error } from 'console';
+
 
 @Component({
   selector: 'app-color-component',
@@ -24,6 +28,7 @@ export class ColorComponent implements OnInit {
   utilsService: UtilService = inject(UtilService);
   dataService = inject(DataService);
   downloadService = inject(DownloadSerivceService)
+  commonService = inject(CommonService)
   router = inject(ActivatedRoute)
   route = inject(Router)
   colorList: color[] = [];
@@ -32,19 +37,25 @@ export class ColorComponent implements OnInit {
   colorObj: color = new color();
   delObj: design = new design();
   isInactiveDesign: boolean = false;
+  colorObj1: Promise<ResponseData>;
 
   ngOnInit(): void {
-    this.getColorData();
-  }
-
-  getColorData = () => {
-    this.dataService.get(this.url)
-      .subscribe((res: any) => {
-        this.colorList = res.data;
-        this.totalRecord = res.metadata.recordcount
-      })
+    //this.getColorData();
+    this.commonService.getColorData().then(e => {
+      this.colorList = e.datalist
+      this.totalRecord = e.totalRecord
+    })
 
   }
+
+  // getColorData = () => {
+  //   this.dataService.get(this.url)
+  //     .subscribe((res: any) => {
+  //       this.colorList = res.data;
+  //       this.totalRecord = res.metadata.recordcount
+  //     })
+
+  // }
 
   colDefs: ColDef<color>[] = [
     {
@@ -107,7 +118,7 @@ export class ColorComponent implements OnInit {
       .subscribe((res: any) => {
         if (res.status === 'success') {
           this.colorObj = new color();
-          this.getColorData();
+          //this.getColorData();
         }
       })
   }
@@ -118,7 +129,7 @@ export class ColorComponent implements OnInit {
       .subscribe((res: any) => {
         if (res.status === 'success') {
           this.colorObj = new color();
-          this.getColorData();
+          // this.getColorData();
         }
       })
 
