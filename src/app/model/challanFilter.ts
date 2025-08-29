@@ -4,7 +4,7 @@ export class challanFilter {
     clientName: string
     fromchallandate: string;
     tochallandate: string;
-    challantype: number;
+    challantype: "";
 
     constructor() {
         this.challannumber = "";
@@ -12,6 +12,6 @@ export class challanFilter {
         this.clientName = '';
         this.fromchallandate = '';
         this.tochallandate = '';
-        this.challantype = 0;
+        this.challantype = '';
     }
 }
