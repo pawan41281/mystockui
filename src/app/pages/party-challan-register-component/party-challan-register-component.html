@@ -50,7 +50,7 @@
             </div>
         </div>
 
-        <div class="col-md-2">
+        <!-- <div class="col-md-2">
             <label class="form-label fw-bold d-block">Challan Type</label>
             <div class="d-flex gap-3 margin-top-18 font-size-16">
                 <div class="form-check">
@@ -68,7 +68,24 @@
                     </label>
                 </div>
             </div>
-        </div>
+        </div> -->
+
+
+        <!-- Design -->
+        <div class="col-md-2">
+    <label for="challantype" class="form-label fw-bold">Challan Type</label>
+    <select id="challantype" class="form-select" name="challantype" [(ngModel)]="filterObj.challantype">
+      <!-- <option value="">Select</option> -->
+      <option value="">Any</option>
+        <option value="I">Issue</option>
+        <option value="R">Receive</option>
+    </select>
+    <div class="invalid-feedback">Please select a challan type.</div>
+</div>
+
+
+
+
         <div class="col-md-2">
             <button class="margin-top-30 btn btn-primary" name="search" (click)="searchClientChallan()" id="search">
                 Search
