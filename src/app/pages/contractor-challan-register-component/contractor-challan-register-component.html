@@ -53,14 +53,7 @@
                 }
             </div>
         </div>
-        <!-- <div class="col-md-2">
-            <label for="challantype" class="form-label fw-bold">Challan Type <span class="text-danger">*</span></label>
-            <select class="form-select" name="challantype" id="challantype" [disabled]="action=='view'"
-                [(ngModel)]="filterObj.challantype" id="challantype">
-                <option value="I" selected>Issue</option>
-                <option value="R">Recive</option>
-            </select>
-        </div> -->
+        
         <div class="col-md-2">
             <label class="form-label fw-bold d-block">Challan Type</label>
             <div class="d-flex gap-3 margin-top-18 font-size-16">
@@ -80,7 +73,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
             <button class="margin-top-30 btn btn-primary" name="search" (click)="searchContractorChallan()" id="search">
                 Search </button>
         </div>
