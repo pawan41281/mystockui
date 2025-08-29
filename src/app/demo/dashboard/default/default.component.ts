@@ -118,7 +118,7 @@ export class DefaultComponent implements OnInit {
             challancount: this.getChallanCount(this.cardsData.dashboardCurrentMonthClientCardVos[1])
           },
           {
-            title: 'Challan Issue TO Contractor In Current Month',
+            title: 'Challan Issue To Contractor In Current Month',
             challancount: this.getChallanCount(this.cardsData.dashboardCurrentMonthContractorCardVos[0])
           },
           {
@@ -137,7 +137,7 @@ export class DefaultComponent implements OnInit {
             challancount: this.getChallanCount(this.cardsData.dashboardPreviousDayContractorCardVos[1])
           },
           {
-            title: 'Challan Issue TO Contractor On Yesterday',
+            title: 'Challan Issue To Contractor On Yesterday',
             challancount: this.getChallanCount(this.cardsData.dashboardPreviousDayClientCardVos[0])
           },
           {
