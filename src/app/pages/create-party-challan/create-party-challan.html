@@ -40,7 +40,7 @@
                 </div>
 
                 <!-- Challan Type -->
-                <div class="col-md-3">
+                <!-- <div class="col-md-3">
                     <label class="form-label fw-bold d-block">Challan Type <span
                             class="text-danger">*</span></label>
                     <div class="d-flex gap-3 margin-top-18 font-size-16">
@@ -61,7 +61,18 @@
                             </label>
                         </div>
                     </div>
-                </div>
+                </div> -->
+
+                 <div class="col-md-2">
+    <label for="challantype" class="form-label fw-bold">Challan Type</label>
+    <select id="challantype" class="form-select" name="challantype" [(ngModel)]="clientChallanObj.challanType">
+      <!-- <option value="">Select</option> -->
+      <!-- <option value="">Any</option> -->
+        <option value="I">Issue</option>
+        <option value="R">Receive</option>
+    </select>
+    <div class="invalid-feedback">Please select a challan type.</div>
+</div>
 
 
                 <!-- Party -->
@@ -160,7 +171,7 @@
                         [disabled]="form.invalid || items.length <= 0 || isDuplicateChallan" (click)="onSave()">
                         Submit
                     </button>
-                    <button type="button" class="btn btn-primary ms-2" (click)="cancel()">Cancel</button>
+                    <!-- <button type="button" class="btn btn-primary ms-2" (click)="cancel()">Cancel</button> -->
                 </div>
             </form>
         </app-card>

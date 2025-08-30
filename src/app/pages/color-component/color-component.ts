@@ -66,7 +66,7 @@ export class ColorComponent implements OnInit {
       cellRenderer: this.utilsService.getStatus
     },
     {
-      headerName: "Desing Name",
+      headerName: "Design Name",
       field: "colorName",
     }
     , {

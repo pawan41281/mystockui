@@ -2,17 +2,19 @@
 
     <div class="col-sm-12">
         <app-card cardTitle="Party">
+           @if (showSuccessMessage) {
             <div class="row">
                 <div class="col-12 mt-3">
-                    @if (showSuccessMessage) {
+
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ successMessage }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    }
+
                 </div>
             </div>
-            <form #form="ngForm" class="row g-3 needs-validation div-margin-top" novalidate>
+             }
+            <form #form="ngForm" class="row g-3 needs-validation " novalidate>
                 <div class="col-md-4">
                     <label for="clientName" class="form-label fw-bold">Party <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" maxlength="100" #clientName="ngModel" name="clientName"
