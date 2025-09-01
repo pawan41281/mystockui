@@ -2,7 +2,7 @@
     <div class="col-sm-12">
         <app-card cardTitle="Create New Challan">
             <div class="row">
-                <div class="col-12 mt-3">
+                <div class="col-12">
                     @if (showSuccessMessage) {
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ successMessage }}
@@ -169,7 +169,7 @@
                 <div class="col-12 text-end mt-4">
                     <button type="button" class="btn btn-primary"
                         [disabled]="form.invalid || items.length <= 0 || isDuplicateChallan" (click)="onSave()">
-                        Submit
+                        Save
                     </button>
                     <!-- <button type="button" class="btn btn-primary ms-2" (click)="cancel()">Cancel</button> -->
                 </div>
