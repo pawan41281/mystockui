@@ -35,7 +35,7 @@ export class CommonService {
 
 class ReqResponseData {
   status: string;
-  mssage: string;
+  message: string;
   data: []
   metadata: metadata
 }

@@ -48,6 +48,15 @@ export class UtilService {
     return gstNo && gstNo.length < 15 ? true : false;
   }
 
+public compareObjects(obj1, obj2) {
+  for (let key in obj1) {
+    if (obj1[key] !== obj2[key]) {
+      console.log(`Mismatch on ${key}: ${obj1[key]} !== ${obj2[key]}`);
+      return false;
+    }
+  }
+return true;
 
+}
 
 }

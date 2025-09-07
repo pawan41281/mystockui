@@ -34,7 +34,11 @@ export class ColorComponent implements OnInit {
   colorList: color[] = [];
   private gridApi!: GridApi;
   url: string = 'colors';
+  isSameEditObj: boolean = false
   colorObj: color = new color();
+
+  colorObjedit: color = new color();
+
   delObj: design = new design();
   isInactiveDesign: boolean = false;
   colorObj1: Promise<ResponseData>;
@@ -76,15 +80,21 @@ export class ColorComponent implements OnInit {
       filter: false,
       cellRenderer: CustomeCellComponent,
       onCellClicked: () => {
+        // console.log(this.colorObjedit, ' ======= color obj === ', this.colorObj)
+       // console.log(this.colorObjedit, this.colorObj)
         if (this.utilsService.commondata.action == 'edit') {
           this.colorObj = this.utilsService.commondata.data;
         }
+         this.colorObjedit = JSON.parse(JSON.stringify(this.colorObj))
+        // console.log(this.colorObjedit, ' ======= color obj === ', this.colorObj)
+          this.isSameEditObj =  this.utilsService.compareObjects(this.colorObjedit, this.colorObj)
       },
       cellRendererParams: {
         page: { name: "design" }
       }
     }
   ];
+
 
   defaultColDef: ColDef = {
     flex: 1,
@@ -122,6 +132,14 @@ export class ColorComponent implements OnInit {
         }
       })
   }
+
+
+   checkData = () =>{
+
+    this.isSameEditObj =  this.utilsService.compareObjects(this.colorObjedit, this.colorObj)
+        console.log(this.isSameEditObj, ' ======= isSameEditObj === ')
+
+   }
 
   deactivateColor() {
 
