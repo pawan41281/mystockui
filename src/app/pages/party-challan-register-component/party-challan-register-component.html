@@ -6,7 +6,7 @@
             <input type="text" class="form-control" maxlength="8" #challannumber="ngModel" name="challannumber"
                 [(ngModel)]="filterObj.challannumber" id="challannumber">
         </div>
-        <div class="col-md-3">
+        <!-- <div class="col-md-3">
             <div class="dropdown">
 
                 <label for="party" class="form-label fw-bold">Party</label>
@@ -16,7 +16,27 @@
                     <option *ngFor="let party in dropdownData" [value]="party.clientName">
                 </datalist>
             </div>
+        </div> -->
+
+<div class="col-md-2">
+            <label for="party" class="form-label fw-bold">Party</label>
+            <div class="input-group has-validation">
+                <!-- <span class="input-group-text" id="inputGroupPrepend">&#64;</span> -->
+                <select class="form-select" name="party" [(ngModel)]="filterObj.clientName" name="party">
+                    <option value="">Select Options</option>
+                    @for (party of dropdownData; track party.id) {
+                    <option [value]="party.id">{{ party.clientName }}</option>
+                    }
+                </select>
+                <div class="invalid-feedback">
+                    Please Select Party.
+                </div>
+            </div>
         </div>
+
+
+
+
         <div class="col-md-2">
             <label for="fromDate" class="form-label fw-bold">From Date</label>
             <div class="input-group">
