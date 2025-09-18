@@ -38,16 +38,17 @@
                     </div>
                 </div>
 
- <div class="col-md-2">
-    <label for="challantype" class="form-label fw-bold">Challan Type</label>
-    <select id="challantype" class="form-select" name="challantype" [(ngModel)]="contractorChallanObj.challanType">
-      <!-- <option value="">Select</option> -->
-      <!-- <option value="">Any</option> -->
-        <option value="I">Issue</option>
-        <option value="R">Receive</option>
-    </select>
-    <div class="invalid-feedback">Please select a challan type.</div>
-</div>
+                <div class="col-md-2">
+                    <label for="challantype" class="form-label fw-bold">Challan Type</label>
+                    <select id="challantype" class="form-select" name="challantype"
+                        [(ngModel)]="contractorChallanObj.challanType">
+                        <!-- <option value="">Select</option> -->
+                        <!-- <option value="">Any</option> -->
+                        <option value="I">Issue</option>
+                        <option value="R">Receive</option>
+                    </select>
+                    <div class="invalid-feedback">Please select a challan type.</div>
+                </div>
 
 
                 <!-- Contractor -->
@@ -76,9 +77,9 @@
                     <label for="challanNumber" class="form-label fw-bold">Challan Number <span
                             class="text-danger">*</span>
                     </label>
-                    <input type="text" class="form-control" name="challanNumber" [readOnly]="action=='view'"
-                        maxlength="8" [(ngModel)]="contractorChallanObj.challanNumber" id="challanNumber"
-                        #challanNumber="ngModel" (keyup)="onChallanNumberChange()" required>
+                    <input type="text" class="form-control" name="challanNumber" maxlength="8"
+                        [(ngModel)]="contractorChallanObj.challanNumber" id="challanNumber" #challanNumber="ngModel"
+                        (keyup)="onChallanNumberChange()" required>
                     <div class="text-danger">
                         @if(challanNumber.errors?.['required'] && challanNumber.touched && challanNumber.dirty) {
                         <span>This field is mendatory</span>
@@ -89,7 +90,7 @@
                 <!-- Design -->
                 <div class="col-md-3">
                     <label for="design" class="form-label fw-bold">Desing</label>
-                    <select class="form-select" name="design" (blur)="onInputBlur()" [disabled]="action=='view'"
+                    <select class="form-select" name="design" (blur)="onInputBlur()"
                         [(ngModel)]="contractorChallanObj.design" id="design">
                         @for (design of designs; track design.id) {
                         <option [value]="design.id">{{ design.designName }}</option>
@@ -102,7 +103,7 @@
 
                 <div class="col-md-3">
                     <label for="color" class="form-label fw-bold">Color</label>
-                    <select class="form-select" name="color" (blur)="onInputBlur()" [disabled]="action=='view'"
+                    <select class="form-select" name="color" (blur)="onInputBlur()"
                         [(ngModel)]="contractorChallanObj.color" id="color">
                         @for (color of colors; track color.id) {
                         <option [value]="color.id">{{ color.colorName }}</option>
@@ -115,8 +116,7 @@
                 <div class="col-md-2">
                     <label for="quantity" class="form-label fw-bold">Quantity</label>
                     <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
-                        class="form-control" name="quantity" [readOnly]="action=='view'"
-                        [(ngModel)]="contractorChallanObj.quantity" id="quantity">
+                        class="form-control" name="quantity" [(ngModel)]="contractorChallanObj.quantity" id="quantity">
                 </div>
 
                 <!-- Add Button -->

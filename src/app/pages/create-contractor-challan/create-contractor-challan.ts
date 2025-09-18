@@ -25,7 +25,7 @@ import { CardComponent } from 'src/app/theme/shared/components/card/card.compone
   templateUrl: './create-contractor-challan.html',
   styleUrl: './create-contractor-challan.scss'
 })
-export class CreateContractorChallan {
+export class CreateContractorChallan implements OnInit {
 
   id: string = '';
   action: string = '';
@@ -51,7 +51,7 @@ export class CreateContractorChallan {
   filterObj: challanFilter = new challanFilter();
 
 
-  constructor(public router: ActivatedRoute, public route: Router) {
+  constructor() {
     this.rowCnt = 1;
     this.getContractor();
     this.getDesignts();
@@ -59,10 +59,6 @@ export class CreateContractorChallan {
   }
 
   ngOnInit() {
-    this.router.queryParams.subscribe((params: Params) => {
-      this.id = params['id']
-      this.action = params['action']
-    });
 
     if (this.id) {
       this.dataService.get(`${this.id}/${this.url}`)
