@@ -65,16 +65,15 @@ export const NavigationItems: NavigationItem[] = [
         classes: 'nav-item',
         url: '/newpartychallan',
         icon: 'ant-design'
+      },
+      {
+        id: 'newpartyorder',
+        title: 'New Order (Party)',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/newpartyorder',
+        icon: 'ant-design'
       }
-      // ,
-      // {
-      //   id: 'searchpartychallan',
-      //   title: 'Search Challan (Party)',
-      //   type: 'item',
-      //   classes: 'nav-item',
-      //   url: '/searchpartychallan',
-      //   icon: 'profile'
-      // }
     ]
   },
   {
@@ -153,6 +152,14 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         classes: 'nav-item',
         url: '/contractor',
+        icon: 'ant-design'
+      },
+      {
+        id: 'order',
+        title: 'Order',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/order',
         icon: 'ant-design'
       },
       {

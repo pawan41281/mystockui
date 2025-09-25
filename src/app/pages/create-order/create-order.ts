@@ -1,66 +1,62 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, Input, OnInit, signal } from '@angular/core';
-import { clientChallan } from '../../model/clientChallan';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AgGridAngular } from 'ag-grid-angular';
-import { ColumnGroupService, type ColDef, type CsvExportParams, type GridApi, type GridReadyEvent } from "ag-grid-community";
+import { type ColDef, type GridApi, type GridReadyEvent } from "ag-grid-community";
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { client } from '../../model/client';
 import { design } from '../../model/design';
 import { color } from '../../model/color';
-import { challanFilter } from '../../model/challanFilter';
 import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
 import { UtilService } from 'src/app/services/util-service';
 import { DataService } from 'src/app/services/data-service';
-import { requestResponse } from 'src/app/model/requestResponse';
 import { order } from 'src/app/model/order';
+import { orderFilter } from 'src/app/model/orderFilger';
+import { requestResponse } from 'src/app/model/requestResponse';
 
 @Component({
-  selector: 'app-create-party-challan',
-  imports: [CardComponent, FormsModule, CommonModule, AgGridAngular, MatDatepickerModule,
-    MatNativeDateModule, MatInputModule],
-  templateUrl: './create-party-challan.html',
-  styleUrl: './create-party-challan.scss'
+  selector: 'app-create-order',
+  imports: [FormsModule, CommonModule, AgGridAngular, MatDatepickerModule,
+    MatNativeDateModule, MatInputModule, CardComponent],
+  templateUrl: './create-order.html',
+  styleUrl: './create-order.scss'
 })
-export class CreatePartyChallan {
-
+export class CreateOrder implements OnInit {
 
   id: string = '';
   action: string = '';
-  url: string = 'clientchallans';
+  url: string = 'clientorders';
   http = inject(HttpClient)
-  clientChallanFromData = signal(new clientChallan())
+  clientOrderFromData = signal(new order())
   dataService = inject(DataService)
-  clientChallanObj: clientChallan = new clientChallan();
+  clientOrder: order = new order();
   utilsService: UtilService = inject(UtilService);
   router: ActivatedRoute = inject(ActivatedRoute);
   route: Router = inject(Router);
   private gridApi!: GridApi;
   rowCnt: number;
-  challanDate: Date = new Date();
+  orderDate: Date = new Date();
   items: any[] = [];
   clients: client[] = [];
   designs: design[] = [];
   colors: color[] = [];
-  orders: order[] = [];
   disableAdd: boolean = true;
   showSuccessMessage: boolean = false;
   successMessage: string = '';
   selectedClient: string = ''
   isItemExist: boolean = false;
-  isDuplicateChallan: boolean = false;
-  filterObj: challanFilter = new challanFilter();
+  isDuplicateOrder: boolean = false;
+  filterObj: orderFilter = new orderFilter();
 
   constructor() {
     this.rowCnt = 1;
     this.getClients();
     this.getDesignts();
     this.getColors();
-    this.getOrders();
   }
 
   ngOnInit() {
@@ -72,7 +68,7 @@ export class CreatePartyChallan {
     // if (this.id) {
     //   this.dataService.findById(this.id, this.url)
     //     .subscribe((res: any) => {
-    //       this.clientChallanObj = res;
+    //       this.clientOrder = res;
     //     })
     // }
   }
@@ -100,14 +96,6 @@ export class CreatePartyChallan {
     this.dataService.get('colors')
       .subscribe((res: requestResponse) => {
         this.colors = res.data;
-      })
-  }
-
-  // fetch color list
-  getOrders = () => {
-    this.dataService.get('clientorders')
-      .subscribe((res: requestResponse) => {
-        this.orders = res.data;
       })
   }
 
@@ -177,7 +165,7 @@ export class CreatePartyChallan {
 
         this.successMessage = 'Data saved successfully!';
         this.showSuccessMessage = true;
-        this.clientChallanObj = new clientChallan();
+        this.clientOrder = new order();
         setTimeout(() => {
           this.showSuccessMessage = false;
           this.successMessage = '';
@@ -187,33 +175,31 @@ export class CreatePartyChallan {
     })
   }
 
-  onChallanNumberChange() {
-    const isChallanSame = this.filterObj.challannumber == this.clientChallanObj.challanNumber
-    this.isDuplicateChallan = isChallanSame ? true : false;
+  onOrderNumberChange() {
+    const isOrderSame = this.filterObj.ordernumber == this.clientOrder.orderNumber
+    this.isDuplicateOrder = isOrderSame ? true : false;
   }
 
   onSave = () => {
 
-    this.filterObj.challannumber = this.clientChallanObj.challanNumber
+    this.filterObj.ordernumber = this.clientOrder.orderNumber
     const finalUrl = this.url + this.utilsService.buildUrl(this.filterObj);
     this.dataService.get(finalUrl)
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         if (res.data.length <= 0) {
           this.save()
         } else {
-          this.isDuplicateChallan = true
+          this.isDuplicateOrder = true
         }
       })
   }
 
-  private buildRequestObject(): any {
+  private buildRequestObject() {
     return {
-      challanNumber: this.clientChallanObj.challanNumber,
-      challanDate: this.utilsService.formatDate_dd_MM_YYYY(this.challanDate),
+      orderNumber: this.clientOrder.orderNumber,
+      orderDate: this.utilsService.formatDate_dd_MM_YYYY(this.orderDate),
       client: { id: this.clients.find(e => e.clientName == this.selectedClient)?.id },
-      order: { id: this.clientChallanObj.orderNumber },
-      challanType: this.clientChallanObj.challanType,
-      challanItems: this.items.map(item => ({
+      orderItems: this.items.map(item => ({
         design: { id: item.designId },
         color: { id: item.colorId },
         quantity: item.quantity
@@ -222,7 +208,7 @@ export class CreatePartyChallan {
   }
 
   updateForm = (key: string, event: any) => {
-    this.clientChallanFromData.update((data: clientChallan) =>
+    this.clientOrderFromData.update((data: order) =>
       ({ ...data, [key]: event.target.value })
     )
   }
@@ -250,7 +236,7 @@ export class CreatePartyChallan {
     if (this.itemExist()) {
       this.isItemExist = true;
     } else {
-      const { design, color, quantity } = this.clientChallanObj;
+      const { design, color, quantity } = this.clientOrder;
       const newItem = {
         id: this.rowCnt++,
         designId: design,
@@ -269,20 +255,20 @@ export class CreatePartyChallan {
   }
 
   clearItemInputs() {
-    this.clientChallanObj.design = 0;
-    this.clientChallanObj.color = 0
-    this.clientChallanObj.quantity = 0
+    this.clientOrder.design = 0;
+    this.clientOrder.color = 0
+    this.clientOrder.quantity = 0
     this.disableAdd = true;
   }
 
   itemExist() {
-    return this.items.some(e => e.designId == this.clientChallanObj.design && e.colorId == this.clientChallanObj.color)
+    return this.items.some(e => e.designId == this.clientOrder.design && e.colorId == this.clientOrder.color)
   }
 
   onInputBlur(): void {
-    this.clientChallanObj.quantity = Number(this.clientChallanObj.quantity)
+    this.clientOrder.quantity = Number(this.clientOrder.quantity)
     this.isItemExist = this.itemExist();
-    const { design, color, quantity } = this.clientChallanObj;
+    const { design, color, quantity } = this.clientOrder;
     this.disableAdd = !(design && color && quantity > 0 && !this.isItemExist);
   }
 
@@ -291,5 +277,4 @@ export class CreatePartyChallan {
   selectedParty(selectedParty: any) {
     const obj: client | undefined = this.clients.find(e => e.clientName == selectedParty);
   }
-
 }

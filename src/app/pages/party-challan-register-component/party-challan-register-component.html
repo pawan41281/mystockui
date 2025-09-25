@@ -3,7 +3,7 @@
     <form #form="ngForm" class="row g-3 needs-validation" novalidate>
         <div class="col-md-2">
             <label for="challannumber" class="form-label fw-bold">challan Number</label>
-            <input type="text" class="form-control" maxlength="8" #challannumber="ngModel" name="challannumber"
+            <input type="text" class="form-control" maxlength="8" name="challannumber"
                 [(ngModel)]="filterObj.challannumber" id="challannumber">
         </div>
         <!-- <div class="col-md-3">
@@ -18,7 +18,7 @@
             </div>
         </div> -->
 
-<div class="col-md-2">
+        <div class="col-md-2">
             <label for="party" class="form-label fw-bold">Party</label>
             <div class="input-group has-validation">
                 <!-- <span class="input-group-text" id="inputGroupPrepend">&#64;</span> -->
@@ -72,19 +72,22 @@
 
 
         <div class="col-md-2">
-    <label for="challantype" class="form-label fw-bold">Challan Type</label>
-    <select id="challantype" class="form-select" name="challantype" [(ngModel)]="filterObj.challantype">
-      <!-- <option value="">Select</option> -->
-      <option value="">Any</option>
-        <option value="I">Issue</option>
-        <option value="R">Receive</option>
-    </select>
-    <div class="invalid-feedback">Please select a challan type.</div>
-</div>
+            <label for="challantype" class="form-label fw-bold">Challan Type</label>
+            <select id="challantype" class="form-select" name="challantype" [(ngModel)]="filterObj.challantype">
+                <!-- <option value="">Select</option> -->
+                <option value="">Any</option>
+                <option value="I">Issue</option>
+                <option value="R">Receive</option>
+            </select>
+            <div class="invalid-feedback">Please select a challan type.</div>
+        </div>
 
-
-
-
+        <div class="col-md-2">
+            <label for="orderid" class="form-label fw-bold">Order Number</label>
+            <input type="text" class="form-control" maxlength="8" name="orderid" [(ngModel)]="filterObj.orderid"
+                id="orderid">
+        </div>
+        <div class="col-md-11"></div>
         <div class="col-md-1">
             <button class="margin-top-30 btn btn-primary" name="search" (click)="searchClientChallan()" id="search">
                 Search

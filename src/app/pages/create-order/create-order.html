@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-sm-12">
-        <app-card cardTitle="Create New Challan">
+        <app-card cardTitle="Create New Order">
             <div class="row">
                 <div class="col-12">
                     @if (showSuccessMessage) {
@@ -9,9 +9,9 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     }
-                    @if (isDuplicateChallan) {
+                    @if (isDuplicateOrder) {
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        Challan Number should be unique
+                        Order Number should be unique
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     }
@@ -19,35 +19,22 @@
             </div>
 
             <form #form="ngForm" class="row g-3 needs-validation" novalidate>
-                <!-- Challan Date -->
+                <!-- Order Date -->
 
-                <div class="col-md-2">
-                    <label for="challanDate" class="form-label fw-bold">Challan Date <span
-                            class="text-danger">*</span></label>
+                <div class="col-md-3">
+                    <label for="Date" class="form-label fw-bold">Order Date <span class="text-danger">*</span></label>
                     <div class="input-group">
-                        <input matInput [matDatepicker]="picker" id="challanDate" name="challanDate"
-                            class="form-control height-39" [(ngModel)]="challanDate" required
-                            #challanDateModel="ngModel" />
+                        <input matInput [matDatepicker]="picker" id="orderDate" name="orderDate"
+                            class="form-control height-39" [(ngModel)]="orderDate" required #orderDateModel="ngModel" />
                         <span class="input-group-text  height-39" style="cursor: pointer;">
                             <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
                         </span>
                     </div>
                     <mat-datepicker #picker></mat-datepicker>
                     <div class="text-danger"
-                        *ngIf="challanDateModel.invalid && (challanDateModel.dirty || challanDateModel.touched)">
-                        <span *ngIf="challanDateModel.errors?.['required']">This field is required.</span>
+                        *ngIf="orderDateModel.invalid && (orderDateModel.dirty || orderDateModel.touched)">
+                        <span *ngIf="orderDateModel.errors?.['required']">This field is required.</span>
                     </div>
-                </div>
-
-                <div class="col-md-2">
-                    <label for="challantype" class="form-label fw-bold">Challan Type</label>
-                    <select id="challantype" class="form-select" name="challantype"
-                        [(ngModel)]="clientChallanObj.challanType">
-
-                        <option value="I">Issue</option>
-                        <option value="R">Receive</option>
-                    </select>
-                    <div class="invalid-feedback">Please select a challan type.</div>
                 </div>
 
 
@@ -73,37 +60,24 @@
                         }
                     </div>
                 </div>
-
-                <!-- Challan Number -->
-                <div class="col-md-2">
-                    <label for="challanNumber" class="form-label fw-bold">Challan Number <span
+                <div class="col-md-3">
+                    <label for="orderNumber" class="form-label fw-bold">Order Number <span
                             class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="challanNumber" name="challanNumber" maxlength="8"
-                        (keyup)="onChallanNumberChange()" [(ngModel)]="clientChallanObj.challanNumber"
-                        #challanNumber="ngModel" required />
+                    <input type="text" class="form-control" id="orderNumber" name="orderNumber" maxlength="8"
+                        (keyup)="onOrderNumberChange()" [(ngModel)]="clientOrder.orderNumber" #orderNumber="ngModel"
+                        required />
 
                     <div class="text-danger">
-                        @if(challanNumber.errors?.['required'] && challanNumber.touched && challanNumber.dirty) {
+                        @if(orderNumber.errors?.['required'] && orderNumber.touched && orderNumber.dirty) {
                         <span>This field is mendatory</span>
                         }
                     </div>
                 </div>
-
-                <!-- Order Number -->
-                <div class="col-md-2">
-                    <label for="orderNumber" class="form-label fw-bold">Order Number </label>
-                    <select id="orderNumber" class="form-select" name="orderNumber"
-                        [(ngModel)]="clientChallanObj.orderNumber">
-                        @for (order of orders; track $index) {
-                        <option [value]="order.id">{{ order.orderNumber }}</option>
-                        }
-                    </select>
-                </div>
-
+                <div class="col-md-3"></div>
                 <!-- Design -->
                 <div class="col-md-3">
                     <label for="design" class="form-label fw-bold">Design</label>
-                    <select id="design" class="form-select" name="design" [(ngModel)]="clientChallanObj.design"
+                    <select id="design" class="form-select" name="design" [(ngModel)]="clientOrder.design"
                         [disabled]="action === 'view'" (blur)="onInputBlur()">
                         @for (design of designs; track $index) {
                         <option [value]="design.id">{{ design.designName }}</option>
@@ -116,7 +90,7 @@
                 <!-- Color -->
                 <div class="col-md-3">
                     <label for="color" class="form-label fw-bold">Color</label>
-                    <select id="color" class="form-select" name="color" [(ngModel)]="clientChallanObj.color"
+                    <select id="color" class="form-select" name="color" [(ngModel)]="clientOrder.color"
                         [disabled]="action === 'view'" (blur)="onInputBlur()">
                         @for (color of colors; track $index) {
                         <option [value]="color.id">{{ color.colorName }}</option>
@@ -129,7 +103,7 @@
                 <div class="col-md-2">
                     <label for="quantity" class="form-label fw-bold">Quantity</label>
                     <input id="quantity" type="text" class="form-control" name="quantity"
-                        [(ngModel)]="clientChallanObj.quantity" [readonly]="action === 'view'"
+                        [(ngModel)]="clientOrder.quantity" [readonly]="action === 'view'"
                         (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()" />
                     <div class="invalid-feedback">Please enter quantity.</div>
                 </div>
@@ -156,10 +130,9 @@
                 <!-- Action Buttons -->
                 <div class="col-12 text-end mt-4">
                     <button type="button" class="btn btn-primary"
-                        [disabled]="form.invalid || items.length <= 0 || isDuplicateChallan" (click)="onSave()">
+                        [disabled]="form.invalid || items.length <= 0 || isDuplicateOrder" (click)="onSave()">
                         Save
                     </button>
-                    <!-- <button type="button" class="btn btn-primary ms-2" (click)="cancel()">Cancel</button> -->
                 </div>
             </form>
         </app-card>

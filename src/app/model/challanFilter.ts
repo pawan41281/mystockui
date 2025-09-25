@@ -5,6 +5,7 @@ export class challanFilter {
     fromchallandate: string;
     tochallandate: string;
     challantype: "";
+    orderid?: string;
 
     constructor() {
         this.challannumber = "";

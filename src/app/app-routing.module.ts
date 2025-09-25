@@ -33,6 +33,10 @@ const routes: Routes = [
         loadComponent: () => import('./pages/create-party-challan/create-party-challan').then((c) => c.CreatePartyChallan)
       },
       {
+        path: 'newpartyorder',
+        loadComponent: () => import('./pages/create-order/create-order').then((c) => c.CreateOrder)
+      },
+      {
         path: 'searchpartychallan',
         loadComponent: () => import('./demo/others/sample-page/sample-page.component').then((c) => c.SamplePageComponent)
       },
@@ -67,6 +71,10 @@ const routes: Routes = [
       {
         path: 'contractor',
         loadComponent: () => import('./pages/contractor-component/contractor-component').then((c) => c.ContractorComponent)
+      },
+      {
+        path: 'order',
+        loadComponent: () => import('./pages/order/order').then((c) => c.Order)
       },
       {
         path: 'opening-stock',

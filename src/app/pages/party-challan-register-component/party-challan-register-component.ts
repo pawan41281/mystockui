@@ -95,6 +95,10 @@ export class PartyChallanRegisterComponent {
       cellRenderer: this.myCellRenderer
     },
     {
+      headerName: "Order Number",
+      field: "order.orderNumber",
+    },
+    {
       headerName: '',
       cellClass: 'align-center',
       sortable: false,
