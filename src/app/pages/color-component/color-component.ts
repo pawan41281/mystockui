@@ -9,9 +9,9 @@ import { CustomeCellComponent } from '../custome-cell-component/custome-cell-com
 import { DownloadSerivceService } from 'src/app/services/download-serivce-service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
 import { color } from 'src/app/model/color';
 import { ResponseData } from 'src/app/model/Response';
+import { requestResponse } from 'src/app/model/requestResponse';
 
 
 @Component({
@@ -26,8 +26,6 @@ export class ColorComponent implements OnInit {
   utilsService: UtilService = inject(UtilService);
   dataService = inject(DataService);
   downloadService = inject(DownloadSerivceService)
-  router = inject(ActivatedRoute)
-  route = inject(Router)
   colorList: color[] = [];
   private gridApi!: GridApi;
   url: string = 'colors';
@@ -46,7 +44,7 @@ export class ColorComponent implements OnInit {
 
   getColorData = () => {
     this.dataService.get(this.url)
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         this.colorList = res.data;
         this.totalRecord = res.metadata.recordcount
       })
@@ -72,14 +70,12 @@ export class ColorComponent implements OnInit {
       filter: false,
       cellRenderer: CustomeCellComponent,
       onCellClicked: () => {
-        // console.log(this.colorObjedit, ' ======= color obj === ', this.colorObj)
-       // console.log(this.colorObjedit, this.colorObj)
+
         if (this.utilsService.commondata.action == 'edit') {
           this.colorObj = this.utilsService.commondata.data;
         }
-         this.colorObjedit = JSON.parse(JSON.stringify(this.colorObj))
-        // console.log(this.colorObjedit, ' ======= color obj === ', this.colorObj)
-          this.isSameEditObj =  this.utilsService.compareObjects(this.colorObjedit, this.colorObj)
+        this.colorObjedit = JSON.parse(JSON.stringify(this.colorObj))
+        this.isSameEditObj = this.utilsService.compareObjects(this.colorObjedit, this.colorObj)
       },
       cellRendererParams: {
         page: { name: "design" }
@@ -117,7 +113,7 @@ export class ColorComponent implements OnInit {
 
   onSave = () => {
     this.dataService.post(this.url, this.colorObj)
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         if (res.status === 'success') {
           this.colorObj = new color();
           //this.getColorData();
@@ -126,17 +122,17 @@ export class ColorComponent implements OnInit {
   }
 
 
-   checkData = () =>{
+  checkData = () => {
 
-    this.isSameEditObj =  this.utilsService.compareObjects(this.colorObjedit, this.colorObj)
-        console.log(this.isSameEditObj, ' ======= isSameEditObj === ')
+    this.isSameEditObj = this.utilsService.compareObjects(this.colorObjedit, this.colorObj)
+    console.log(this.isSameEditObj, ' ======= isSameEditObj === ')
 
-   }
+  }
 
   deactivateColor() {
 
     this.dataService.patch(this.url, this.utilsService.commondata.data.id)
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         if (res.status === 'success') {
           this.colorObj = new color();
           this.getColorData();

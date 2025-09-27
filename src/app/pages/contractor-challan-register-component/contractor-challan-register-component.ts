@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AgGridAngular } from "ag-grid-angular";
 import type { ColDef, GridReadyEvent } from "ag-grid-community";
 import { GridApi } from 'ag-grid-community';
@@ -18,6 +18,7 @@ import { formatDate } from '@angular/common';
 import { DownloadSerivceService } from 'src/app/services/download-serivce-service';
 import { UtilService } from 'src/app/services/util-service';
 import { DataService } from 'src/app/services/data-service';
+import { requestResponse } from 'src/app/model/requestResponse';
 
 @Component({
   selector: 'app-contractor-challan-register-component',
@@ -26,7 +27,7 @@ import { DataService } from 'src/app/services/data-service';
   templateUrl: './contractor-challan-register-component.html',
   styleUrl: './contractor-challan-register-component.scss'
 })
-export class ContractorChallanRegisterComponent {
+export class ContractorChallanRegisterComponent implements OnInit {
 
   id: string = '';
   url: string = 'contractorchallans';
@@ -34,6 +35,8 @@ export class ContractorChallanRegisterComponent {
   http = inject(HttpClient)
   dataService = inject(DataService)
   utilsService: UtilService = inject(UtilService);
+  router: ActivatedRoute = inject(ActivatedRoute);
+  route: Router = inject(Router);
   contractorChallans: contractorChallan[] = [];
   contractorChallanObj: contractorChallan = new contractorChallan();
   private readonly downloadService = inject(DownloadSerivceService);
@@ -45,17 +48,22 @@ export class ContractorChallanRegisterComponent {
   toDate: Date = new Date();
   filterObj: challanFilter = new challanFilter();
 
-  constructor(public router: ActivatedRoute, public route: Router) {
+  constructor() {
     this.getClients();
   }
 
   ngOnInit() {
+    this.router.queryParams.subscribe(params => {
+      this.filterObj.challantype = params['challanType'];
+      this.fromDate = new Date(params['fromDate']);
+      this.toDate = new Date(params['toDate']);
+    });
     this.searchContractorChallan()
   }
 
   getClients = () => {
     this.dataService.get('contractors')
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         this.contractors = res.data;
         this.dropdownData = this.contractors;
       })
@@ -63,7 +71,7 @@ export class ContractorChallanRegisterComponent {
 
   getClientData = () => {
     this.dataService.get(this.url)
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         this.contractorChallans = res.data;
         this.totalRecord = res.metadata.recordcount
       })
@@ -134,7 +142,7 @@ export class ContractorChallanRegisterComponent {
 
   cancelChallan() {
     this.dataService.delete(`${this.url}/${this.id}`)
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         this.contractorChallans = res.data;
         this.totalRecord = res.metadata.recordcount;
         this.searchContractorChallan()
@@ -149,7 +157,7 @@ export class ContractorChallanRegisterComponent {
     let url = '';
     url = this.url + this.utilsService.buildUrl(this.filterObj);
     this.dataService.get(url)
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         this.contractorChallans = res.data;
         this.contractorChallans.forEach(e1 => { e1.challanType = this.utilsService.challanTypes?.find(e => e.val === e1.challanType)?.name ?? '' })
         this.totalRecord = res.metadata.recordcount;

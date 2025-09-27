@@ -14,6 +14,7 @@ import { clientChallanInfo } from 'src/app/model/clientChallanInfo';
 import { PartyReportChart } from 'src/app/theme/shared/apexchart/party-report-chart/party-report-chart';
 import { ContractorReportChart } from 'src/app/theme/shared/apexchart/contractor-report-chart/contractor-report-chart';
 import { dashboardCard } from 'src/app/model/dashboardCard';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-default',
@@ -21,6 +22,7 @@ import { dashboardCard } from 'src/app/model/dashboardCard';
     CommonModule,
     CardComponent,
     PartyReportChart,
+    RouterModule,
     ContractorReportChart
   ],
   templateUrl: './default.component.html',
@@ -102,6 +104,12 @@ export class DefaultComponent implements OnInit {
   }
 
   getCardsInfoData = () => {
+    const today = new Date();
+    const monthStartDate = new Date(today.getFullYear(), today.getMonth(), 1);
+    const monthEndDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+    const yesterday = new Date(today.getFullYear(), today.getMonth(), today.getDay() - 1);
+
     this.dataService.get(this.cardsInfourl)
       .subscribe((res: any) => {
         if (res.status === 'success') {
@@ -111,37 +119,103 @@ export class DefaultComponent implements OnInit {
         this.monthlyChallanCountData = [
           {
             title: "Challan Issue To Party In Current Month",
+            challanLink: {
+              url: '/partychallanregister',
+              queryParams: {
+                challanType: 'I',
+                fromDate: monthStartDate,
+                toDate: monthEndDate
+              }
+            },
             challancount: this.getChallanCount(this.cardsData.dashboardCurrentMonthClientCardVos[0])
           },
           {
-            title: "Challan Recieved From Party In Current Month",
+            title: "Challan Recieved From Party In Current Month", challanLink: {
+              challanLink: {
+                url: '/partychallanregister',
+                queryParams: {
+                  challanType: 'R',
+                  fromDate: monthStartDate,
+                  toDate: monthEndDate
+                }
+              },
+            },
             challancount: this.getChallanCount(this.cardsData.dashboardCurrentMonthClientCardVos[1])
           },
           {
             title: 'Challan Issue To Contractor In Current Month',
+            challanLink: {
+              url: '/contractorchallanregister',
+              queryParams: {
+                challanType: 'I',
+                fromDate: monthStartDate,
+                toDate: monthEndDate
+              }
+            },
             challancount: this.getChallanCount(this.cardsData.dashboardCurrentMonthContractorCardVos[0])
           },
           {
             title: 'Challan Recieved From Contractor In Current Month',
+            challanLink: {
+              url: '/contractorchallanregister',
+              queryParams: {
+                challanType: 'R',
+                fromDate: monthStartDate,
+                toDate: monthEndDate
+              }
+            },
             challancount: this.getChallanCount(this.cardsData.dashboardCurrentMonthContractorCardVos[1])
           }
         ];
 
         this.yesterdayChallanCountData = [
+
           {
             title: "Challan Issue To Party On Yesterday",
+            challanLink: {
+              url: '/partychallanregister',
+              queryParams: {
+                challanType: 'I',
+                fromDate: yesterday,
+                toDate: today
+              }
+            },
             challancount: this.getChallanCount(this.cardsData.dashboardPreviousDayContractorCardVos[0])
           },
           {
             title: "Challan Recieved From Party On Yesterday",
+            challanLink: {
+              url: '/partychallanregister',
+              queryParams: {
+                challanType: 'R',
+                fromDate: yesterday,
+                toDate: today
+              }
+            },
             challancount: this.getChallanCount(this.cardsData.dashboardPreviousDayContractorCardVos[1])
           },
           {
             title: 'Challan Issue To Contractor On Yesterday',
+            challanLink: {
+              url: '/contractorchallanregister',
+              queryParams: {
+                challanType: 'I',
+                fromDate: yesterday,
+                toDate: today
+              }
+            },
             challancount: this.getChallanCount(this.cardsData.dashboardPreviousDayClientCardVos[0])
           },
           {
             title: 'Challan Recieved From Contractor On Yesterday',
+            challanLink: {
+              url: '/contractorchallanregister',
+              queryParams: {
+                challanType: 'R',
+                fromDate: yesterday,
+                toDate: today
+              }
+            },
             challancount: this.getChallanCount(this.cardsData.dashboardPreviousDayClientCardVos[1])
           }
         ];

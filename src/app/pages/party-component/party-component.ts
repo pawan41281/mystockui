@@ -9,6 +9,7 @@ import { DownloadSerivceService } from 'src/app/services/download-serivce-servic
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { client } from 'src/app/model/client';
+import { requestResponse } from 'src/app/model/requestResponse';
 
 
 @Component({
@@ -22,9 +23,9 @@ export class PartyComponent implements OnInit {
   id: string = '';
   url: string = 'clients';
   clientObj: client = new client();
-  dataService = inject(DataService);
+  private dataService = inject(DataService);
   utilsService: UtilService = inject(UtilService);
-  downloadService = inject(DownloadSerivceService)
+  private downloadService = inject(DownloadSerivceService)
   isValidGst: boolean = false;
   showStatus: boolean = false;
   private gridApi!: GridApi;
@@ -37,8 +38,6 @@ export class PartyComponent implements OnInit {
   ngOnInit() {
     this.searchClient();
   }
-
-
 
   validateGst() {
     this.isValidGst = this.utilsService.validateGST(this.clientObj.gstNo);
@@ -112,7 +111,7 @@ export class PartyComponent implements OnInit {
 
   save(): void {
     this.dataService.post(this.url, this.clientObj).subscribe({
-      next: (res: any) => {
+      next: (res: requestResponse) => {
         if (res.status === 'success') {
           this.successMessage = 'Data saved successfully!';
           this.showSuccessMessage = true;
@@ -134,7 +133,7 @@ export class PartyComponent implements OnInit {
 
   searchClient = () => {
     this.dataService.get(this.url)
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         this.clients = res.data;
         this.totalRecord = res.metadata.recordcount;
       })

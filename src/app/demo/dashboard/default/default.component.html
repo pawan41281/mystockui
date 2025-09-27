@@ -3,7 +3,8 @@
   <div class="col-md-6 col-xl-3">
     <app-card [showHeader]="false" blockClass="dashboard-card">
       <h4 class="mb-2 f-w-400 text-muted">{{ analytic.title }}</h4>
-      <h4 class="mb-3"><b>{{ analytic.challancount }}</b></h4>
+      <h4 class="mb-3"><b> <a [routerLink]="analytic.challanLink.url" [queryParams]="analytic.challanLink.queryParams"
+            class="link-primary"> {{ analytic.challancount }} </a></b></h4>
     </app-card>
   </div>
   }
@@ -11,7 +12,8 @@
   <div class="col-md-6 col-xl-3">
     <app-card [showHeader]="false" blockClass="dashboard-card">
       <h4 class="mb-2 f-w-400 text-muted">{{ analytic.title }}</h4>
-      <h4 class="mb-3"><b>{{ analytic.challancount }}</b></h4>
+      <h4 class="mb-3"><b> <a [routerLink]="analytic.challanLink.url" [queryParams]="analytic.challanLink.queryParams"
+            class="link-primary"> {{ analytic.challancount }} </a></b></h4>
     </app-card>
   </div>
   }

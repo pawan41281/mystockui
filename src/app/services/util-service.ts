@@ -37,6 +37,10 @@ export class UtilService {
     return `${year}-${month}-${day}`;
   }
 
+  isValidDateFormat(dateStr: string): boolean {
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    return regex.test(dateStr);
+  }
   public getStatus(params) {
 
     const isActive = params.node.data.active;
@@ -48,15 +52,15 @@ export class UtilService {
     return gstNo && gstNo.length < 15 ? true : false;
   }
 
-public compareObjects(obj1, obj2) {
-  for (let key in obj1) {
-    if (obj1[key] !== obj2[key]) {
-      console.log(`Mismatch on ${key}: ${obj1[key]} !== ${obj2[key]}`);
-      return false;
-    }
-  }
-return true;
+  public compareObjects(obj1, obj2) {
+    for (let key in obj1) {
+      if (obj1[key] !== obj2[key]) {
+        console.log(`Mismatch on ${key}: ${obj1[key]} !== ${obj2[key]}`);
+        return false;
+      }
+    }
+    return true;
 
-}
+  }
 
 }

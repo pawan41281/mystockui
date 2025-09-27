@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
-import { ColDef, GridApi, GridReadyEvent, Params } from 'ag-grid-community';
+import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
 import { UtilService } from 'src/app/services/util-service';
 import { design } from 'src/app/model/design';
 import { DataService } from 'src/app/services/data-service';
@@ -9,7 +9,7 @@ import { CustomeCellComponent } from '../custome-cell-component/custome-cell-com
 import { DownloadSerivceService } from 'src/app/services/download-serivce-service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { requestResponse } from 'src/app/model/requestResponse';
 
 @Component({
   selector: 'app-design-component',
@@ -19,16 +19,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class DesignComponent implements OnInit {
 
-  totalRecord: number = 0;
-  utilsService: UtilService = inject(UtilService);
-  dataService = inject(DataService);
-  downloadService = inject(DownloadSerivceService)
+  private utilsService: UtilService = inject(UtilService);
+  private dataService = inject(DataService);
+  private downloadService = inject(DownloadSerivceService)
   designList: design[] = [];
   private gridApi!: GridApi;
   url: string = 'designs';
   designObj: design = new design();
   delObj: design = new design();
   isInactiveDesign: boolean = false;
+  totalRecord: number = 0;
 
   ngOnInit(): void {
     this.getDesignData();
@@ -36,7 +36,7 @@ export class DesignComponent implements OnInit {
 
   getDesignData = () => {
     this.dataService.get(this.url)
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         this.designList = res.data;
         this.totalRecord = res.metadata.recordcount
       })
@@ -104,7 +104,7 @@ export class DesignComponent implements OnInit {
 
   onSave = () => {
     this.dataService.post(this.url, this.designObj)
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         if (res.status === 'success') {
           this.designObj = new design();
           this.getDesignData();
@@ -115,7 +115,7 @@ export class DesignComponent implements OnInit {
   deleteDesign() {
 
     this.dataService.patch(this.url, this.designObj.id)
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         if (res.status === 'success') {
           this.designObj = new design();
           this.getDesignData();
