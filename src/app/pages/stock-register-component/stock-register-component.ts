@@ -1,8 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AgGridAngular } from "ag-grid-angular";
-import type { ColDef, CsvExportParams, GridReadyEvent } from "ag-grid-community";
+import type { ColDef } from "ag-grid-community";
 import { GridApi } from 'ag-grid-community';
-import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -15,6 +14,7 @@ import { stockRegisger } from 'src/app/model/stockRegister';
 import { DownloadSerivceService } from 'src/app/services/download-serivce-service';
 import { DataService } from 'src/app/services/data-service';
 import { UtilService } from 'src/app/services/util-service';
+import { requestResponse } from 'src/app/model/requestResponse';
 
 @Component({
   selector: 'app-stock-register-component',
@@ -23,7 +23,7 @@ import { UtilService } from 'src/app/services/util-service';
   templateUrl: './stock-register-component.html',
   styleUrl: './stock-register-component.scss'
 })
-export class StockRegisterComponent {
+export class StockRegisterComponent implements OnInit {
 
 
   filterObj: StockFilter = new StockFilter();
@@ -36,18 +36,18 @@ export class StockRegisterComponent {
   stockRegister: stockRegisger[] = [];
   private url: string = 'designstockreports'
   totalRecord: number = 0;
-  constructor(public router: ActivatedRoute, public route: Router) {
+
+  ngOnInit(): void {
     this.getDesignts();
     this.getColors();
     this.searchStock()
   }
 
-
   //fethc design list
 
   getDesignts = () => {
     this.dataService.get('designs')
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         this.designs = res.data;
       })
   }
@@ -55,7 +55,7 @@ export class StockRegisterComponent {
   // fetch color list
   getColors = () => {
     this.dataService.get('colors')
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         this.colors = res.data;
       })
   }
@@ -66,7 +66,7 @@ export class StockRegisterComponent {
     let url = ''
     url = this.url + this.utilsService.buildUrl(this.filterObj)
     this.dataService.get(url)
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         this.stockRegister = res.data;
         this.totalRecord = res.metadata.recordcount
       })

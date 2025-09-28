@@ -53,9 +53,12 @@ export class PartyChallanRegisterComponent implements OnInit {
   ngOnInit() {
 
     this.router.queryParams.subscribe(params => {
-      this.filterObj.challantype = params['challanType'];
-      this.fromDate = new Date(params['fromDate']);
-      this.toDate = new Date(params['toDate']);
+      if (params['challanType']) {
+        this.filterObj.challantype = params['challanType'];
+        this.fromDate = new Date(params['fromDate']);
+        this.toDate = new Date(params['toDate']);
+      }
+
     });
 
     this.searchClientChallan()

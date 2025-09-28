@@ -26,7 +26,7 @@ import { order } from 'src/app/model/order';
   templateUrl: './create-party-challan.html',
   styleUrl: './create-party-challan.scss'
 })
-export class CreatePartyChallan {
+export class CreatePartyChallan implements OnInit {
 
 
   id: string = '';
@@ -60,7 +60,7 @@ export class CreatePartyChallan {
     this.getClients();
     this.getDesignts();
     this.getColors();
-    this.getOrders();
+
   }
 
   ngOnInit() {
@@ -100,14 +100,6 @@ export class CreatePartyChallan {
     this.dataService.get('colors')
       .subscribe((res: requestResponse) => {
         this.colors = res.data;
-      })
-  }
-
-  // fetch color list
-  getOrders = () => {
-    this.dataService.get('clientorders')
-      .subscribe((res: requestResponse) => {
-        this.orders = res.data;
       })
   }
 
@@ -210,7 +202,7 @@ export class CreatePartyChallan {
     return {
       challanNumber: this.clientChallanObj.challanNumber,
       challanDate: this.utilsService.formatDate_dd_MM_YYYY(this.challanDate),
-      client: { id: this.clients.find(e => e.clientName == this.selectedClient)?.id },
+      client: { id: this.getclientId() },
       order: { id: this.clientChallanObj.orderNumber },
       challanType: this.clientChallanObj.challanType,
       challanItems: this.items.map(item => ({
@@ -219,6 +211,10 @@ export class CreatePartyChallan {
         quantity: item.quantity
       }))
     };
+  }
+
+  getclientId() {
+    return this.clients.find(e => e.clientName == this.selectedClient)?.id;
   }
 
   updateForm = (key: string, event: any) => {
@@ -290,6 +286,21 @@ export class CreatePartyChallan {
 
   selectedParty(selectedParty: any) {
     const obj: client | undefined = this.clients.find(e => e.clientName == selectedParty);
+    console.log(this.getclientId(), 'selectedParty  :; ', selectedParty)
+    this.getOrders();
+  }
+
+
+
+  // fetch order list
+  getOrders = () => {
+
+    this.dataService.get('clientorders?clientid=' + this.getclientId())
+      .subscribe((res: requestResponse) => {
+        this.orders = res.data;
+      })
   }
 
 }
+
+//clientid

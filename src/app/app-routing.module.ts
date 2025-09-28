@@ -73,10 +73,6 @@ const routes: Routes = [
         loadComponent: () => import('./pages/contractor-component/contractor-component').then((c) => c.ContractorComponent)
       },
       {
-        path: 'order',
-        loadComponent: () => import('./pages/order/order').then((c) => c.Order)
-      },
-      {
         path: 'opening-stock',
         loadComponent: () => import('./pages/opening-stock/opening-stock').then((c) => c.OpeningStock)
       },

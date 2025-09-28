@@ -1,10 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, Input, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AgGridAngular } from 'ag-grid-angular';
-import { type ColDef, type CsvExportParams, type GridApi, type GridReadyEvent } from "ag-grid-community";
+import { type ColDef, type GridApi, type GridReadyEvent } from "ag-grid-community";
 import { design } from '../../model/design';
 import { color } from '../../model/color';
 import { contractor } from '../../model/contractor';
@@ -17,6 +15,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
+import { CommonModule } from '@angular/common';
+import { requestResponse } from 'src/app/model/requestResponse';
 
 @Component({
   selector: 'app-create-contractor-challan',
@@ -76,7 +76,7 @@ export class CreateContractorChallan implements OnInit {
 
   getContractor = () => {
     this.dataService.get('contractors')
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         this.constructors = res.data;
       })
   }
@@ -85,7 +85,7 @@ export class CreateContractorChallan implements OnInit {
 
   getDesignts = () => {
     this.dataService.get('designs')
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         this.designs = res.data;
       })
   }
@@ -93,7 +93,7 @@ export class CreateContractorChallan implements OnInit {
   // fetch color list
   getColors = () => {
     this.dataService.get('colors')
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         this.colors = res.data;
       })
   }
@@ -167,7 +167,7 @@ export class CreateContractorChallan implements OnInit {
 
     const obj = this.buildReqObj();
     this.dataService.post(this.url, obj)
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         if (res.status === 'success') {
 
           this.successMessage = 'Data saved successfully!';
@@ -192,7 +192,7 @@ export class CreateContractorChallan implements OnInit {
     this.filterObj.challannumber = this.contractorChallanObj.challanNumber
     const finalUrl = this.url + this.utilsService.buildUrl(this.filterObj);
     this.dataService.get(finalUrl)
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         if (res.data.length <= 0) {
           this.save()
         } else {

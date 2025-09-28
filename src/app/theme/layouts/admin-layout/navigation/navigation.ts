@@ -38,7 +38,7 @@ export const NavigationItems: NavigationItem[] = [
   },
   {
     id: 'challanbook',
-    title: 'Challan Book',
+    title: 'Day Book',
     type: 'group',
     icon: 'icon-navigation',
     children: [
@@ -50,14 +50,6 @@ export const NavigationItems: NavigationItem[] = [
         url: '/newcontractorchallan',
         icon: 'ant-design'
       },
-      // {
-      //   id: 'searchcontractorchallan',
-      //   title: 'Search Challan (Contractor)',
-      //   type: 'item',
-      //   classes: 'nav-item',
-      //   url: '/searchcontractorchallan',
-      //   icon: 'profile'
-      // },
       {
         id: 'newpartychallan',
         title: 'New Challan (Party)',
@@ -154,14 +146,14 @@ export const NavigationItems: NavigationItem[] = [
         url: '/contractor',
         icon: 'ant-design'
       },
-      {
-        id: 'order',
-        title: 'Order',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/order',
-        icon: 'ant-design'
-      },
+      // {
+      //   id: 'order',
+      //   title: 'Order',
+      //   type: 'item',
+      //   classes: 'nav-item',
+      //   url: '/order',
+      //   icon: 'ant-design'
+      // },
       {
         id: 'openingStock',
         title: 'Design Opening Stock',

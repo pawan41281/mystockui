@@ -108,7 +108,7 @@ export class DefaultComponent implements OnInit {
     const monthStartDate = new Date(today.getFullYear(), today.getMonth(), 1);
     const monthEndDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
-    const yesterday = new Date(today.getFullYear(), today.getMonth(), today.getDay() - 1);
+    const yesterday = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1);
 
     this.dataService.get(this.cardsInfourl)
       .subscribe((res: any) => {

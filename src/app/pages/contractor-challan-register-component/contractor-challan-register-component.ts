@@ -54,9 +54,12 @@ export class ContractorChallanRegisterComponent implements OnInit {
 
   ngOnInit() {
     this.router.queryParams.subscribe(params => {
-      this.filterObj.challantype = params['challanType'];
-      this.fromDate = new Date(params['fromDate']);
-      this.toDate = new Date(params['toDate']);
+      if (params['challanType']) {
+        this.filterObj.challantype = params['challanType'];
+        this.fromDate = new Date(params['fromDate']);
+        this.toDate = new Date(params['toDate']);
+      }
+
     });
     this.searchContractorChallan()
   }
@@ -152,8 +155,8 @@ export class ContractorChallanRegisterComponent implements OnInit {
 
   searchContractorChallan = () => {
 
-    this.filterObj.fromchallandate = this.fromDate ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
-    this.filterObj.tochallandate = this.toDate ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
+    this.filterObj.fromchallandate = this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
+    this.filterObj.tochallandate = this.toDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
     let url = '';
     url = this.url + this.utilsService.buildUrl(this.filterObj);
     this.dataService.get(url)

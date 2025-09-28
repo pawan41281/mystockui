@@ -1,8 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AgGridAngular } from "ag-grid-angular";
-import type { ColDef, CsvExportParams, GridReadyEvent } from "ag-grid-community";
+import type { ColDef } from "ag-grid-community";
 import { GridApi } from 'ag-grid-community';
-import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -13,11 +12,11 @@ import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { design } from '../../model/design';
 import { color } from '../../model/color';
 import { stockRegisger } from '../../model/stockRegister';
-import { client } from '../../model/client';
 import { contractor } from '../../model/contractor';
 import { DataService } from 'src/app/services/data-service';
 import { UtilService } from 'src/app/services/util-service';
 import { DownloadSerivceService } from 'src/app/services/download-serivce-service';
+import { requestResponse } from 'src/app/model/requestResponse';
 
 @Component({
   selector: 'app-contractor-stock-register-component',
@@ -26,14 +25,10 @@ import { DownloadSerivceService } from 'src/app/services/download-serivce-servic
   templateUrl: './contractor-stock-register-component.html',
   styleUrl: './contractor-stock-register-component.scss'
 })
-export class ContractorStockRegisterComponent {
-
-
+export class ContractorStockRegisterComponent implements OnInit {
 
   filterObj: StockFilter = new StockFilter();
   dataService = inject(DataService)
-  router = inject(ActivatedRoute)
-  route = inject(Router)
   utilsService: UtilService = inject(UtilService);
   private readonly downloadService = inject(DownloadSerivceService);
   designs: design[] = [];
@@ -43,19 +38,19 @@ export class ContractorStockRegisterComponent {
   stockRegister: stockRegisger[] = [];
   private url: string = 'contractorstockreports'
   totalRecord: number = 0;
-  constructor() {
+
+  ngOnInit(): void {
     this.getDesignts();
     this.getColors();
     this.searchStock()
     this.getContractor()
   }
 
-
   //fethc design list
 
   getDesignts = () => {
     this.dataService.get('designs')
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         this.designs = res.data;
       })
   }
@@ -63,14 +58,14 @@ export class ContractorStockRegisterComponent {
   // fetch color list
   getColors = () => {
     this.dataService.get('colors')
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         this.colors = res.data;
       })
   }
 
   getContractor = () => {
     this.dataService.get('contractors')
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         this.constructors = res.data;
       })
   }
@@ -80,7 +75,7 @@ export class ContractorStockRegisterComponent {
     let url = ''
     url = this.url + this.utilsService.buildUrl(this.filterObj)
     this.dataService.get(url)
-      .subscribe((res: any) => {
+      .subscribe((res: requestResponse) => {
         this.stockRegister = res.data;
         this.totalRecord = res.metadata.recordcount
       })
