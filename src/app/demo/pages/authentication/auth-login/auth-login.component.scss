@@ -1,4 +1,4 @@
-@import '../../../../../scss/settings/color-variables.scss';
+@use '../../../../../scss/settings/color-variables.scss' as *;
 
 .auth-main {
   position: relative;
@@ -50,10 +50,12 @@
         background-position: left bottom;
         position: relative;
         justify-content: space-between;
-        > * {
+
+        >* {
           position: relative;
           z-index: 5;
         }
+
         &:after {
           content: '';
           position: absolute;
@@ -66,6 +68,7 @@
         }
       }
     }
+
     .auth-form {
       display: flex;
       align-items: center;
@@ -78,7 +81,7 @@
         box-shadow: none;
       }
 
-      img + span {
+      img+span {
         padding-left: 15px;
       }
 
@@ -88,6 +91,7 @@
         }
       }
     }
+
     .auth-footer,
     .auth-header {
       width: 100%;
