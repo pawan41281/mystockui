@@ -9,7 +9,7 @@ export class DataService {
 
   http: HttpClient = inject(HttpClient);
 
-  private baseUrl = 'http://localhost:9090/v2';
+  private baseUrl = 'http://localhost:9090/v1';
 
   get<T>(endpoint: string): Observable<T> {
     return this.http.get<T>(`${this.baseUrl}/${endpoint}`).pipe(
