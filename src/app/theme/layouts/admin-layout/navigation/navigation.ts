@@ -146,20 +146,12 @@ export const NavigationItems: NavigationItem[] = [
         url: '/contractor',
         icon: 'ant-design'
       },
-      // {
-      //   id: 'order',
-      //   title: 'Order',
-      //   type: 'item',
-      //   classes: 'nav-item',
-      //   url: '/order',
-      //   icon: 'ant-design'
-      // },
       {
         id: 'openingStock',
         title: 'Design Opening Stock',
         type: 'item',
         classes: 'nav-item',
-        url: '/opening-stock',
+        url: '/openingstock',
         icon: 'ant-design'
       },
       {
@@ -167,107 +159,11 @@ export const NavigationItems: NavigationItem[] = [
         title: 'Contractor Opening Stock',
         type: 'item',
         classes: 'nav-item',
-        url: '/contractor-opening-stock',
+        url: '/contractoropeningstock',
         icon: 'ant-design'
       }
     ]
   },
-  // {
-  //   id: 'color',
-  //   title: 'Color',
-  //   type: 'group',
-  //   icon: 'icon-navigation',
-  //   children: [
-  //     {
-  //       id: 'newcolor',
-  //       title: 'New Color',
-  //       type: 'item',
-  //       classes: 'nav-item',
-  //       url: '/newcolor',
-  //       icon: 'bg-colors'
-  //     },
-  //     {
-  //       id: 'searchcolor',
-  //       title: 'Search Color',
-  //       type: 'item',
-  //       classes: 'nav-item',
-  //       url: '/searchcolor',
-  //       icon: 'profile'
-  //     }
-  //   ]
-  // },
-  // {
-  //   id: 'design',
-  //   title: 'Design',
-  //   type: 'group',
-  //   icon: 'icon-navigation',
-  //   children: [
-  //     {
-  //       id: 'newdesign',
-  //       title: 'New Design',
-  //       type: 'item',
-  //       classes: 'nav-item',
-  //       url: '/newdesign',
-  //       icon: 'ant-design'
-  //     },
-  //     {
-  //       id: 'searchdesign',
-  //       title: 'Search Design',
-  //       type: 'item',
-  //       classes: 'nav-item',
-  //       url: '/searchdesign',
-  //       icon: 'profile'
-  //     }
-  //   ]
-  // },
-  // {
-  //   id: 'party',
-  //   title: 'Party',
-  //   type: 'group',
-  //   icon: 'icon-navigation',
-  //   children: [
-  //     {
-  //       id: 'newparty',
-  //       title: 'New Party',
-  //       type: 'item',
-  //       classes: 'nav-item',
-  //       url: '/newparty',
-  //       icon: 'ant-design'
-  //     },
-  //     {
-  //       id: 'searchparty',
-  //       title: 'Search Party',
-  //       type: 'item',
-  //       classes: 'nav-item',
-  //       url: '/searchparty',
-  //       icon: 'profile'
-  //     }
-  //   ]
-  // },
-  // {
-  //   id: 'contractor',
-  //   title: 'Contractor',
-  //   type: 'group',
-  //   icon: 'icon-navigation',
-  //   children: [
-  //     {
-  //       id: 'newcontractor',
-  //       title: 'New Contractor',
-  //       type: 'item',
-  //       classes: 'nav-item',
-  //       url: '/newcontractor',
-  //       icon: 'ant-design'
-  //     },
-  //     {
-  //       id: 'searchcontractor',
-  //       title: 'Search Contractor',
-  //       type: 'item',
-  //       classes: 'nav-item',
-  //       url: '/searchcontractor',
-  //       icon: 'profile'
-  //     }
-  //   ]
-  // },
   {
     id: 'user',
     title: 'User Management',
@@ -290,16 +186,6 @@ export const NavigationItems: NavigationItem[] = [
         url: '/searchuser',
         icon: 'ant-design'
       }
-
-      // {
-      //   id: 'users',
-      //   title: 'Users',
-      //   type: 'item',
-      //   classes: 'nav-item',
-      //   url: '/users',
-      //   icon: 'ant-design'
-      // }
-
     ]
   }
 ];
