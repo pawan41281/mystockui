@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './theme/layouts/admin-layout/admin-layout.component';
 import { GuestLayoutComponent } from './theme/layouts/guest-layout/guest-layout.component';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -73,11 +74,11 @@ const routes: Routes = [
         loadComponent: () => import('./pages/contractor-component/contractor-component').then((c) => c.ContractorComponent)
       },
       {
-        path: 'opening-stock',
+        path: 'openingstock',
         loadComponent: () => import('./pages/opening-stock/opening-stock').then((c) => c.OpeningStock)
       },
       {
-        path: 'contractor-opening-stock',
+        path: 'contractoropeningstock',
         loadComponent: () => import('./pages/contractor-opening-stock/contractor-opening-stock').then((c) => c.ContractorOpeningStock)
       },
       {
