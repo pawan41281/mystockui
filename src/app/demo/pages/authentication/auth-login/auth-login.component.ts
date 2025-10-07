@@ -9,6 +9,8 @@ import { RouterModule } from '@angular/router';
   styleUrl: './auth-login.component.scss'
 })
 export class AuthLoginComponent {
+
+  auth: Auth = new Auth()
   // public method
   SignInOptions = [
     {
@@ -24,4 +26,10 @@ export class AuthLoginComponent {
       name: 'Facebook'
     }
   ];
+}
+
+
+class Auth {
+  private email: string;
+  private password: string;
 }
