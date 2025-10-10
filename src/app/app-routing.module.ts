@@ -7,14 +7,14 @@ import { AdminComponent } from './theme/layouts/admin-layout/admin-layout.compon
 import { GuestLayoutComponent } from './theme/layouts/guest-layout/guest-layout.component';
 
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     component: AdminComponent,
     children: [
       {
         path: '',
-        redirectTo: '/dashboard/default',
+        redirectTo: '/login',
         pathMatch: 'full'
       },
       {
@@ -91,7 +91,7 @@ const routes: Routes = [
       },
       {
         path: 'newuser',
-        loadComponent: () => import('./demo/others/sample-page/sample-page.component').then((c) => c.SamplePageComponent)
+        loadComponent: () => import('./pages/user-component/user-component').then((c) => c.UserComponent)
       },
       {
         path: 'searchuser',

@@ -1,0 +1,129 @@
+<div class="row">
+
+    <div class="col-sm-12">
+        <app-card cardTitle="User">
+            <div class="row">
+                <div class="col-12 mt-3">
+                    @if (showSuccessMessage) {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ successMessage }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    }
+                </div>
+            </div>
+            <form #form="ngForm" class="row g-3 needs-validation" novalidate>
+                <div class="col-md-4">
+                    <label for="userId" class="form-label fw-bold">User Id
+                        <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" maxlength="100" #userId="ngModel" name="userId"
+                        [(ngModel)]="userObj.userId" id="userId" required>
+
+                    <div class="text-danger">
+                        <span *ngIf="userId.errors?.['required'] && userId.touched">This field is
+                            mendatory</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="name" class="form-label fw-bold">User Name
+                        <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" maxlength="100" #name="ngModel" name="name"
+                        [(ngModel)]="userObj.name" id="name" required>
+
+                    <div class="text-danger">
+                        <span *ngIf="name.errors?.['required'] && name.touched">This field is
+                            mendatory</span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="email" class="form-label fw-bold">Email</label>
+                    <input type="email" email class="form-control" maxlength="50" name="email"
+                        [(ngModel)]="userObj.email" id="email">
+                </div>
+
+                <div class="col-md-4">
+                    <label for="mobile" class="form-label fw-bold">Mobile Number <span
+                            class="text-danger">*</span></label>
+                    <!-- <div class="input-group has-validation"> -->
+
+                    <input type="text" maxlength="10" class="form-control" name="mobile" #mobile="ngModel"
+                        [(ngModel)]="userObj.mobile" id="mobile" aria-describedby="inputGroupPrepend"
+                        (keypress)="utilsService.numberOnly($event)" required>
+
+                    <div class="text-danger">
+                        <span *ngIf="mobile.errors?.['required'] && mobile.touched">This field is mendatory</span>
+                    </div>
+                    <div *ngIf="mobile.touched && userObj.mobile.length > 0 && userObj.mobile.length < 10"
+                        class="text-danger" role="alert">
+                        Please Enter Valid Mobile Number.
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <label for="password" class="form-label fw-bold">Password</label>
+                    <input type="text" class="form-control" maxlength="30" name="password"
+                        [(ngModel)]="userObj.password" id="password">
+                </div>
+                <div class="col-md-4">
+                    <label for="role" class="form-label fw-bold">Role </label>
+                    <input type="text" class="form-control" maxlength="30" #state="ngModel" name="role"
+                        [(ngModel)]="userObj.role" id="role">
+                </div>
+                <div class="col-md-2 margin-top-45 align-right">
+                    <button [disabled]="form.invalid" class="btn btn-primary align-left" type="submit"
+                        (click)="save()">Save</button>
+
+                </div>
+            </form>
+
+            <div class="row margin-top-30">
+                <div class="col-12">
+
+                    <div class="row">
+                        <div class="col-2 div-margin-top align-left font-bold">Record Count : {{totalRecord}}</div>
+                        <div class="col-8"></div>
+                        <div class="col-2 align-right">
+                            <i class="bi bi-filetype-csv font-size-30" (click)="onBtnExport()"></i>
+                            <i class="bi bi-filetype-xls font-size-30" (click)="onBtnExportExcel()"></i>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <ag-grid-angular class="ag-theme-quartz grid-height" [rowData]="user_data"
+                                [columnDefs]="colDefs" [defaultColDef]="defaultColDef" (gridReady)="onGridReady($event)"
+                                [pagination]="true" [paginationPageSize]="10"
+                                [paginationPageSizeSelector]="[10, 20, 50]" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </app-card>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Deactivate Party</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Do you want to deactivate the Party?
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Yes</button>
+            </div>
+
+        </div>
+    </div>
+</div>

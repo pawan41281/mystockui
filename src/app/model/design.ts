@@ -1,3 +1,4 @@
+import { userData } from "./userData";
 
 export class design {
 
@@ -6,6 +7,8 @@ export class design {
     description: string;
     active: boolean;
     createdOn: string;
+    user: userData;
+
 
     constructor() {
         this.id = 0;
@@ -13,5 +16,6 @@ export class design {
         this.description = "";
         this.active = true;
         this.createdOn = "";
+        this.user = new userData()
     }
 }

@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { client } from 'src/app/model/client';
 import { requestResponse } from 'src/app/model/requestResponse';
+import { userData } from 'src/app/model/userData';
 
 
 @Component({
@@ -33,10 +34,12 @@ export class PartyComponent implements OnInit {
   totalRecord: number = 0;
   showSuccessMessage: boolean = false;
   successMessage: string = '';
+  userInfo: userData;
 
 
   ngOnInit() {
     this.searchClient();
+    this.userInfo = this.utilsService.getCurrentUserInfo()
   }
 
   validateGst() {
@@ -110,6 +113,7 @@ export class PartyComponent implements OnInit {
   }
 
   save(): void {
+    this.clientObj.user = this.userInfo;
     this.dataService.post(this.url, this.clientObj).subscribe({
       next: (res: requestResponse) => {
         if (res.status === 'success') {

@@ -10,6 +10,7 @@ import { DownloadSerivceService } from 'src/app/services/download-serivce-servic
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { requestResponse } from 'src/app/model/requestResponse';
+import { userData } from 'src/app/model/userData';
 
 @Component({
   selector: 'app-design-component',
@@ -29,9 +30,11 @@ export class DesignComponent implements OnInit {
   delObj: design = new design();
   isInactiveDesign: boolean = false;
   totalRecord: number = 0;
+  userInfo: userData;
 
   ngOnInit(): void {
     this.getDesignData();
+    this.userInfo = this.utilsService.getCurrentUserInfo()
   }
 
   getDesignData = () => {
@@ -103,6 +106,7 @@ export class DesignComponent implements OnInit {
   }
 
   onSave = () => {
+    this.designObj.user.id = this.userInfo.id;
     this.dataService.post(this.url, this.designObj)
       .subscribe((res: requestResponse) => {
         if (res.status === 'success') {

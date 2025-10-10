@@ -15,6 +15,7 @@ import { PartyReportChart } from 'src/app/theme/shared/apexchart/party-report-ch
 import { ContractorReportChart } from 'src/app/theme/shared/apexchart/contractor-report-chart/contractor-report-chart';
 import { dashboardCard } from 'src/app/model/dashboardCard';
 import { RouterModule } from '@angular/router';
+import { requestResponse } from 'src/app/model/requestResponse';
 
 @Component({
   selector: 'app-default',
@@ -53,10 +54,23 @@ export class DefaultComponent implements OnInit {
   recentOrder = tableData;
 
   ngOnInit(): void {
+    this.getCurrentUserInfo();
     this.getClientInfoData()
     this.getContractorInfoData()
     this.getCardsInfoData()
   }
+  getCurrentUserInfo = () => {
+    this.dataService.post('users/currentuser', null)
+      .subscribe((res: requestResponse) => {
+        if (res.status === 'success') {
+          console.log('in fetching success user sections')
+          localStorage.setItem('userInfo', JSON.stringify(res.data));
+        } else {
+          console.log('in fetch user failure sections')
+        }
+      })
+  }
+
 
   getClientInfoData = () => {
     this.dataService.get(this.clientChallanInfourl)

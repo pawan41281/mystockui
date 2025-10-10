@@ -1,5 +1,5 @@
 // angular import
-import { Component, inject, input, output } from '@angular/core';
+import { Component, inject, input, OnInit, output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 // project import
@@ -27,6 +27,8 @@ import {
 } from '@ant-design/icons-angular/icons';
 import { NgbDropdownModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { userData } from 'src/app/model/userData';
+import { UtilService } from 'src/app/services/util-service';
 
 @Component({
   selector: 'app-nav-right',
@@ -34,13 +36,14 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
   templateUrl: './nav-right.component.html',
   styleUrls: ['./nav-right.component.scss']
 })
-export class NavRightComponent {
+export class NavRightComponent implements OnInit {
   private iconService = inject(IconService);
-
+  private utilsService = inject(UtilService);
   styleSelectorToggle = input<boolean>();
   Customize = output();
   windowWidth: number;
   screenFull: boolean = true;
+  userInfo: userData;
 
   constructor() {
     this.windowWidth = window.innerWidth;
@@ -66,7 +69,10 @@ export class NavRightComponent {
       ]
     );
   }
-
+  ngOnInit(): void {
+    this.userInfo = this.utilsService.getCurrentUserInfo()
+    console.log('userInfo :: ', this.userInfo)
+  }
   profileoptions = [
     {
       icon: 'user',

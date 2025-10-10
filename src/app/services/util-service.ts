@@ -63,4 +63,8 @@ export class UtilService {
 
   }
 
+  public getCurrentUserInfo() {
+    return JSON.parse(localStorage.getItem('userInfo'));
+  }
+
 }

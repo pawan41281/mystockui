@@ -7,8 +7,9 @@ import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { AppRoutingModule } from './app/app-routing.module';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { AppComponent } from './app/app.component';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
+import { tokenInterceptor } from './app/demo/auth/token-interceptor';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -17,5 +18,5 @@ if (environment.production) {
 }
 
 bootstrapApplication(AppComponent, {
-  providers: [importProvidersFrom(BrowserModule, AppRoutingModule), provideAnimations(), provideHttpClient()]
+  providers: [importProvidersFrom(BrowserModule, AppRoutingModule), provideAnimations(), provideHttpClient(withInterceptors([tokenInterceptor]))]
 }).catch((err) => console.error(err));

@@ -20,7 +20,7 @@ export class DataService {
     //   })
     // );
 
-    const token = 'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1OTUxMjAyMywiZXhwIjoxNzU5NTEyOTIzLCJ0eXBlIjoiYWNjZXNzIiwicm9sZXMiOiJbUk9MRV9BRE1JTl0ifQ.Qzx5t2wQAwLzmBFCFp_sKUiZuEkYB9d3uTIS2Iw6Q1FqRrz877dgMhEsD9NDBZzf'; // or use AuthService.getToken()
+    const token = localStorage.getItem('token')
 
     let headers = new HttpHeaders();
     if (token) {
@@ -37,6 +37,7 @@ export class DataService {
 
 
   post<T>(endpoint: string, data: any): Observable<T> {
+
     return this.http.post<T>(`${this.baseUrl}/${endpoint}`, data).pipe(
       catchError(error => {
         console.error(`Error posting data to ${endpoint}:`, error);

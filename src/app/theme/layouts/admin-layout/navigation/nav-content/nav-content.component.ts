@@ -23,6 +23,8 @@ import {
   AntDesignOutline
 } from '@ant-design/icons-angular/icons';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { DataService } from 'src/app/services/data-service';
+import { requestResponse } from 'src/app/model/requestResponse';
 
 @Component({
   selector: 'app-nav-content',
@@ -34,6 +36,7 @@ export class NavContentComponent implements OnInit {
   private location = inject(Location);
   private locationStrategy = inject(LocationStrategy);
   private iconService = inject(IconService);
+  dataService = inject(DataService);
 
   // public props
   NavCollapsedMob = output();
@@ -43,7 +46,7 @@ export class NavContentComponent implements OnInit {
   // version
   title = 'Demo application for version numbering';
   currentApplicationVersion = environment.appVersion;
-
+  url: string = 'menuGroups/'
   navigation = NavigationItems;
   windowWidth = window.innerWidth;
 
@@ -62,7 +65,7 @@ export class NavContentComponent implements OnInit {
         QuestionOutline
       ]
     );
-    this.navigations = NavigationItems;
+    //this.navigations = NavigationItems;
   }
 
   // Life cycle events
@@ -70,6 +73,17 @@ export class NavContentComponent implements OnInit {
     if (this.windowWidth < 1025) {
       (document.querySelector('.coded-navbar') as HTMLDivElement).classList.add('menupos-static');
     }
+
+    this.getMenu();
+  }
+
+  getMenu() {
+    this.dataService.get(this.url)
+      .subscribe((res: requestResponse) => {
+        console.log('data is ', res)
+        this.navigations = res.data;
+        console.log(' this.navigations ',)
+      })
   }
 
   fireOutClick() {

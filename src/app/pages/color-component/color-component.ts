@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { color } from 'src/app/model/color';
 import { ResponseData } from 'src/app/model/Response';
 import { requestResponse } from 'src/app/model/requestResponse';
+import { userData } from 'src/app/model/userData';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class ColorComponent implements OnInit {
   url: string = 'colors';
   isSameEditObj: boolean = false
   colorObj: color = new color();
-
+  userInfo: userData;
   colorObjedit: color = new color();
 
   delObj: design = new design();
@@ -40,6 +41,7 @@ export class ColorComponent implements OnInit {
 
   ngOnInit(): void {
     this.getColorData();
+    this.userInfo = this.utilsService.getCurrentUserInfo()
   }
 
   getColorData = () => {
@@ -112,11 +114,12 @@ export class ColorComponent implements OnInit {
   }
 
   onSave = () => {
+    this.colorObj.user.id = this.userInfo.id;
     this.dataService.post(this.url, this.colorObj)
       .subscribe((res: requestResponse) => {
         if (res.status === 'success') {
           this.colorObj = new color();
-          //this.getColorData();
+          this.getColorData();
         }
       })
   }

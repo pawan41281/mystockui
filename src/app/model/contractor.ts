@@ -1,3 +1,4 @@
+import { userData } from "./userData";
 
 export class contractor {
 
@@ -12,6 +13,7 @@ export class contractor {
     gstNo: string;
     active: boolean;
     createdOn: string;
+    user: userData;
 
 
     constructor() {
@@ -26,5 +28,6 @@ export class contractor {
         this.gstNo = "";
         this.active = true;
         this.createdOn = "";
+        this.user = new userData()
     }
 }

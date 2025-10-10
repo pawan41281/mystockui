@@ -4,35 +4,34 @@ import { CardComponent } from 'src/app/theme/shared/components/card/card.compone
 import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
 import { UtilService } from 'src/app/services/util-service';
 import { DataService } from 'src/app/services/data-service';
-import { CustomeCellComponent } from '../custome-cell-component/custome-cell-component';
 import { DownloadSerivceService } from 'src/app/services/download-serivce-service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { contractor } from 'src/app/model/contractor';
 import { userData } from 'src/app/model/userData';
-
+import { user } from 'src/app/model/user';
 
 @Component({
-  selector: 'app-contractor-component',
+  selector: 'app-user-component',
   imports: [CardComponent, AgGridAngular, FormsModule, CommonModule],
-  templateUrl: './contractor-component.html',
-  styleUrl: './contractor-component.scss'
+  templateUrl: './user-component.html',
+  styleUrl: './user-component.scss'
 })
-export class ContractorComponent implements OnInit {
+export class UserComponent implements OnInit {
+
 
   id: string = '';
   action: string = '';
-  url: string = 'contractors';
-  contractorObj: contractor = new contractor();
+  url: string = 'users';
+  userObj: user = new user();
   dataService = inject(DataService);
   utilsService: UtilService = inject(UtilService);
   downloadService = inject(DownloadSerivceService)
   route = inject(Router)
-  isValidGst: boolean = false;
+
   showStatus: boolean = false;
   private gridApi!: GridApi;
-  contractor: contractor[] = [];
+  user_data: user[] = [];
   totalRecord: number = 0;
   showSuccessMessage: boolean = false;
   successMessage: string = '';
@@ -40,26 +39,19 @@ export class ContractorComponent implements OnInit {
 
 
   ngOnInit() {
-    this.searchContractor()
+    this.searchUser()
     this.userInfo = this.utilsService.getCurrentUserInfo()
   }
 
 
-  validateGst() {
-    this.isValidGst = this.utilsService.validateGST(this.contractorObj.gstNo);
-  }
-
-  colDefs: ColDef<contractor>[] = [
+  colDefs: ColDef<user>[] = [
     {
-      headerName: "Status",
-      cellClass: 'margin-top-8',
-      sortable: false,
-      filter: false,
-      cellRenderer: this.utilsService.getStatus
+      headerName: "User ID",
+      field: "userId",
     },
     {
-      headerName: "Party",
-      field: "contractorName",
+      headerName: "Name",
+      field: "name",
     },
     {
       headerName: "Mobile",
@@ -68,19 +60,10 @@ export class ContractorComponent implements OnInit {
     {
       headerName: "Email",
       field: "email",
-    }, {
-      headerName: '',
-      field: 'id',
-      sortable: false,
-      filter: false,
-      cellRenderer: CustomeCellComponent,
-      onCellClicked: () => {
-        this.contractorObj = this.utilsService.commondata.data;
-
-      },
-      cellRendererParams: {
-        page: { name: "contractor" }
-      }
+    },
+    {
+      headerName: "Role",
+      field: "role",
     }
   ];
 
@@ -97,34 +80,32 @@ export class ContractorComponent implements OnInit {
   }
 
   onBtnExport() {
-    this.downloadService.exportToCSV(this.getReportData(), 'contractor_data.csv')
+    this.downloadService.exportToCSV(this.getReportData(), 'user_data.csv')
   }
 
   onBtnExportExcel() {
-    this.downloadService.exportToExcel(this.getReportData(), 'contractor_data.xlsx')
+    this.downloadService.exportToExcel(this.getReportData(), 'user_data.xlsx')
   }
 
   getReportData() {
-    return this.contractor.map(e => ({
-      'Client Name': e.contractorName,
+    return this.user_data.map(e => ({
+      'User ID': e.userId,
+      'User Name': e.name,
       'Email': e.email,
       'Mobile': e.mobile,
-      'Address': e.address,
-      'City': e.city,
-      'GST Number': e.gstNo,
-      'Status': e.active ? 'Active' : 'Inactive'
+      'Role': e.role
     }));
   }
 
   save(): void {
-    this.contractorObj.user.id = this.userInfo.id;
-    this.dataService.post(this.url, this.contractorObj).subscribe({
+
+    this.dataService.post(this.url, this.userObj).subscribe({
       next: (res: any) => {
         if (res.status === 'success') {
           this.successMessage = 'Data saved successfully!';
           this.showSuccessMessage = true;
-          this.contractorObj = new contractor();
-          this.searchContractor();
+          this.userObj = new user();
+          this.searchUser();
           setTimeout(() => {
             this.showSuccessMessage = false;
             this.successMessage = '';
@@ -139,21 +120,21 @@ export class ContractorComponent implements OnInit {
     });
   }
 
-  searchContractor = () => {
+  searchUser = () => {
 
     this.dataService.get(this.url)
       .subscribe((res: any) => {
-        this.contractor = res.data;
+        this.user_data = res.data;
         this.totalRecord = res.metadata.recordcount;
       })
   }
 
-  deleteClient() {
-    this.dataService.patch(this.url, this.contractorObj.id)
-      .subscribe((res: any) => {
-        this.contractor[0] = res;
-        this.searchContractor();
-      })
-  }
+  // deleteClient() {
+  //   this.dataService.patch(this.url, this.userObj.userId)
+  //     .subscribe((res: any) => {
+  //       this.user_data[0] = res;
+  //       this.searchUser();
+  //     })
+  // }
 
 }
