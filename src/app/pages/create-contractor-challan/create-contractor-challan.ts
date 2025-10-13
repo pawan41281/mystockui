@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
 import { CommonModule } from '@angular/common';
 import { requestResponse } from 'src/app/model/requestResponse';
+import { userData } from 'src/app/model/userData';
 
 @Component({
   selector: 'app-create-contractor-challan',
@@ -49,6 +50,7 @@ export class CreateContractorChallan implements OnInit {
   successMessage: string = '';
   isDuplicateChallan: boolean = false;
   filterObj: challanFilter = new challanFilter();
+  userInfo: userData;
 
 
   constructor() {
@@ -66,6 +68,7 @@ export class CreateContractorChallan implements OnInit {
           this.contractorChallanObj = res;
         })
     }
+    this.userInfo = this.utilsService.getCurrentUserInfo()
   }
 
   onInput(event: Event) {
@@ -210,7 +213,10 @@ export class CreateContractorChallan implements OnInit {
         "id": this.constructors.find(e => e.contractorName == this.contractorChallanObj.party)?.id
       },
       "challanType": this.contractorChallanObj.challanType,
-      "challanItems": this.buildItemsData()
+      "challanItems": this.buildItemsData(),
+      "user": {
+        "id": this.userInfo.id
+      }
     }
     return obj;
   }

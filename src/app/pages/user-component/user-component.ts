@@ -36,6 +36,7 @@ export class UserComponent implements OnInit {
   showSuccessMessage: boolean = false;
   successMessage: string = '';
   userInfo: userData;
+  isError: boolean = false;
 
 
   ngOnInit() {
@@ -111,10 +112,14 @@ export class UserComponent implements OnInit {
             this.successMessage = '';
           }, 3000);
         } else {
+          this.isError = true;
+          this.successMessage = res.message;
           console.warn('Save failed:', res.message);
         }
       },
       error: (err) => {
+        this.isError = true;
+        // this.successMessage = res.message;
         console.error('Save error:', err);
       }
     });
@@ -128,13 +133,5 @@ export class UserComponent implements OnInit {
         this.totalRecord = res.metadata.recordcount;
       })
   }
-
-  // deleteClient() {
-  //   this.dataService.patch(this.url, this.userObj.userId)
-  //     .subscribe((res: any) => {
-  //       this.user_data[0] = res;
-  //       this.searchUser();
-  //     })
-  // }
 
 }

@@ -5,7 +5,7 @@ import { NavigationEnd, Router, RouterModule, Event } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 // project import
-import { NavigationItem, NavigationItems } from 'src/app/theme/layouts/admin-layout/navigation/navigation';
+import { NavigationItem } from 'src/app/theme/layouts/admin-layout/navigation/navigation';
 
 // icons
 import { IconService } from '@ant-design/icons-angular';
@@ -46,7 +46,7 @@ export class BreadcrumbComponent {
 
   // constructor
   constructor() {
-    this.navigations = NavigationItems;
+    // this.navigations = NavigationItems;
     this.type = 'theme1';
     this.setBreadcrumb();
     this.iconService.addIcon(...[GlobalOutline, NodeExpandOutline]);

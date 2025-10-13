@@ -17,6 +17,7 @@ import { DataService } from 'src/app/services/data-service';
 import { order } from 'src/app/model/order';
 import { orderFilter } from 'src/app/model/orderFilger';
 import { requestResponse } from 'src/app/model/requestResponse';
+import { userData } from 'src/app/model/userData';
 
 @Component({
   selector: 'app-create-order',
@@ -51,6 +52,7 @@ export class CreateOrder implements OnInit {
   isItemExist: boolean = false;
   isDuplicateOrder: boolean = false;
   filterObj: orderFilter = new orderFilter();
+  userInfo: userData;
 
   constructor() {
     this.rowCnt = 1;
@@ -64,7 +66,7 @@ export class CreateOrder implements OnInit {
       this.id = params['id']
       this.action = params['action']
     });
-
+    this.userInfo = this.utilsService.getCurrentUserInfo()
     // if (this.id) {
     //   this.dataService.findById(this.id, this.url)
     //     .subscribe((res: any) => {
@@ -203,7 +205,10 @@ export class CreateOrder implements OnInit {
         design: { id: item.designId },
         color: { id: item.colorId },
         quantity: item.quantity
-      }))
+      })),
+      user: {
+        id: this.userInfo.id
+      }
     };
   }
 

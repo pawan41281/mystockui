@@ -4,7 +4,7 @@ import { CommonModule, Location, LocationStrategy } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 // project import
-import { NavigationItem, NavigationItems } from '../navigation';
+import { NavigationItem } from '../navigation';
 import { environment } from 'src/environments/environment';
 
 import { NavGroupComponent } from './nav-group/nav-group.component';
@@ -47,7 +47,7 @@ export class NavContentComponent implements OnInit {
   title = 'Demo application for version numbering';
   currentApplicationVersion = environment.appVersion;
   url: string = 'menuGroups/'
-  navigation = NavigationItems;
+  //navigation = NavigationItems;
   windowWidth = window.innerWidth;
 
   // Constructor

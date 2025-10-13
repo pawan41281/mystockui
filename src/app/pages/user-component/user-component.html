@@ -10,6 +10,12 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     }
+                    @if (isError) {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ successMessage }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    }
                 </div>
             </div>
             <form #form="ngForm" class="row g-3 needs-validation" novalidate>
@@ -65,11 +71,15 @@
                     <input type="text" class="form-control" maxlength="30" name="password"
                         [(ngModel)]="userObj.password" id="password">
                 </div>
-                <div class="col-md-4">
-                    <label for="role" class="form-label fw-bold">Role </label>
-                    <input type="text" class="form-control" maxlength="30" #state="ngModel" name="role"
-                        [(ngModel)]="userObj.role" id="role">
+
+                <div class="col-md-2">
+                    <label for="role" class="form-label fw-bold">Role</label>
+                    <select class="form-select" name="role" [(ngModel)]="userObj.role" id="role">
+                        <option value="ROLE_ADMIN">Admin</option>
+                        <option value="ROLE_USER">User</option>
+                    </select>
                 </div>
+
                 <div class="col-md-2 margin-top-45 align-right">
                     <button [disabled]="form.invalid" class="btn btn-primary align-left" type="submit"
                         (click)="save()">Save</button>

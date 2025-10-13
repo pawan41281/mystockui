@@ -18,6 +18,7 @@ import { UtilService } from 'src/app/services/util-service';
 import { DataService } from 'src/app/services/data-service';
 import { requestResponse } from 'src/app/model/requestResponse';
 import { order } from 'src/app/model/order';
+import { userData } from 'src/app/model/userData';
 
 @Component({
   selector: 'app-create-party-challan',
@@ -54,6 +55,7 @@ export class CreatePartyChallan implements OnInit {
   isItemExist: boolean = false;
   isDuplicateChallan: boolean = false;
   filterObj: challanFilter = new challanFilter();
+  userInfo: userData;
 
   constructor() {
     this.rowCnt = 1;
@@ -69,6 +71,7 @@ export class CreatePartyChallan implements OnInit {
       this.action = params['action']
     });
 
+    this.userInfo = this.utilsService.getCurrentUserInfo()
     // if (this.id) {
     //   this.dataService.findById(this.id, this.url)
     //     .subscribe((res: any) => {
@@ -209,7 +212,10 @@ export class CreatePartyChallan implements OnInit {
         design: { id: item.designId },
         color: { id: item.colorId },
         quantity: item.quantity
-      }))
+      })),
+      user: {
+        id: this.userInfo.id
+      }
     };
   }
 

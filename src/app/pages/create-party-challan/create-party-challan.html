@@ -52,7 +52,7 @@
 
 
                 <!-- Party -->
-                <div class="col-md-3">
+                <!-- <div class="col-md-3">
 
                     <div class="dropdown">
                         <label for="selectedClient" class="form-label fw-bold">Party <span
@@ -72,7 +72,30 @@
                         <span>This field is mendatory</span>
                         }
                     </div>
+                </div> -->
+
+                <div class="col-md-3">
+                    <label for="selectedClient" class="form-label fw-bold">Party</label>
+                    <div class="input-group has-validation">
+                        <!-- <span class="input-group-text" id="inputGroupPrepend">&#64;</span> -->
+                        <select class="form-select" name="party" [(ngModel)]="selectedClient" name="selectedClient"
+                            #party="ngModel">
+                            <option value="">Select Options</option>
+                            @for (party of clients; track party.id) {
+                            <option [value]="party.id">{{ party.clientName }}</option>
+                            }
+                        </select>
+                        <div class="invalid-feedback">
+                            Please Select Party.
+                        </div>
+                    </div>
+                    <div class="text-danger">
+                        @if(party.errors?.['required'] && party.touched && party.dirty) {
+                        <span>This field is mendatory</span>
+                        }
+                    </div>
                 </div>
+
 
                 <!-- Challan Number -->
                 <div class="col-md-2">

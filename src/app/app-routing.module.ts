@@ -58,6 +58,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/contractor-challan-register-component/contractor-challan-register-component').then((c) => c.ContractorChallanRegisterComponent)
       },
       {
+        path: 'partyorderregister',
+        loadComponent: () => import('./pages/order-register-component/order-register-component').then((c) => c.OrderRegisterComponent)
+      },
+      {
         path: 'color',
         loadComponent: () => import('./pages/color-component/color-component').then((c) => c.ColorComponent)
       },

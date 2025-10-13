@@ -18,174 +18,166 @@ export interface NavigationItem {
   path?: string;
 }
 
-export const NavigationItems: NavigationItem[] = [
-  {
-    id: 'dashboard',
-    title: 'Dashboard',
-    type: 'group',
-    icon: 'icon-navigation',
-    children: [
-      {
-        id: 'default',
-        title: 'Home',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/dashboard/default',
-        icon: 'dashboard',
-        breadcrumbs: false
-      }
-    ]
-  },
-  {
-    id: 'challanbook',
-    title: 'Day Book',
-    type: 'group',
-    icon: 'icon-navigation',
-    children: [
-      {
-        id: 'newcontractorchallan',
-        title: 'New Challan (Contractor)',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/newcontractorchallan',
-        icon: 'ant-design'
-      },
-      {
-        id: 'newpartychallan',
-        title: 'New Challan (Party)',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/newpartychallan',
-        icon: 'ant-design'
-      },
-      {
-        id: 'newpartyorder',
-        title: 'New Order (Party)',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/newpartyorder',
-        icon: 'ant-design'
-      }
-    ]
-  },
-  {
-    id: 'register',
-    title: 'Register',
-    type: 'group',
-    icon: 'icon-navigation',
-    children: [
-      {
-        id: 'stockregister',
-        title: 'Stock',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/stockregister',
-        icon: 'profile'
-      },
-      {
-        id: 'contractorstockregister',
-        title: 'Contractor Stock',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/contractorstockregister',
-        icon: 'profile'
-      },
-      {
-        id: 'partychallanregister',
-        title: 'Party Challan Register',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/partychallanregister',
-        icon: 'profile'
-      },
-      {
-        id: 'contractorchallanregister',
-        title: 'Contractor Challan Register',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/contractorchallanregister',
-        icon: 'profile'
-      }
-    ]
-  },
-  {
-    id: 'masterdata',
-    title: 'Master Data',
-    type: 'group',
-    icon: 'icon-navigation',
-    children: [
-      {
-        id: 'color',
-        title: 'Color',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/color',
-        icon: 'ant-design'
-      },
-      {
-        id: 'design',
-        title: 'Design',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/design',
-        icon: 'ant-design'
-      },
-      {
-        id: 'party',
-        title: 'Party',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/party',
-        icon: 'ant-design'
-      },
-      {
-        id: 'contractor',
-        title: 'Contractor',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/contractor',
-        icon: 'ant-design'
-      },
-      {
-        id: 'openingStock',
-        title: 'Design Opening Stock',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/openingstock',
-        icon: 'ant-design'
-      },
-      {
-        id: 'contractorOpeningStock',
-        title: 'Contractor Opening Stock',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/contractoropeningstock',
-        icon: 'ant-design'
-      }
-    ]
-  },
-  {
-    id: 'user',
-    title: 'User Management',
-    type: 'group',
-    icon: 'icon-navigation',
-    children: [
-      {
-        id: 'newuser',
-        title: 'New User',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/newuser',
-        icon: 'ant-design'
-      },
-      {
-        id: 'searchuser',
-        title: 'Search User',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/searchuser',
-        icon: 'ant-design'
-      }
-    ]
-  }
-];
+// export const NavigationItems: NavigationItem[] = [
+//   {
+//     id: 'dashboard',
+//     title: 'Dashboard',
+//     type: 'group',
+//     icon: 'icon-navigation',
+//     children: [
+//       {
+//         id: 'default',
+//         title: 'Home',
+//         type: 'item',
+//         classes: 'nav-item',
+//         url: '/dashboard/default',
+//         icon: 'dashboard',
+//         breadcrumbs: false
+//       }
+//     ]
+//   },
+//   {
+//     id: 'challanbook',
+//     title: 'Day Book',
+//     type: 'group',
+//     icon: 'icon-navigation',
+//     children: [
+//       {
+//         id: 'newcontractorchallan',
+//         title: 'New Challan (Contractor)',
+//         type: 'item',
+//         classes: 'nav-item',
+//         url: '/newcontractorchallan',
+//         icon: 'ant-design'
+//       },
+//       {
+//         id: 'newpartychallan',
+//         title: 'New Challan (Party)',
+//         type: 'item',
+//         classes: 'nav-item',
+//         url: '/newpartychallan',
+//         icon: 'ant-design'
+//       },
+//       {
+//         id: 'newpartyorder',
+//         title: 'New Order (Party)',
+//         type: 'item',
+//         classes: 'nav-item',
+//         url: '/newpartyorder',
+//         icon: 'ant-design'
+//       }
+//     ]
+//   },
+//   {
+//     id: 'register',
+//     title: 'Register',
+//     type: 'group',
+//     icon: 'icon-navigation',
+//     children: [
+//       {
+//         id: 'stockregister',
+//         title: 'Stock',
+//         type: 'item',
+//         classes: 'nav-item',
+//         url: '/stockregister',
+//         icon: 'profile'
+//       },
+//       {
+//         id: 'contractorstockregister',
+//         title: 'Contractor Stock',
+//         type: 'item',
+//         classes: 'nav-item',
+//         url: '/contractorstockregister',
+//         icon: 'profile'
+//       },
+//       {
+//         id: 'partychallanregister',
+//         title: 'Party Challan Register',
+//         type: 'item',
+//         classes: 'nav-item',
+//         url: '/partychallanregister',
+//         icon: 'profile'
+//       },
+//       {
+//         id: 'contractorchallanregister',
+//         title: 'Contractor Challan Register',
+//         type: 'item',
+//         classes: 'nav-item',
+//         url: '/contractorchallanregister',
+//         icon: 'profile'
+//       }
+//     ]
+//   },
+//   {
+//     id: 'masterdata',
+//     title: 'Master Data',
+//     type: 'group',
+//     icon: 'icon-navigation',
+//     children: [
+//       {
+//         id: 'color',
+//         title: 'Color',
+//         type: 'item',
+//         classes: 'nav-item',
+//         url: '/color',
+//         icon: 'ant-design'
+//       },
+//       {
+//         id: 'design',
+//         title: 'Design',
+//         type: 'item',
+//         classes: 'nav-item',
+//         url: '/design',
+//         icon: 'ant-design'
+//       },
+//       {
+//         id: 'party',
+//         title: 'Party',
+//         type: 'item',
+//         classes: 'nav-item',
+//         url: '/party',
+//         icon: 'ant-design'
+//       },
+//       {
+//         id: 'contractor',
+//         title: 'Contractor',
+//         type: 'item',
+//         classes: 'nav-item',
+//         url: '/contractor',
+//         icon: 'ant-design'
+//       },
+//       {
+//         id: 'openingStock',
+//         title: 'Design Opening Stock',
+//         type: 'item',
+//         classes: 'nav-item',
+//         url: '/openingstock',
+//         icon: 'ant-design'
+//       },
+//       {
+//         id: 'contractorOpeningStock',
+//         title: 'Contractor Opening Stock',
+//         type: 'item',
+//         classes: 'nav-item',
+//         url: '/contractoropeningstock',
+//         icon: 'ant-design'
+//       }
+//     ]
+//   },
+//   {
+//     id: 'user',
+//     title: 'User Management',
+//     type: 'group',
+//     icon: 'icon-navigation',
+//     children: [
+//       {
+//         id: 'newuser',
+//         title: 'New User',
+//         type: 'item',
+//         classes: 'nav-item',
+//         url: '/newuser',
+//         icon: 'ant-design'
+//       }
+//     ]
+//   }
+// ];
