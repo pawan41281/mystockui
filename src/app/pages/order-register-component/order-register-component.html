@@ -77,3 +77,50 @@
             [paginationPageSize]="10" [paginationPageSizeSelector]="[10, 20, 50]" />
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" style="margin-top: 0px; margin-bottom: 0px;" id="exampleModalLabel">Order
+                    Items</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ag-grid-angular class="ag-theme-quartz" style="height: 300px;" [rowData]="itemDetails"
+                    [columnDefs]="itemDetailsColDefs" [defaultColDef]="defaultColDef"
+                    (gridReady)="onGridReady($event)" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Order</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Do you want to delete order?
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" (click)="deleteOrders()"
+                    data-bs-dismiss="modal">Yes</button>
+            </div>
+
+        </div>
+    </div>
+</div>

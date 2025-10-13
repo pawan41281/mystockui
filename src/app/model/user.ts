@@ -6,6 +6,7 @@ export class user {
     mobile: string;
     password: string;
     role: string;
+    roles: [];
 
 
     constructor() {

@@ -7,7 +7,7 @@ export class order {
   orderDate: string;
   orderNumber?: string;
   client: client;
-  challanItems: challanItems[];
+  orderItems: challanItems[];
   party: number;
   design: number;
   color: number;
@@ -17,7 +17,7 @@ export class order {
   constructor() {
     this.id = 0;
     this.client = new client();
-    this.challanItems = [];
+    this.orderItems = [];
     this.orderDate = "";
     this.party = 0;
     this.design = 0;

@@ -104,11 +104,27 @@ export class OrderRegisterComponent implements OnInit {
     {
       headerName: "Pices Count",
       cellRenderer: this.myCellRenderer
+    },
+    {
+      headerName: '',
+      cellClass: 'align-center',
+      sortable: false,
+      filter: false,
+      cellRenderer: this.myCellRendererAction.bind(this),
+      onCellClicked: (event) => {
+        this.itemDetails = event.data?.orderItems;
+      }
     }
   ];
 
   challanType(params: any) {
     return `<span> ${params.node.data.challanType == 'R' ? 'Recieve' : 'Issue'} </span>`
+  }
+
+  myCellRendererAction(params: any) {
+    this.id = params.node.data.id;
+    return `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="bi bi-search"></i> </button>
+     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"> <i class="bi bi-trash"></i> </button>`;
   }
 
 
@@ -126,7 +142,7 @@ export class OrderRegisterComponent implements OnInit {
     filter: true,
   };
 
-  cancelChallan() {
+  deleteOrders() {
     this.dataService.delete(`${this.url}/${this.id}`)
       .subscribe((res: any) => {
         this.clientOrders = res.data;
@@ -187,20 +203,20 @@ export class OrderRegisterComponent implements OnInit {
     params.orderItems.forEach((e: { quantity: number; }) => totalQuantity += e.quantity);
     return `${totalQuantity}`;
   }
-  // //=================Items details =============
+  //=================Items details =============
 
-  // itemDetailsColDefs: ColDef<challanItems>[] = [
-  //   {
-  //     headerName: "Design Name",
-  //     field: "design.designName",
-  //   },
-  //   {
-  //     headerName: "Color Name",
-  //     field: "color.colorName",
-  //   },
-  //   {
-  //     headerName: "Quantity",
-  //     field: "quantity",
-  //   }
-  // ];
+  itemDetailsColDefs: ColDef<challanItems>[] = [
+    {
+      headerName: "Design",
+      field: "design.designName",
+    },
+    {
+      headerName: "Color",
+      field: "color.colorName",
+    },
+    {
+      headerName: "Quantity",
+      field: "quantity",
+    }
+  ];
 }

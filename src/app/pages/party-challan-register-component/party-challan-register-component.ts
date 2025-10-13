@@ -212,11 +212,11 @@ export class PartyChallanRegisterComponent implements OnInit {
 
   itemDetailsColDefs: ColDef<challanItems>[] = [
     {
-      headerName: "Design Name",
+      headerName: "Design",
       field: "design.designName",
     },
     {
-      headerName: "Color Name",
+      headerName: "Color",
       field: "color.colorName",
     },
     {

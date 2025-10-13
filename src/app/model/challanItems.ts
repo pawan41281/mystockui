@@ -3,7 +3,7 @@ import { design } from "./design";
 
 export class challanItems {
 
-    id: Number;
+    id: number;
     design: design;
     color: color;
     quantity: number;

@@ -64,9 +64,16 @@ export class UserComponent implements OnInit {
     },
     {
       headerName: "Role",
-      field: "role",
+      cellRenderer: this.myCellRendererAction.bind(this),
     }
   ];
+
+
+  myCellRendererAction(params: any) {
+    let role = '';
+    params.node.data.roles.forEach(e => role += e.name)
+    return role;
+  }
 
   defaultColDef: ColDef = {
     flex: 1,
