@@ -56,14 +56,23 @@
                     <div class="dropdown">
                         <label for="contractor" class="form-label fw-bold">Contractor <span
                                 class="text-danger">*</span></label>
-                        <input type="text" class="form-control" [(ngModel)]="contractorChallanObj.party"
+                        <!-- <input type="text" class="form-control" [(ngModel)]="contractorChallanObj.party"
                             #contractor="ngModel" list="constructors" name="contractor" id="contractor"
                             placeholder="Type to search..." required>
                         <datalist id="constructors">
                             @for (party of constructors; track party.id) {
                             <option [value]="party.contractorName"></option>
                             }
-                        </datalist>
+                        </datalist> -->
+
+                        <select class="form-select" name="contractor" [(ngModel)]="contractorChallanObj.party"
+                            #contractor="ngModel" name="contractor" #party="ngModel">
+                            <option value="">Select Options</option>
+                            @for (party of constructors; track party.id) {
+                            <option [value]="party.id">{{ party.contractorName }}</option>
+                            }
+                        </select>
+
                         <div class="text-danger">
                             @if(contractor.errors?.['required'] && contractor.touched && contractor.dirty) {
                             <span>This field is mendatory</span>

@@ -200,7 +200,7 @@ export class CreateOrder implements OnInit {
     return {
       orderNumber: this.clientOrder.orderNumber,
       orderDate: this.utilsService.formatDate_dd_MM_YYYY(this.orderDate),
-      client: { id: this.clients.find(e => e.clientName == this.selectedClient)?.id },
+      client: { id: this.selectedClient },
       orderItems: this.items.map(item => ({
         design: { id: item.designId },
         color: { id: item.colorId },

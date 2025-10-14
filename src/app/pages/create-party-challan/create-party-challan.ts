@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, Input, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { clientChallan } from '../../model/clientChallan';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AgGridAngular } from 'ag-grid-angular';
-import { ColumnGroupService, type ColDef, type CsvExportParams, type GridApi, type GridReadyEvent } from "ag-grid-community";
+import { type ColDef, type GridApi, type GridReadyEvent } from "ag-grid-community";
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
@@ -72,12 +72,6 @@ export class CreatePartyChallan implements OnInit {
     });
 
     this.userInfo = this.utilsService.getCurrentUserInfo()
-    // if (this.id) {
-    //   this.dataService.findById(this.id, this.url)
-    //     .subscribe((res: any) => {
-    //       this.clientChallanObj = res;
-    //     })
-    // }
   }
 
   //fetch client list
@@ -202,11 +196,11 @@ export class CreatePartyChallan implements OnInit {
   }
 
   private buildRequestObject(): any {
-    return {
+    let obj = {
       challanNumber: this.clientChallanObj.challanNumber,
       challanDate: this.utilsService.formatDate_dd_MM_YYYY(this.challanDate),
-      client: { id: this.getclientId() },
-      order: { id: this.clientChallanObj.orderNumber },
+      client: { id: this.selectedClient },
+
       challanType: this.clientChallanObj.challanType,
       challanItems: this.items.map(item => ({
         design: { id: item.designId },
@@ -217,10 +211,12 @@ export class CreatePartyChallan implements OnInit {
         id: this.userInfo.id
       }
     };
-  }
 
-  getclientId() {
-    return this.clients.find(e => e.clientName == this.selectedClient)?.id;
+    if (this.clientChallanObj.orderNumber) {
+      obj['order'] = { id: this.clientChallanObj.orderNumber }
+    }
+
+    return obj;
   }
 
   updateForm = (key: string, event: any) => {
@@ -292,7 +288,6 @@ export class CreatePartyChallan implements OnInit {
 
   selectedParty(selectedParty: any) {
     const obj: client | undefined = this.clients.find(e => e.clientName == selectedParty);
-    console.log(this.getclientId(), 'selectedParty  :; ', selectedParty)
     this.getOrders();
   }
 
@@ -301,7 +296,7 @@ export class CreatePartyChallan implements OnInit {
   // fetch order list
   getOrders = () => {
 
-    this.dataService.get('clientorders?clientid=' + this.getclientId())
+    this.dataService.get('clientorders?clientid=' + this.selectedClient)
       .subscribe((res: requestResponse) => {
         this.orders = res.data;
       })

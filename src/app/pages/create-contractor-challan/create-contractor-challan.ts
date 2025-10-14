@@ -210,7 +210,7 @@ export class CreateContractorChallan implements OnInit {
       "challanNumber": this.contractorChallanObj.challanNumber,
       "challanDate": this.utilsService.formatDate_dd_MM_YYYY(this.challanDate),
       "contractor": {
-        "id": this.constructors.find(e => e.contractorName == this.contractorChallanObj.party)?.id
+        "id": this.contractorChallanObj.party
       },
       "challanType": this.contractorChallanObj.challanType,
       "challanItems": this.buildItemsData(),

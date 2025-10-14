@@ -44,7 +44,7 @@
                     <div class="dropdown">
                         <label for="selectedClient" class="form-label fw-bold">Party <span
                                 class="text-danger">*</span></label>
-                        <input type="text" class="form-control" [(ngModel)]="selectedClient" #party="ngModel"
+                        <!-- <input type="text" class="form-control" [(ngModel)]="selectedClient" #party="ngModel"
                             list="datalistOptions" name="selectedClient" id="selectedClient"
                             placeholder="Type to search..." (change)="selectedParty($any($event.target).value)"
                             required>
@@ -52,7 +52,15 @@
                             @for (party of clients; track party.id) {
                             <option [value]="party.clientName"></option>
                             }
-                        </datalist>
+                        </datalist> -->
+
+                        <select class="form-select" name="party" [(ngModel)]="selectedClient" name="selectedClient"
+                            #party="ngModel">
+                            <option value="">Select Options</option>
+                            @for (party of clients; track party.id) {
+                            <option [value]="party.id">{{ party.clientName }}</option>
+                            }
+                        </select>
                     </div>
                     <div class="text-danger">
                         @if(party.errors?.['required'] && party.touched && party.dirty) {
