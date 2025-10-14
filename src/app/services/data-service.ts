@@ -47,7 +47,7 @@ export class DataService {
   }
 
   patch<T>(endpoint: string, id: number): Observable<T> {
-    const fullUrl = `${this.baseUrl}/${endpoint}/${id}/false`;
+    const fullUrl = `${this.baseUrl}/${endpoint}/${id}/true`;
     return this.http.patch<T>(fullUrl, null);
   }
   delete = (url: string) => {

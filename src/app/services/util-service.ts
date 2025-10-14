@@ -48,6 +48,13 @@ export class UtilService {
     return `<span class="${statusDotClass}"></span>`;
   }
 
+  public getUserStatus(params) {
+
+    const isLocked = params.node.data.locked;
+    const statusDotClass = isLocked ? 'dot-red' : 'dot-green';
+    return `<span class="${statusDotClass}"></span>`;
+  }
+
   public validateGST(gstNo: string) {
     return gstNo && gstNo.length < 15 ? true : false;
   }

@@ -10,6 +10,8 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { userData } from 'src/app/model/userData';
 import { user } from 'src/app/model/user';
+import { CustomeCellComponent } from '../custome-cell-component/custome-cell-component';
+import { requestResponse } from 'src/app/model/requestResponse';
 
 @Component({
   selector: 'app-user-component',
@@ -24,11 +26,12 @@ export class UserComponent implements OnInit {
   action: string = '';
   url: string = 'users';
   userObj: user = new user();
+  userObjEdit: user = new user();
   dataService = inject(DataService);
   utilsService: UtilService = inject(UtilService);
   downloadService = inject(DownloadSerivceService)
   route = inject(Router)
-
+  isSameEditObj: boolean = false
   showStatus: boolean = false;
   private gridApi!: GridApi;
   user_data: user[] = [];
@@ -46,6 +49,13 @@ export class UserComponent implements OnInit {
 
 
   colDefs: ColDef<user>[] = [
+    {
+      headerName: "Status",
+      cellClass: 'margin-top-8',
+      sortable: false,
+      filter: false,
+      cellRenderer: this.utilsService.getUserStatus
+    },
     {
       headerName: "User ID",
       field: "userId",
@@ -65,6 +75,25 @@ export class UserComponent implements OnInit {
     {
       headerName: "Role",
       cellRenderer: this.myCellRendererAction.bind(this),
+    },
+    {
+      headerName: 'Actions',
+      field: 'userId',
+      sortable: false,
+      filter: false,
+      cellRenderer: CustomeCellComponent,
+      onCellClicked: () => {
+
+        // if (this.utilsService.commondata.action == 'edit') {
+        this.userObj = this.utilsService.commondata.data;
+        this.userObj.role = this.utilsService.commondata.data.roles[0].name
+        //}
+        this.userObjEdit = JSON.parse(JSON.stringify(this.userObj))
+        this.isSameEditObj = this.utilsService.compareObjects(this.userObjEdit, this.userObj)
+      },
+      cellRendererParams: {
+        page: { name: "user" }
+      }
     }
   ];
 
@@ -138,6 +167,17 @@ export class UserComponent implements OnInit {
       .subscribe((res: any) => {
         this.user_data = res.data;
         this.totalRecord = res.metadata.recordcount;
+      })
+  }
+
+  deactivateUser = () => {
+    console.log('deactivate user :: ', this.userObjEdit)
+    this.dataService.patch(`${this.url}`, this.userObjEdit.id)
+      .subscribe((res: requestResponse) => {
+        if (res.status === 'success') {
+          this.userObj = new user();
+          this.searchUser();
+        }
       })
   }
 

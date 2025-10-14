@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';

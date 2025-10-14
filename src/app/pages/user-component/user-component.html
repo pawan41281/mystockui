@@ -120,18 +120,19 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Deactivate Party</h4>
+                <h4 class="modal-title">Deactivate User</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
             <!-- Modal body -->
             <div class="modal-body">
-                Do you want to deactivate the Party?
+                Do you want to deactivate the User?
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Yes</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="deactivateUser()">Yes</button>
             </div>
 
         </div>

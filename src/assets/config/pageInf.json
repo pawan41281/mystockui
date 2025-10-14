@@ -22,5 +22,11 @@
             "new": "/create-color",
             "list": "/list-color"
         }
+    },
+    {
+        "user": {
+            "new": "/create-user",
+            "list": "/list-user"
+        }
     }
 ]

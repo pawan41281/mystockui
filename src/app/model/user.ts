@@ -1,5 +1,6 @@
 export class user {
 
+    id: number;
     userId: string;
     name: string;
     email: string;
@@ -10,6 +11,7 @@ export class user {
 
 
     constructor() {
+        this.id = 0;
         this.userId = "";
         this.email = "";
         this.mobile = "";
