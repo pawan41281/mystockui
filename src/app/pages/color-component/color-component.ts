@@ -34,6 +34,7 @@ export class ColorComponent implements OnInit {
   colorObj: color = new color();
   userInfo: userData;
   colorObjedit: color = new color();
+  saveLabel:string="Save"
 
   delObj: design = new design();
   isInactiveDesign: boolean = false;
@@ -75,6 +76,7 @@ export class ColorComponent implements OnInit {
 
         if (this.utilsService.commondata.action == 'edit') {
           this.colorObj = this.utilsService.commondata.data;
+          this.saveLabel="Update"
         }
         this.colorObjedit = JSON.parse(JSON.stringify(this.colorObj))
         this.isSameEditObj = this.utilsService.compareObjects(this.colorObjedit, this.colorObj)
@@ -114,7 +116,9 @@ export class ColorComponent implements OnInit {
   }
 
   onSave = () => {
-    this.colorObj.user.id = this.userInfo.id;
+    if(this.saveLabel=="Save")
+      this.colorObj.user.id = this.userInfo.id;
+
     this.dataService.post(this.url, this.colorObj)
       .subscribe((res: requestResponse) => {
         if (res.status === 'success') {
@@ -122,13 +126,14 @@ export class ColorComponent implements OnInit {
           this.getColorData();
         }
       })
+    this.saveLabel="Save"
   }
 
 
   checkData = () => {
 
     this.isSameEditObj = this.utilsService.compareObjects(this.colorObjedit, this.colorObj)
-    console.log(this.isSameEditObj, ' ======= isSameEditObj === ')
+    //console.log(this.isSameEditObj, ' ======= isSameEditObj === ')
 
   }
 

@@ -36,7 +36,7 @@
                 <!-- <div class="col-md-1 margin-top-45">{{form.invalid}} === {{!isSameEditObj}} --- {{form.invalid && isSameEditObj}} -->
                   <div class="col-md-1 margin-top-45">
                     <button [disabled]="form.invalid && isSameEditObj" class="btn btn-primary align-left" type="submit"
-                        (click)="onSave()">Save</button>
+                        (click)="onSave()">{{saveLabel}}</button>
                 </div>
             </form>
 
