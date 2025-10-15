@@ -1,6 +1,6 @@
 // angular import
 import { Component, inject, input, OnInit, output } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 // project import
 
@@ -27,7 +27,9 @@ import {
 } from '@ant-design/icons-angular/icons';
 import { NgbDropdownModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { Auth } from 'src/app/model/login';
 import { userData } from 'src/app/model/userData';
+import { DataService } from 'src/app/services/data-service';
 import { UtilService } from 'src/app/services/util-service';
 
 @Component({
@@ -40,10 +42,14 @@ export class NavRightComponent implements OnInit {
   private iconService = inject(IconService);
   private utilsService = inject(UtilService);
   styleSelectorToggle = input<boolean>();
+  dataService = inject(DataService);
+  router = inject(Router);
   Customize = output();
   windowWidth: number;
   screenFull: boolean = true;
   userInfo: userData;
+  url: string = 'auth/logout';
+  auth: Auth = new Auth()
 
   constructor() {
     this.windowWidth = window.innerWidth;
@@ -86,4 +92,19 @@ export class NavRightComponent implements OnInit {
       title: 'Change Password'
     }
   ];
+
+  logout = () => {
+
+    console.log('logout service call ')
+
+    this.dataService.post(this.url, this.auth)
+      .subscribe((res: any) => {
+        if (res.status === 'success') {
+          console.log('response ', res)
+          localStorage.removeItem('token');
+          //this.getColorData();
+          this.router.navigate(['']);
+        }
+      })
+  }
 }

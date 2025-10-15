@@ -17,11 +17,12 @@ import { DataService } from 'src/app/services/data-service';
 import { UtilService } from 'src/app/services/util-service';
 import { clientChallan } from 'src/app/model/clientChallan';
 import { DownloadSerivceService } from 'src/app/services/download-serivce-service';
+import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
 
 @Component({
   selector: 'app-party-challan-register-component',
   imports: [AgGridAngular, FormsModule, CommonModule, MatDatepickerModule,
-    MatNativeDateModule, MatInputModule, NgbTypeaheadModule],
+    MatNativeDateModule, MatInputModule, NgbTypeaheadModule, CardComponent],
   templateUrl: './party-challan-register-component.html',
   styleUrl: './party-challan-register-component.scss'
 })

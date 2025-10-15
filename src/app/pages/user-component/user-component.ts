@@ -41,10 +41,10 @@ export class UserComponent implements OnInit {
   successMessage: string = '';
   userInfo: userData;
   isError: boolean = false;
-  actionLabel:string = "Save"
+  actionLabel: string = "Save"
   roles: role[] = [];
 
-  getRoles(){
+  getRoles() {
     this.dataService.get('roles')
       .subscribe((res: requestResponse) => {
         this.roles = res.data;
@@ -94,7 +94,7 @@ export class UserComponent implements OnInit {
       cellRenderer: CustomeCellComponent,
       onCellClicked: () => {
 
-        // if (this.utilsService.commondata.action == 'edit') {
+        this.actionLabel = 'Update';
         this.userObj = this.utilsService.commondata.data;
         this.userObj.role = this.utilsService.commondata.data.roles[0].name
         //}
@@ -145,6 +145,10 @@ export class UserComponent implements OnInit {
   }
 
   save(): void {
+    console.log(' ::::::::::::::::::::: ', this.userObj.role)
+    this.userObj.roles = [];
+    this.userObj.roles.push({ 'id': null, name: this.userObj.role });
+    console.log(' ::::::::::::::::::::: ', this.userObj)
 
     this.dataService.post(this.url, this.userObj).subscribe({
       next: (res: any) => {
@@ -157,6 +161,7 @@ export class UserComponent implements OnInit {
             this.showSuccessMessage = false;
             this.successMessage = '';
           }, 3000);
+          this.actionLabel = 'Save';
         } else {
           this.isError = true;
           this.successMessage = res.message;
@@ -182,7 +187,7 @@ export class UserComponent implements OnInit {
 
   deactivateUser = () => {
     console.log('deactivate user :: ', this.userObjEdit)
-    this.dataService.patch(`${this.url}`, this.userObjEdit.id)
+    this.dataService.patch(`${this.url}`, this.userObjEdit.id, true)
       .subscribe((res: requestResponse) => {
         if (res.status === 'success') {
           this.userObj = new user();

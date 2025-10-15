@@ -149,7 +149,7 @@ export class ContractorComponent implements OnInit {
   }
 
   deleteClient() {
-    this.dataService.patch(this.url, this.contractorObj.id)
+    this.dataService.patch(this.url, this.contractorObj.id, false)
       .subscribe((res: any) => {
         this.contractor[0] = res;
         this.searchContractor();

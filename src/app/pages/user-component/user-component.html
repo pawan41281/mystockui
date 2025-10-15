@@ -48,7 +48,7 @@
                         [(ngModel)]="userObj.email" id="email">
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="mobile" class="form-label fw-bold">Mobile Number <span
                             class="text-danger">*</span></label>
                     <!-- <div class="input-group has-validation"> -->
@@ -66,22 +66,29 @@
                     </div>
 
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="password" class="form-label fw-bold">Password</label>
                     <input type="password" class="form-control" maxlength="30" name="password"
                         [(ngModel)]="userObj.password" id="password">
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label for="role" class="form-label fw-bold">Role</label>
                     <select class="form-select" name="role" [(ngModel)]="userObj.role" id="role">
                         @for (userrole of roles; track userrole.id) {
-                            <option [value]="userrole.name">{{userrole.name}}</option>
+                        <option [value]="userrole.name">{{userrole.name}}</option>
                         }
                     </select>
                 </div>
+                <div class="col-md-2">
+                    <label for="active" class="form-label fw-bold">Locked</label>
+                    <select class="form-select" name="active" [(ngModel)]="userObj.locked" id="active">
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
 
-                <div class="col-md-2 margin-top-45 align-right">
+                <div class="col-md-1 margin-top-45 align-right">
                     <button [disabled]="form.invalid" class="btn btn-primary align-left" type="submit"
                         (click)="save()">{{actionLabel}}</button>
 

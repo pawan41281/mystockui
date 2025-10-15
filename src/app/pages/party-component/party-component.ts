@@ -144,7 +144,7 @@ export class PartyComponent implements OnInit {
   }
 
   deleteClient() {
-    this.dataService.patch(this.url, this.clientObj.id)
+    this.dataService.patch(this.url, this.clientObj.id, false)
       .subscribe((res: any) => {
         this.clients[0] = res;
         this.searchClient();

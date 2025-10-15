@@ -118,7 +118,7 @@ export class DesignComponent implements OnInit {
 
   deleteDesign() {
 
-    this.dataService.patch(this.url, this.designObj.id)
+    this.dataService.patch(this.url, this.designObj.id, false)
       .subscribe((res: requestResponse) => {
         if (res.status === 'success') {
           this.designObj = new design();

@@ -19,11 +19,12 @@ import { DownloadSerivceService } from 'src/app/services/download-serivce-servic
 import { UtilService } from 'src/app/services/util-service';
 import { DataService } from 'src/app/services/data-service';
 import { requestResponse } from 'src/app/model/requestResponse';
+import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
 
 @Component({
   selector: 'app-contractor-challan-register-component',
   imports: [AgGridAngular, FormsModule, CommonModule, MatDatepickerModule,
-    MatNativeDateModule, MatInputModule, NgbTypeaheadModule],
+    MatNativeDateModule, MatInputModule, NgbTypeaheadModule, CardComponent],
   templateUrl: './contractor-challan-register-component.html',
   styleUrl: './contractor-challan-register-component.scss'
 })

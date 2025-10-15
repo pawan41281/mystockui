@@ -1,3 +1,5 @@
+import { role } from "./role";
+
 export class user {
 
     id: number;
@@ -6,8 +8,9 @@ export class user {
     email: string;
     mobile: string;
     password: string;
+    locked: boolean;
     role: string;
-    roles: [];
+    roles: role[];
 
 
     constructor() {
@@ -16,6 +19,8 @@ export class user {
         this.email = "";
         this.mobile = "";
         this.password = "";
+        this.locked = false;
         this.role = "";
+        this.roles = [];
     }
 }
