@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { userData } from 'src/app/model/userData';
 import { user } from 'src/app/model/user';
+import { role } from 'src/app/model/role';
 import { CustomeCellComponent } from '../custome-cell-component/custome-cell-component';
 import { requestResponse } from 'src/app/model/requestResponse';
 
@@ -40,11 +41,20 @@ export class UserComponent implements OnInit {
   successMessage: string = '';
   userInfo: userData;
   isError: boolean = false;
+  actionLabel:string = "Save"
+  roles: role[] = [];
 
+  getRoles(){
+    this.dataService.get('roles')
+      .subscribe((res: requestResponse) => {
+        this.roles = res.data;
+      })
+  }
 
   ngOnInit() {
     this.searchUser()
     this.userInfo = this.utilsService.getCurrentUserInfo()
+    this.getRoles();
   }
 
 
