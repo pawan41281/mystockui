@@ -93,14 +93,6 @@ export class OrderRegisterComponent implements OnInit {
       field: "client.clientName",
     },
     {
-      headerName: "Mobile",
-      field: "client.mobile",
-    },
-    {
-      headerName: "Email",
-      field: "client.email"
-    },
-    {
       headerName: "Pices Count",
       cellRenderer: this.myCellRenderer
     },
