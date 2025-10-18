@@ -143,15 +143,14 @@ export class DefaultComponent implements OnInit {
             challancount: this.getChallanCount(this.cardsData.dashboardCurrentMonthClientCardVos[0])
           },
           {
-            title: "Challan Recieved From Party In Current Month", challanLink: {
-              challanLink: {
-                url: '/partychallanregister',
-                queryParams: {
-                  challanType: 'R',
-                  fromDate: monthStartDate,
-                  toDate: monthEndDate
-                }
-              },
+            title: "Challan Recieved From Party In Current Month",
+            challanLink: {
+              url: '/partychallanregister',
+              queryParams: {
+                challanType: 'R',
+                fromDate: monthStartDate,
+                toDate: monthEndDate
+              }
             },
             challancount: this.getChallanCount(this.cardsData.dashboardCurrentMonthClientCardVos[1])
           },

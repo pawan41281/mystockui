@@ -58,7 +58,7 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/contractor-challan-register-component/contractor-challan-register-component').then((c) => c.ContractorChallanRegisterComponent)
       },
       {
-        path: 'partyorderregister',
+        path: 'orderregister',
         loadComponent: () => import('./pages/order-register-component/order-register-component').then((c) => c.OrderRegisterComponent)
       },
       {

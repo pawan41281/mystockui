@@ -79,7 +79,7 @@
                     <div class="input-group has-validation">
                         <!-- <span class="input-group-text" id="inputGroupPrepend">&#64;</span> -->
                         <select class="form-select" name="party" [(ngModel)]="selectedClient" name="selectedClient"
-                            #party="ngModel">
+                            (change)="selectedParty($any($event.target).value)" #party="ngModel">
                             <option value="">Select Options</option>
                             @for (party of clients; track party.id) {
                             <option [value]="party.id">{{ party.clientName }}</option>
