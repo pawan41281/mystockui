@@ -17,11 +17,12 @@ import { DataService } from 'src/app/services/data-service';
 import { UtilService } from 'src/app/services/util-service';
 import { DownloadSerivceService } from 'src/app/services/download-serivce-service';
 import { order } from 'src/app/model/order';
+import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
 
 @Component({
   selector: 'app-order-register-component',
   imports: [AgGridAngular, FormsModule, CommonModule, MatDatepickerModule,
-    MatNativeDateModule, MatInputModule, NgbTypeaheadModule],
+    MatNativeDateModule, MatInputModule, NgbTypeaheadModule, CardComponent],
   templateUrl: './order-register-component.html',
   styleUrl: './order-register-component.scss'
 })
