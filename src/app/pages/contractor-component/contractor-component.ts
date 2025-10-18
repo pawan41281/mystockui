@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 import { contractor } from 'src/app/model/contractor';
 import { userData } from 'src/app/model/userData';
 
-
 @Component({
   selector: 'app-contractor-component',
   imports: [CardComponent, AgGridAngular, FormsModule, CommonModule],
@@ -38,12 +37,10 @@ export class ContractorComponent implements OnInit {
   successMessage: string = '';
   userInfo: userData;
 
-
   ngOnInit() {
     this.searchContractor()
     this.userInfo = this.utilsService.getCurrentUserInfo()
   }
-
 
   validateGst() {
     this.isValidGst = this.utilsService.validateGST(this.contractorObj.gstNo);
@@ -89,7 +86,6 @@ export class ContractorComponent implements OnInit {
     minWidth: 100,
     sortable: true,
     filter: true,
-
   };
 
   onGridReady(params: GridReadyEvent) {
@@ -117,7 +113,7 @@ export class ContractorComponent implements OnInit {
   }
 
   save(): void {
-    this.contractorObj.user.id = this.userInfo.id;
+    this.contractorObj.user = this.userInfo;
     this.dataService.post(this.url, this.contractorObj).subscribe({
       next: (res: any) => {
         if (res.status === 'success') {
@@ -129,8 +125,6 @@ export class ContractorComponent implements OnInit {
             this.showSuccessMessage = false;
             this.successMessage = '';
           }, 3000);
-        } else {
-          console.warn('Save failed:', res.message);
         }
       },
       error: (err) => {
@@ -140,7 +134,6 @@ export class ContractorComponent implements OnInit {
   }
 
   searchContractor = () => {
-
     this.dataService.get(this.url)
       .subscribe((res: any) => {
         this.contractor = res.data;

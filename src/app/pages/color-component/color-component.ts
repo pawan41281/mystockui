@@ -131,10 +131,7 @@ export class ColorComponent implements OnInit {
 
 
   checkData = () => {
-
     this.isSameEditObj = this.utilsService.compareObjects(this.colorObjedit, this.colorObj)
-    //console.log(this.isSameEditObj, ' ======= isSameEditObj === ')
-
   }
 
   deactivateColor() {

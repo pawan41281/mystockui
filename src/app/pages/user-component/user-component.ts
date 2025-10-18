@@ -145,10 +145,8 @@ export class UserComponent implements OnInit {
   }
 
   save(): void {
-    console.log(' ::::::::::::::::::::: ', this.userObj.role)
     this.userObj.roles = [];
     this.userObj.roles.push({ 'id': null, name: this.userObj.role });
-    console.log(' ::::::::::::::::::::: ', this.userObj)
 
     this.dataService.post(this.url, this.userObj).subscribe({
       next: (res: any) => {
@@ -186,7 +184,6 @@ export class UserComponent implements OnInit {
   }
 
   deactivateUser = () => {
-    console.log('deactivate user :: ', this.userObjEdit)
     this.dataService.patch(`${this.url}`, this.userObjEdit.id, true)
       .subscribe((res: requestResponse) => {
         if (res.status === 'success') {

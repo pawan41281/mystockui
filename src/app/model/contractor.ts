@@ -15,7 +15,6 @@ export class contractor {
     createdOn: string;
     user: userData;
 
-
     constructor() {
         this.id = 0;
         this.contractorName = "";
@@ -27,7 +26,7 @@ export class contractor {
         this.mobile = "";
         this.gstNo = "";
         this.active = true;
-        this.createdOn = "";
         this.user = new userData()
+        this.createdOn = "";
     }
 }

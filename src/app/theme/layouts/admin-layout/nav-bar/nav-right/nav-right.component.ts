@@ -1,11 +1,7 @@
-// angular import
 import { Component, inject, input, OnInit, output } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-
-// project import
-
-// icon
 import { IconService, IconDirective } from '@ant-design/icons-angular';
+
 import {
   BellOutline,
   SettingOutline,
@@ -77,7 +73,6 @@ export class NavRightComponent implements OnInit {
   }
   ngOnInit(): void {
     this.userInfo = this.utilsService.getCurrentUserInfo()
-    console.log('userInfo :: ', this.userInfo)
   }
   profileoptions = [
     {
@@ -94,13 +89,9 @@ export class NavRightComponent implements OnInit {
   ];
 
   logout = () => {
-
-    console.log('logout service call ')
-
     this.dataService.post(this.url, this.auth)
       .subscribe((res: any) => {
         if (res.status === 'success') {
-          console.log('response ', res)
           localStorage.removeItem('token');
           //this.getColorData();
           this.router.navigate(['']);

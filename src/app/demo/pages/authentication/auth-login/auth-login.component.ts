@@ -39,13 +39,10 @@ export class AuthLoginComponent {
     this.dataService.post(this.url, this.auth)
       .subscribe((res: any) => {
         if (res.status === 'success') {
-          console.log('response ', res)
           localStorage.setItem('token', res.data.accessToken);
           //this.getColorData();
           this.router.navigate(['/dashboard/default']);
         }
       })
-
-    console.log(`auth data ${this.auth.userId} and ${this.auth.password}`)
   }
 }

@@ -15,7 +15,6 @@ import { challanItems } from '../../model/challanItems';
 import { orderFilter } from '../../model/orderFilter';
 import { DataService } from 'src/app/services/data-service';
 import { UtilService } from 'src/app/services/util-service';
-import { clientChallan } from 'src/app/model/clientChallan';
 import { DownloadSerivceService } from 'src/app/services/download-serivce-service';
 import { order } from 'src/app/model/order';
 

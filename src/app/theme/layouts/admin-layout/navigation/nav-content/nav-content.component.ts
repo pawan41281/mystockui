@@ -80,9 +80,7 @@ export class NavContentComponent implements OnInit {
   getMenu() {
     this.dataService.get(this.url)
       .subscribe((res: requestResponse) => {
-        console.log('data is ', res)
         this.navigations = res.data;
-        console.log(' this.navigations ',)
       })
   }
 

@@ -63,10 +63,9 @@ export class DefaultComponent implements OnInit {
     this.dataService.post('users/currentuser', null)
       .subscribe((res: requestResponse) => {
         if (res.status === 'success') {
-          console.log('in fetching success user sections')
           localStorage.setItem('userInfo', JSON.stringify(res.data));
         } else {
-          console.log('in fetch user failure sections')
+          console.error('in fetch user failure sections')
         }
       })
   }

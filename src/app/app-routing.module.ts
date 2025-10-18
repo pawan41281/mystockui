@@ -100,12 +100,11 @@ export const routes: Routes = [
       {
         path: 'searchuser',
         loadComponent: () => import('./demo/others/sample-page/sample-page.component').then((c) => c.SamplePageComponent)
+      },
+      {
+        path: 'contractoraccountstatement',
+        loadComponent: () => import('./pages/account-statement/account-statement').then((c) => c.AccountStatement)
       }
-
-      // {
-      //   path: 'users',
-      //   loadComponent: () => import('./demo/others/sample-page/sample-page.component').then((c) => c.SamplePageComponent)
-      // }
 
     ]
   },
