@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-sm-12">
-        <app-card cardTitle="Create New Challan">
+        <app-card cardTitle="New Challan (Contractor)">
             <div class="row">
                 <div class="col-12">
                     @if (showSuccessMessage) {
@@ -42,8 +42,6 @@
                     <label for="challantype" class="form-label fw-bold">Challan Type</label>
                     <select id="challantype" class="form-select" name="challantype"
                         [(ngModel)]="contractorChallanObj.challanType">
-                        <!-- <option value="">Select</option> -->
-                        <!-- <option value="">Any</option> -->
                         <option value="I">Issue</option>
                         <option value="R">Receive</option>
                     </select>
@@ -56,15 +54,6 @@
                     <div class="dropdown">
                         <label for="contractor" class="form-label fw-bold">Contractor <span
                                 class="text-danger">*</span></label>
-                        <!-- <input type="text" class="form-control" [(ngModel)]="contractorChallanObj.party"
-                            #contractor="ngModel" list="constructors" name="contractor" id="contractor"
-                            placeholder="Type to search..." required>
-                        <datalist id="constructors">
-                            @for (party of constructors; track party.id) {
-                            <option [value]="party.contractorName"></option>
-                            }
-                        </datalist> -->
-
                         <select class="form-select" name="contractor" [(ngModel)]="contractorChallanObj.party"
                             #contractor="ngModel" name="contractor" #party="ngModel">
                             <option value="">Select Options</option>
@@ -127,9 +116,14 @@
                     <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
                         class="form-control" name="quantity" [(ngModel)]="contractorChallanObj.quantity" id="quantity">
                 </div>
-
+                <!-- Rate -->
+                <div class="col-md-2">
+                    <label for="rate" class="form-label fw-bold">Rate</label>
+                    <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
+                        class="form-control" name="rate" [(ngModel)]="contractorChallanObj.rate" id="rate">
+                </div>
                 <!-- Add Button -->
-                <div class="col-1 margin-top-48">
+                <div class="col-1 margin-top-48 align-right">
                     <button class="btn btn-primary align-left" [disabled]="disableAdd" type="submit"
                         (click)="addItems()">Add</button>
                 </div>

@@ -18,6 +18,7 @@ import { UtilService } from 'src/app/services/util-service';
 import { DownloadSerivceService } from 'src/app/services/download-serivce-service';
 import { order } from 'src/app/model/order';
 import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
+import { userData } from 'src/app/model/userData';
 
 @Component({
   selector: 'app-order-register-component',
@@ -45,6 +46,8 @@ export class OrderRegisterComponent implements OnInit {
   fromDate: Date = new Date();
   toDate: Date = new Date();
   filterObj: orderFilter = new orderFilter();
+  isAdmin: boolean = false;
+  userInfo: userData;
 
   constructor() {
     this.getClients();
@@ -61,6 +64,10 @@ export class OrderRegisterComponent implements OnInit {
     });
 
     this.searchClientOrder()
+    this.userInfo = this.utilsService.getCurrentUserInfo()
+    if (this.userInfo?.roles[0].name == 'ROLE_ADMIN') {
+      this.isAdmin = true
+    }
   }
 
   getClients = () => {
@@ -115,8 +122,9 @@ export class OrderRegisterComponent implements OnInit {
 
   myCellRendererAction(params: any) {
     this.id = params.node.data.id;
-    return `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="bi bi-search"></i> </button>
-     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"> <i class="bi bi-trash"></i> </button>`;
+    return this.isAdmin ? `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="bi bi-search"></i> </button>
+     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"> <i class="bi bi-trash"></i> </button>`
+      : `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="bi bi-search"></i> </button>`;
   }
 
 

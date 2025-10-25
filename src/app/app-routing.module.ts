@@ -38,6 +38,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/create-order/create-order').then((c) => c.CreateOrder)
       },
       {
+        path: 'newcontractorpayment',
+        loadComponent: () => import('./pages/contractor-payment-component/contractor-payment-component').then((c) => c.ContractorPaymentComponent)
+      },
+      {
         path: 'searchpartychallan',
         loadComponent: () => import('./demo/others/sample-page/sample-page.component').then((c) => c.SamplePageComponent)
       },
@@ -64,6 +68,10 @@ export const routes: Routes = [
       {
         path: 'color',
         loadComponent: () => import('./pages/color-component/color-component').then((c) => c.ColorComponent)
+      },
+      {
+        path: 'quality',
+        loadComponent: () => import('./pages/quality-component/quality-component').then((c) => c.QualityComponent)
       },
       {
         path: 'design',
@@ -104,7 +112,12 @@ export const routes: Routes = [
       {
         path: 'contractoraccountstatement',
         loadComponent: () => import('./pages/account-statement/account-statement').then((c) => c.AccountStatement)
-      }
+      },
+      {
+        path: 'paymentregister',
+        loadComponent: () => import('./pages/payment-register/payment-register').then((c) => c.PaymentRegister)
+      },
+
 
     ]
   },

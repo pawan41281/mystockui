@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ICellRendererParams } from 'ag-grid-community';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { UtilService } from 'src/app/services/util-service';
+import { userData } from 'src/app/model/userData';
 
 @Component({
   selector: 'app-custome-cell-component',
@@ -12,16 +13,20 @@ import { UtilService } from 'src/app/services/util-service';
   templateUrl: './custome-cell-component.html',
   styleUrl: './custome-cell-component.scss'
 })
-export class CustomeCellComponent {
+export class CustomeCellComponent implements OnInit {
 
   param: any = '';
   http = inject(HttpClient)
   utilService = inject(UtilService)
+  router: Router = inject(Router)
+  utilsService: UtilService = inject(UtilService);
   pageList: any;
   pageData: any;
+  userInfo: userData;
   isViewVisible: boolean = true;
+  isAdmin: boolean = false;
 
-  constructor(public router: Router) {
+  constructor() {
     if (this.pageList || this.pageData) {
       this.getJSON().subscribe(data => {
         this.pageList = data;
@@ -31,6 +36,13 @@ export class CustomeCellComponent {
           }
         });
       });
+    }
+  }
+
+  ngOnInit(): void {
+    this.userInfo = this.utilsService.getCurrentUserInfo()
+    if (this.userInfo?.roles[0].name == 'ROLE_ADMIN') {
+      this.isAdmin = true
     }
   }
 

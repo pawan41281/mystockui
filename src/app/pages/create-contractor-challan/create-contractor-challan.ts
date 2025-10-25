@@ -119,6 +119,10 @@ export class CreateContractorChallan implements OnInit {
       cellEditor: 'agTextCellEditor' // default is already agTextCellEditor
     },
     {
+      field: 'rate',
+      headerName: 'Rate',
+    },
+    {
       headerName: 'Action',
       sortable: false,
       filter: false,
@@ -229,6 +233,7 @@ export class CreateContractorChallan implements OnInit {
         design: { id: e.designId },
         color: { id: e.colorId },
         quantity: e.quantity,
+        rate: e.rate,
       });
     });
     return arr;
@@ -275,7 +280,8 @@ export class CreateContractorChallan implements OnInit {
         'designName': this.getDesignName(this.contractorChallanObj.design),
         'colorId': this.contractorChallanObj.color,
         'colorName': this.getColorData(this.contractorChallanObj.color),
-        'quantity': this.contractorChallanObj.quantity
+        'quantity': this.contractorChallanObj.quantity,
+        'rate': this.contractorChallanObj.rate
       })
       this.gridApi.applyTransaction({ remove: this.items });
       this.gridApi.applyTransaction({ add: this.items });
@@ -288,14 +294,15 @@ export class CreateContractorChallan implements OnInit {
     this.contractorChallanObj.design = 0;
     this.contractorChallanObj.color = 0
     this.contractorChallanObj.quantity = 0
+    this.contractorChallanObj.rate = ''
     this.disableAdd = true;
   }
 
   onInputBlur = () => {
     this.contractorChallanObj.quantity = Number(this.contractorChallanObj.quantity)
     this.isItemExist = this.itemExist();
-    const { design, color, quantity } = this.contractorChallanObj;
-    this.disableAdd = !(design && color && quantity > 0 && !this.isItemExist);
+    const { design, color, quantity, rate } = this.contractorChallanObj;
+    this.disableAdd = !(design && color && quantity > 0 && rate && !this.isItemExist);
 
   }
   challanTypes = [{ val: "I", name: "Issue" }, { val: "R", name: "Recieve" }]

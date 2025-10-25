@@ -7,7 +7,7 @@ export class userData {
     mobile: string
     password: string
     locked: boolean
-    roles: []
+    roles: { name: string }[]
 
     constructor() {
         this.id = 0;
@@ -17,6 +17,7 @@ export class userData {
         this.mobile = "";
         this.password = "";
         this.locked = false;
+        this.roles = new Array(2);
     }
 
 }

@@ -4,7 +4,7 @@ import { contractor } from "./contractor";
 
 export class contractorChallan {
 
-    id: Number;
+    id: number;
     challanNumber: string;
     challanDate: string;
     contractor: contractor;
@@ -16,6 +16,7 @@ export class contractorChallan {
     quantity: number;
     createdOn: string;
     quantityStr: string;
+    rate: string;
 
     constructor() {
         this.id = 0;
@@ -30,6 +31,7 @@ export class contractorChallan {
         this.color = 0;
         this.quantity = 0;
         this.quantityStr = '';
+        this.rate = '';
     }
 
 }

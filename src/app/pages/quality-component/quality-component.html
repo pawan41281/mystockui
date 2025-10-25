@@ -1,0 +1,92 @@
+<div class="row">
+    <div class="row">
+        <div class="col-12">
+            @if (isInactiveDesign) {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                Quality already InActive statue.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            }
+
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <app-card cardTitle="Quality">
+            <form #form="ngForm" class="row g-3 needs-validation " novalidate>
+                <div class="col-md-4">
+                    <label for="qualityName" class="form-label fw-bold">Quality Name <span
+                            class="text-danger">*</span></label>
+                    <input type="text" class="form-control" #qualityName="ngModel" name="qualityName"
+                        [(ngModel)]="colorObj.qualityName" id="qualityName" (change)="checkData()" required>
+
+                    <div class="text-danger">
+                        @if(qualityName.errors?.['required'] && qualityName.touched && qualityName.dirty) {
+                        <span>This field is mandatory</span>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="active" class="form-label fw-bold">Status</label>
+                    <select class="form-select" name="active" [(ngModel)]="colorObj.active" id="active">
+                        <option value="true">Active</option>
+                        <option value="false">InActive</option>
+                    </select>
+                </div>
+                <div class="col-md-1 margin-top-45">
+                    <button [disabled]="form.invalid && isSameEditObj" class="btn btn-primary align-left" type="submit"
+                        (click)="onSave()">{{saveLabel}}</button>
+                </div>
+            </form>
+
+            <div class="row margin-top-30">
+                <div class="col-12">
+
+                    <div class="row">
+                        <div class="col-2 div-margin-top align-left font-bold">Record Count : {{totalRecord}}</div>
+                        <div class="col-8"></div>
+                        <div class="col-2 align-right">
+                            <i class="bi bi-filetype-csv font-size-30" (click)="onBtnExport()"></i>
+                            <i class="bi bi-filetype-xls font-size-30" (click)="onBtnExportExcel()"></i>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <ag-grid-angular class="ag-theme-quartz grid-height" [rowData]="colorList"
+                                [columnDefs]="colDefs" [defaultColDef]="defaultColDef" (gridReady)="onGridReady($event)"
+                                [pagination]="true" [paginationPageSize]="10"
+                                [paginationPageSizeSelector]="[10, 20, 50]" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </app-card>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Deactivate Quality</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Do you want to deactivate the Quality?
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" (click)="deactivateColor()"
+                    data-bs-dismiss="modal">Yes</button>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -16,7 +16,20 @@
 
                 <!-- Contractor -->
                 <div class="col-md-3">
-                    <div class="dropdown">
+                    <label for="party" class="form-label fw-bold">Contractor</label>
+                    <div class="input-group has-validation">
+                        <!-- <span class="input-group-text" id="inputGroupPrepend">&#64;</span> -->
+                        <select class="form-select" name="party" [(ngModel)]="contractorName" id="party">
+                            <option value="">Select Options</option>
+                            @for (party of contractors; track party.id) {
+                            <option [value]="party.contractorName">{{ party.contractorName }}</option>
+                            }
+                        </select>
+                        <div class="invalid-feedback">
+                            Please Select paryt.
+                        </div>
+                    </div>
+                    <!-- <div class="dropdown">
                         <label for="contractor" class="form-label fw-bold">Contractor</label>{{contractorName}}
                         <input type="text" class="form-control" [(ngModel)]="contractorName" (change)="onInputBlur()"
                             #contractor="ngModel" list="constructors" name="contractor" id="contractor"
@@ -25,7 +38,7 @@
                             <option *ngFor="let party of contractors" [value]="party.contractorName">
                             </option>
                         </datalist>
-                    </div>
+                    </div> -->
                 </div>
 
                 <!-- Design -->

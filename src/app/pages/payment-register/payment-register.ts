@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
-import { client } from '../../model/client';
 import { AgGridAngular } from "ag-grid-angular";
 import type { ColDef, GridReadyEvent } from "ag-grid-community";
 import { GridApi } from 'ag-grid-community';
@@ -11,38 +10,42 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { debounceTime, distinctUntilChanged, Observable, of, switchMap } from 'rxjs';
 import { challanItems } from '../../model/challanItems';
-import { challanFilter } from '../../model/challanFilter';
-import { DataService } from 'src/app/services/data-service';
-import { UtilService } from 'src/app/services/util-service';
-import { clientChallan } from 'src/app/model/clientChallan';
+import { contractorChallan } from '../../model/contractorChallan';
+import { contractor } from '../../model/contractor';
+import { formatDate } from '@angular/common';
 import { DownloadSerivceService } from 'src/app/services/download-serivce-service';
+import { UtilService } from 'src/app/services/util-service';
+import { DataService } from 'src/app/services/data-service';
+import { requestResponse } from 'src/app/model/requestResponse';
 import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
 import { userData } from 'src/app/model/userData';
 
 @Component({
-  selector: 'app-party-challan-register-component',
+  selector: 'app-payment-register',
   imports: [AgGridAngular, FormsModule, CommonModule, MatDatepickerModule,
     MatNativeDateModule, MatInputModule, NgbTypeaheadModule, CardComponent],
-  templateUrl: './party-challan-register-component.html',
-  styleUrl: './party-challan-register-component.scss'
+  templateUrl: './payment-register.html',
+  styleUrl: './payment-register.scss'
 })
-export class PartyChallanRegisterComponent implements OnInit {
+export class PaymentRegister {
+
 
   id: string = '';
-  url: string = 'clientchallans';
+  url: string = 'contractorchallans';
   totalRecord: number = 0;
   http = inject(HttpClient)
   dataService = inject(DataService)
-  router = inject(ActivatedRoute)
-  route = inject(Router)
   utilsService: UtilService = inject(UtilService);
-  clientChallans: clientChallan[] = [];
-  clientChallanObj: clientChallan = new clientChallan();
+  router: ActivatedRoute = inject(ActivatedRoute);
+  route: Router = inject(Router);
+  contractorChallans: contractorChallan[] = [];
+  contractorChallanObj: contractorChallan = new contractorChallan();
   private readonly downloadService = inject(DownloadSerivceService);
   private gridApi!: GridApi;
-  clients: client[] = [];
-  dropdownData: client[] = [];
+  contractors: contractor[] = [];
+  dropdownData: contractor[] = [];
   itemDetails: challanItems[] | undefined = [];
   fromDate: Date = new Date();
   toDate: Date = new Date();
@@ -55,7 +58,6 @@ export class PartyChallanRegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.router.queryParams.subscribe(params => {
       if (params['challanType']) {
         this.filterObj.challantype = params['challanType'];
@@ -64,8 +66,7 @@ export class PartyChallanRegisterComponent implements OnInit {
       }
 
     });
-
-    this.searchClientChallan()
+    this.searchContractorChallan()
     this.userInfo = this.utilsService.getCurrentUserInfo()
     if (this.userInfo?.roles[0].name == 'ROLE_ADMIN') {
       this.isAdmin = true
@@ -73,54 +74,40 @@ export class PartyChallanRegisterComponent implements OnInit {
   }
 
   getClients = () => {
-    this.dataService.get('clients')
-      .subscribe((res: any) => {
-        this.clients = res.data;
-        this.dropdownData = this.clients;
+    this.dataService.get('contractors')
+      .subscribe((res: requestResponse) => {
+        this.contractors = res.data;
+        this.dropdownData = this.contractors;
       })
   }
 
   getClientData = () => {
     this.dataService.get(this.url)
-      .subscribe((res: any) => {
-        this.clientChallans = res.data;
+      .subscribe((res: requestResponse) => {
+        this.contractorChallans = res.data;
         this.totalRecord = res.metadata.recordcount
       })
+
   }
 
   // Column Definitions: Defines & controls grid columns.
-  colDefs: ColDef<clientChallan>[] = [
+  colDefs: ColDef<contractorChallan>[] = [
+
     {
-      headerName: "Challan Number",
-      field: "challanNumber",
+      headerName: "Payment Date",
+      cellRenderer: this.renderDate
     },
     {
-      headerName: "Challan Date",
-      field: "challanDate",
+      headerName: "Contractor Name",
+      field: "contractor.contractorName",
     },
+
     {
-      headerName: "Party Name",
-      field: "client.clientName",
-    },
-    {
-      headerName: "Party Mobile",
-      field: "client.mobile",
-    },
-    {
-      headerName: "Challan Type",
-      cellRenderer: this.challanType
-    },
-    {
-      headerName: "Pices Count",
+      headerName: "Payment Amount",
       cellRenderer: this.myCellRenderer
     },
     {
-      headerName: "Order Number",
-      field: "order.orderNumber",
-    },
-    {
       headerName: '',
-      cellClass: 'align-center',
       sortable: false,
       filter: false,
       cellRenderer: this.myCellRendererAction.bind(this),
@@ -130,8 +117,8 @@ export class PartyChallanRegisterComponent implements OnInit {
     }
   ];
 
-  challanType(params: any) {
-    return `<span> ${params.node.data.challanType == 'R' ? 'Recieve' : 'Issue'} </span>`
+  renderDate(params: any) {
+    return formatDate(params.node.data.challanDate, 'dd-MM-yyyy', 'en-US');
   }
 
 
@@ -144,7 +131,7 @@ export class PartyChallanRegisterComponent implements OnInit {
   myCellRendererAction(params: any) {
     this.id = params.node.data.id;
     return this.isAdmin ? `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="bi bi-search"></i> </button>
-     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"> <i class="bi bi-trash"></i> </button>`
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"> <i class="bi bi-trash"></i> </button>`
       : `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="bi bi-search"></i> </button>`;
   }
 
@@ -153,40 +140,46 @@ export class PartyChallanRegisterComponent implements OnInit {
     minWidth: 100,
     sortable: true,
     filter: true,
+
   };
 
   cancelChallan() {
     this.dataService.delete(`${this.url}/${this.id}`)
-      .subscribe((res: any) => {
-        this.clientChallans = res.data;
+      .subscribe((res: requestResponse) => {
+        this.contractorChallans = res.data;
         this.totalRecord = res.metadata.recordcount;
-        this.searchClientChallan()
+        this.searchContractorChallan()
       })
+
   }
 
-  searchClientChallan = () => {
+  searchContractorChallan = () => {
+
     this.filterObj.fromchallandate = this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
-    this.filterObj.tochallandate = this.toDate && !this.utilsService.isValidDateFormat(this.toDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
-    this.filterObj.clientid = this.dropdownData.find(e => e.clientName === this.filterObj.clientName)?.id
-    let finalUrl = '';
-    finalUrl = this.url + this.utilsService.buildUrl(this.filterObj);
-
-    this.dataService.get(finalUrl)
-      .subscribe((res: any) => {
-        this.clientChallans = res.data;
+    this.filterObj.tochallandate = this.toDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
+    let url = '';
+    url = this.url + this.utilsService.buildUrl(this.filterObj);
+    this.dataService.get(url)
+      .subscribe((res: requestResponse) => {
+        this.contractorChallans = res.data;
+        this.contractorChallans.forEach(e1 => { e1.challanType = this.utilsService.challanTypes?.find(e => e.val === e1.challanType)?.name ?? '' })
         this.totalRecord = res.metadata.recordcount;
       })
-
   }
 
+  search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      switchMap(term =>
+        term.length < 2 ? of([]) : this.http.get<contractor[]>(`contractors/?contractorName=${term}`)
+      )
+    );
 
-  selectedParty(party: any) {
+  formatter = (result: any) => result.clientName;
 
-    const obj = this.dropdownData.find(e => e.clientName === party);
-    this.filterObj.clientName = obj?.clientName != undefined ? obj?.clientName + '' : '';
-  }
   filterData(event: any) {
-    this.dropdownData = this.clients.filter(e => e.clientName.includes(event.target.value.toUpperCase()))
+    this.dropdownData = this.contractors.filter(e => e.contractorName.includes(event.target.value.toUpperCase()))
   }
 
   onGridReady(params: GridReadyEvent) {
@@ -194,19 +187,19 @@ export class PartyChallanRegisterComponent implements OnInit {
   }
 
   onBtnExport() {
-    this.downloadService.exportToCSV(this.getReportData(), 'Party_challan_data.csv')
+    this.downloadService.exportToCSV(this.getReportData(), 'contractor_challan_data.csv')
   }
 
   onBtnExportExcel() {
-    this.downloadService.exportToExcel(this.getReportData(), 'Party_challan_data.xlsx')
+    this.downloadService.exportToExcel(this.getReportData(), 'contractor_challan_data.xlsx')
   }
 
   getReportData() {
-    return this.clientChallans.map(e => ({
+    return this.contractorChallans.map(e => ({
       'Challan Number': e.challanNumber,
       'Challan Date': e.challanDate,
-      'Party Name': e.client.clientName,
-      'Party Mobile': e.client.mobile,
+      'Contractor Name': e.contractor.contractorName,
+      'Contractor Mobile': e.contractor.mobile,
       'Challan Type': e.challanType,
       'Total Pieces': this.peaceCount(e),
     }));
@@ -216,6 +209,12 @@ export class PartyChallanRegisterComponent implements OnInit {
     let totalQuantity = 0;
     params.challanItems.forEach((e: { quantity: number; }) => totalQuantity += e.quantity);
     return `${totalQuantity}`;
+  }
+
+  formatDate(event: any) {
+    const [day, month, year] = formatDate(event.value, 'dd-MM-yyyy', 'en-US').split('-').map(Number);
+    const dateObj = new Date(year, month - 1, day)
+    this.fromDate = dateObj;
   }
   //=================Items details =============
 
@@ -233,4 +232,22 @@ export class PartyChallanRegisterComponent implements OnInit {
       field: "quantity",
     }
   ];
+
 }
+
+class challanFilter {
+  challannumber: string;
+  contractorid: string;
+  fromchallandate: string;
+  tochallandate: string;
+  challantype: string;
+
+  constructor() {
+    this.challannumber = "";
+    this.contractorid = '';
+    this.fromchallandate = '';
+    this.tochallandate = '';
+    this.challantype = '';
+  }
+}
+

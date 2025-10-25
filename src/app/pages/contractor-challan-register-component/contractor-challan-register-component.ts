@@ -20,6 +20,7 @@ import { UtilService } from 'src/app/services/util-service';
 import { DataService } from 'src/app/services/data-service';
 import { requestResponse } from 'src/app/model/requestResponse';
 import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
+import { userData } from 'src/app/model/userData';
 
 @Component({
   selector: 'app-contractor-challan-register-component',
@@ -48,6 +49,8 @@ export class ContractorChallanRegisterComponent implements OnInit {
   fromDate: Date = new Date();
   toDate: Date = new Date();
   filterObj: challanFilter = new challanFilter();
+  isAdmin: boolean = false;
+  userInfo: userData;
 
   constructor() {
     this.getClients();
@@ -63,6 +66,10 @@ export class ContractorChallanRegisterComponent implements OnInit {
 
     });
     this.searchContractorChallan()
+    this.userInfo = this.utilsService.getCurrentUserInfo()
+    if (this.userInfo?.roles[0].name == 'ROLE_ADMIN') {
+      this.isAdmin = true
+    }
   }
 
   getClients = () => {
@@ -132,8 +139,10 @@ export class ContractorChallanRegisterComponent implements OnInit {
 
   myCellRendererAction(params: any) {
     this.id = params.node.data.id;
-    return `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="bi bi-search"></i> </button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"> <i class="bi bi-trash"></i> </button>`;
+    console.log('this.isAdmin ', this.isAdmin)
+    return this.isAdmin ? `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="bi bi-search"></i> </button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"> <i class="bi bi-trash"></i> </button>`
+      : `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="bi bi-search"></i> </button>`;
   }
 
   defaultColDef: ColDef = {

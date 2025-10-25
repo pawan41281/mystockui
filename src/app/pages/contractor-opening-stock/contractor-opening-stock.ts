@@ -228,7 +228,6 @@ export class ContractorOpeningStock implements OnInit {
   }
 
 
-
   buildItemsData = () => {
     const arr: any = []
 

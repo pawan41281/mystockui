@@ -9,31 +9,31 @@ import { CustomeCellComponent } from '../custome-cell-component/custome-cell-com
 import { DownloadSerivceService } from 'src/app/services/download-serivce-service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { color } from 'src/app/model/color';
+import { quality } from 'src/app/model/quality';
 import { ResponseData } from 'src/app/model/Response';
 import { requestResponse } from 'src/app/model/requestResponse';
 import { userData } from 'src/app/model/userData';
 
-
 @Component({
-  selector: 'app-color-component',
+  selector: 'app-quality-component',
   imports: [CardComponent, AgGridAngular, FormsModule, CommonModule],
-  templateUrl: './color-component.html',
-  styleUrl: './color-component.scss'
+  templateUrl: './quality-component.html',
+  styleUrl: './quality-component.scss'
 })
-export class ColorComponent implements OnInit {
+export class QualityComponent implements OnInit {
+
 
   totalRecord: number = 0;
   utilsService: UtilService = inject(UtilService);
   dataService = inject(DataService);
   downloadService = inject(DownloadSerivceService)
-  colorList: color[] = [];
+  colorList: quality[] = [];
   private gridApi!: GridApi;
-  url: string = 'colors';
+  url: string = 'quality';
   isSameEditObj: boolean = false
-  colorObj: color = new color();
+  colorObj: quality = new quality();
   userInfo: userData;
-  colorObjedit: color = new color();
+  colorObjedit: quality = new quality();
   saveLabel: string = "Save"
 
   delObj: design = new design();
@@ -54,7 +54,7 @@ export class ColorComponent implements OnInit {
 
   }
 
-  colDefs: ColDef<color>[] = [
+  colDefs: ColDef<quality>[] = [
     {
       headerName: "Status",
       cellClass: 'margin-top-8',
@@ -64,7 +64,7 @@ export class ColorComponent implements OnInit {
     },
     {
       headerName: "Design Name",
-      field: "colorName",
+      field: "qualityName",
     }
     , {
       headerName: '',
@@ -101,16 +101,16 @@ export class ColorComponent implements OnInit {
   }
 
   onBtnExport() {
-    this.downloadService.exportToCSV(this.getReportData(), 'color_data.csv')
+    this.downloadService.exportToCSV(this.getReportData(), 'quality_data.csv')
   }
 
   onBtnExportExcel() {
-    this.downloadService.exportToExcel(this.getReportData(), 'color_data.xlsx')
+    this.downloadService.exportToExcel(this.getReportData(), 'quality_data.xlsx')
   }
 
   getReportData() {
     return this.colorList.map(e => ({
-      'Color Name': e.colorName,
+      'Quality Name': e.qualityName,
       'Status': e.active ? 'Active' : 'Inactive'
     }));
   }
@@ -122,7 +122,7 @@ export class ColorComponent implements OnInit {
     this.dataService.post(this.url, this.colorObj)
       .subscribe((res: requestResponse) => {
         if (res.status === 'success') {
-          this.colorObj = new color();
+          this.colorObj = new quality();
           this.getColorData();
         }
       })
@@ -139,7 +139,7 @@ export class ColorComponent implements OnInit {
     this.dataService.patch(this.url, this.utilsService.commondata.data.id, false)
       .subscribe((res: requestResponse) => {
         if (res.status === 'success') {
-          this.colorObj = new color();
+          this.colorObj = new quality();
           this.getColorData();
         }
       })
