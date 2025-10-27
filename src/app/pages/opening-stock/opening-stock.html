@@ -39,11 +39,11 @@
                     </select>
                 </div>
 
-                <!-- Quantity -->
+                <!-- quality -->
                 <div class="col-md-2">
-                    <label for="quantity" class="form-label fw-bold">Quantity</label>
+                    <label for="quality" class="form-label fw-bold">Quality</label>
                     <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
-                        class="form-control" name="quantity" [(ngModel)]="contractorChallanObj.quantity" id="quantity">
+                        class="form-control" name="quality" [(ngModel)]="contractorChallanObj.quality" id="quality">
                 </div>
 
                 <!-- Add Button -->

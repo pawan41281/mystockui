@@ -126,7 +126,7 @@ export class ContractorOpeningStock implements OnInit {
       field: "colorName",
     },
     {
-      field: 'quantity',
+      field: 'quality',
       headerName: 'quantityStr',
       editable: true, // 👈 make this column editable
       cellEditor: 'agTextCellEditor' // default is already agTextCellEditor
@@ -236,7 +236,7 @@ export class ContractorOpeningStock implements OnInit {
         contractor: { id: e.contractorId },
         design: { id: e.designId },
         color: { id: e.colorId },
-        openingBalance: e.quantity,
+        openingBalance: e.quality,
       });
     });
     return arr;
@@ -276,7 +276,7 @@ export class ContractorOpeningStock implements OnInit {
         'designName': this.getDesignName(this.contractorChallanObj.design),
         'colorId': this.contractorChallanObj.color,
         'colorName': this.getColorData(this.contractorChallanObj.color),
-        'quantity': this.contractorChallanObj.quantityStr
+        'quality': this.contractorChallanObj.quantityStr
       })
       this.gridApi.applyTransaction({ remove: this.items });
       this.gridApi.applyTransaction({ add: this.items });
@@ -292,7 +292,7 @@ export class ContractorOpeningStock implements OnInit {
   }
 
   onInputBlur = () => {
-    //this.contractorChallanObj.quantity = Number(this.contractorChallanObj.quantityStr)
+    //this.contractorChallanObj.quality = Number(this.contractorChallanObj.quantityStr)
     this.isItemExist = this.itemExist();
     const { design, color, quantityStr } = this.contractorChallanObj;
     this.disableAdd = !(design && color && quantityStr && !this.isItemExist)

@@ -109,8 +109,8 @@ export class OpeningStock implements OnInit {
       field: "colorName",
     },
     {
-      field: 'quantity',
-      headerName: 'Quantity',
+      field: 'quality',
+      headerName: 'Quality',
       editable: true, // 👈 make this column editable
       cellEditor: 'agTextCellEditor' // default is already agTextCellEditor
     },
@@ -213,7 +213,7 @@ export class OpeningStock implements OnInit {
       arr.push({
         design: { id: e.designId },
         color: { id: e.colorId },
-        openingBalance: e.quantity,
+        openingBalance: e.quality,
       });
     });
     return arr;
@@ -250,7 +250,7 @@ export class OpeningStock implements OnInit {
         'designName': this.getDesignName(this.contractorChallanObj.design),
         'colorId': this.contractorChallanObj.color,
         'colorName': this.getColorData(this.contractorChallanObj.color),
-        'quantity': this.contractorChallanObj.quantity
+        'quality': this.contractorChallanObj.quality
       })
       this.gridApi.applyTransaction({ remove: this.items });
       this.gridApi.applyTransaction({ add: this.items });
@@ -262,15 +262,15 @@ export class OpeningStock implements OnInit {
   clearItems() {
     this.contractorChallanObj.design = 0;
     this.contractorChallanObj.color = 0
-    this.contractorChallanObj.quantity = 0
+    this.contractorChallanObj.quality = 0
     this.disableAdd = true;
   }
 
   onInputBlur = () => {
-    this.contractorChallanObj.quantity = Number(this.contractorChallanObj.quantity)
+    this.contractorChallanObj.quality = Number(this.contractorChallanObj.quality)
     this.isItemExist = this.itemExist();
-    const { design, color, quantity } = this.contractorChallanObj;
-    this.disableAdd = !(design && color && quantity > 0 && !this.isItemExist)
+    const { design, color, quality } = this.contractorChallanObj;
+    this.disableAdd = !(design && color && quality > 0 && !this.isItemExist)
 
   }
 

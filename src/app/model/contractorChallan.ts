@@ -16,7 +16,8 @@ export class contractorChallan {
     quantity: number;
     createdOn: string;
     quantityStr: string;
-    rate: string;
+    rate: number;
+    quality: number;
 
     constructor() {
         this.id = 0;
@@ -31,7 +32,8 @@ export class contractorChallan {
         this.color = 0;
         this.quantity = 0;
         this.quantityStr = '';
-        this.rate = '';
+        this.rate = 0;
+        this.quality = 0;
     }
 
 }

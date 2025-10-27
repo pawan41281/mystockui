@@ -18,6 +18,7 @@ import { CardComponent } from 'src/app/theme/shared/components/card/card.compone
 import { CommonModule } from '@angular/common';
 import { requestResponse } from 'src/app/model/requestResponse';
 import { userData } from 'src/app/model/userData';
+import { quality } from 'src/app/model/quality';
 
 @Component({
   selector: 'app-create-contractor-challan',
@@ -44,6 +45,7 @@ export class CreateContractorChallan implements OnInit {
   constructors: contractor[] = [];
   designs: design[] = [];
   colors: color[] = [];
+  qualityList: quality[] = [];
   disableAdd: boolean = true;
   isItemExist: boolean = false;
   showSuccessMessage: boolean = false;
@@ -58,6 +60,7 @@ export class CreateContractorChallan implements OnInit {
     this.getContractor();
     this.getDesignts();
     this.getColors();
+    this.getQualityList();
   }
 
   ngOnInit() {
@@ -101,9 +104,21 @@ export class CreateContractorChallan implements OnInit {
       })
   }
 
+  // fetch color list
+  getQualityList = () => {
+    this.dataService.get('quality')
+      .subscribe((res: requestResponse) => {
+        this.qualityList = res.data;
+      })
+  }
 
   // Column Definitions: Defines & controls grid columns.
   colDefs: ColDef<any>[] = [
+    {
+      field: 'quality',
+      headerName: 'quality',
+      cellRenderer: this.myCellRendererAction.bind(this)
+    },
     {
       headerName: "Design",
       field: "designName",
@@ -112,15 +127,14 @@ export class CreateContractorChallan implements OnInit {
       headerName: "Color",
       field: "colorName",
     },
-    {
-      field: 'quantity',
-      headerName: 'Quantity',
-      editable: true, // 👈 make this column editable
-      cellEditor: 'agTextCellEditor' // default is already agTextCellEditor
-    },
+
     {
       field: 'rate',
       headerName: 'Rate',
+    },
+    {
+      field: 'quantity',
+      headerName: 'Quantity',
     },
     {
       headerName: 'Action',
@@ -134,6 +148,12 @@ export class CreateContractorChallan implements OnInit {
       width: 120
     }
   ];
+
+  myCellRendererAction(params: any) {
+    console.log('params :: ', params)
+    return this.qualityList.filter(e => e.id == params.data.quality)[0].qualityName;
+  }
+
   buttonRenderer(params: any): HTMLElement {
     const button = document.createElement('button');
     button.innerHTML = params.label || 'Click';
@@ -171,7 +191,7 @@ export class CreateContractorChallan implements OnInit {
   }
 
   save = () => {
-
+    console.log('save call')
     const obj = this.buildReqObj();
     this.dataService.post(this.url, obj)
       .subscribe((res: requestResponse) => {
@@ -195,7 +215,7 @@ export class CreateContractorChallan implements OnInit {
   }
 
   onSave = () => {
-
+    console.log('on save call')
     this.filterObj.challannumber = this.contractorChallanObj.challanNumber
     const finalUrl = this.url + this.utilsService.buildUrl(this.filterObj);
     this.dataService.get(finalUrl)
@@ -232,6 +252,7 @@ export class CreateContractorChallan implements OnInit {
       arr.push({
         design: { id: e.designId },
         color: { id: e.colorId },
+        quality: { id: e.quality },
         quantity: e.quantity,
         rate: e.rate,
       });
@@ -280,6 +301,7 @@ export class CreateContractorChallan implements OnInit {
         'designName': this.getDesignName(this.contractorChallanObj.design),
         'colorId': this.contractorChallanObj.color,
         'colorName': this.getColorData(this.contractorChallanObj.color),
+        'quality': this.contractorChallanObj.quality,
         'quantity': this.contractorChallanObj.quantity,
         'rate': this.contractorChallanObj.rate
       })
@@ -293,16 +315,16 @@ export class CreateContractorChallan implements OnInit {
   clearItems() {
     this.contractorChallanObj.design = 0;
     this.contractorChallanObj.color = 0
-    this.contractorChallanObj.quantity = 0
-    this.contractorChallanObj.rate = ''
+    this.contractorChallanObj.quality = 0
+    this.contractorChallanObj.rate = 0
     this.disableAdd = true;
   }
 
   onInputBlur = () => {
-    this.contractorChallanObj.quantity = Number(this.contractorChallanObj.quantity)
+    this.contractorChallanObj.quality = Number(this.contractorChallanObj.quality)
     this.isItemExist = this.itemExist();
-    const { design, color, quantity, rate } = this.contractorChallanObj;
-    this.disableAdd = !(design && color && quantity > 0 && rate && !this.isItemExist);
+    const { design, color, quality, rate } = this.contractorChallanObj;
+    this.disableAdd = !(design && color && quality && rate && !this.isItemExist);
 
   }
   challanTypes = [{ val: "I", name: "Issue" }, { val: "R", name: "Recieve" }]

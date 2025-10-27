@@ -41,6 +41,14 @@
                     </div> -->
                 </div>
 
+                <!-- Quantity -->
+                <div class="col-md-2">
+                    <label for="quantity" class="form-label fw-bold">Quantity</label>
+                    <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
+                        class="form-control" name="quantity" [(ngModel)]="contractorChallanObj.quantityStr"
+                        id="quantity">
+                </div>
+
                 <!-- Design -->
                 <div class="col-md-3">
                     <label for="design" class="form-label fw-bold">Desing</label>
@@ -66,13 +74,6 @@
                     </select>
                 </div>
 
-                <!-- Quantity -->
-                <div class="col-md-2">
-                    <label for="quantity" class="form-label fw-bold">Quantity</label>
-                    <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
-                        class="form-control" name="quantity" [(ngModel)]="contractorChallanObj.quantityStr"
-                        id="quantity">
-                </div>
 
                 <!-- Add Button -->
                 <div class="col-1 margin-top-48">

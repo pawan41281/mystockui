@@ -2,11 +2,11 @@ export class stock {
     contractorName?: string;
     designName: string;
     colorName: string;
-    quantity: number;
+    quality: number;
 
     constructor() {
         this.designName = '';
         this.colorName = '';
-        this.quantity = 0;
+        this.quality = 0;
     }
 }
