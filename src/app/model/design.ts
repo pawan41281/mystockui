@@ -8,6 +8,7 @@ export class design {
     active: boolean;
     createdOn: string;
     user: userData;
+    quality: number;
 
 
     constructor() {
@@ -17,5 +18,6 @@ export class design {
         this.active = true;
         this.createdOn = "";
         this.user = new userData()
+        this.quality = 0;
     }
 }

@@ -19,6 +19,7 @@ import { DataService } from 'src/app/services/data-service';
 import { requestResponse } from 'src/app/model/requestResponse';
 import { order } from 'src/app/model/order';
 import { userData } from 'src/app/model/userData';
+import { quality } from 'src/app/model/quality';
 
 @Component({
   selector: 'app-create-party-challan',
@@ -56,12 +57,14 @@ export class CreatePartyChallan implements OnInit {
   isDuplicateChallan: boolean = false;
   filterObj: challanFilter = new challanFilter();
   userInfo: userData;
+  qualityList: quality[] = [];
 
   constructor() {
     this.rowCnt = 1;
     this.getClients();
     this.getDesignts();
     this.getColors();
+    this.getQualityList();
 
   }
 
@@ -74,8 +77,15 @@ export class CreatePartyChallan implements OnInit {
     this.userInfo = this.utilsService.getCurrentUserInfo()
   }
 
-  //fetch client list
+  // fetch color list
+  getQualityList = () => {
+    this.dataService.get('quality')
+      .subscribe((res: requestResponse) => {
+        this.qualityList = res.data;
+      })
+  }
 
+  //fetch client list
   getClients = () => {
     this.dataService.get('clients')
       .subscribe((res: requestResponse) => {
@@ -104,6 +114,11 @@ export class CreatePartyChallan implements OnInit {
   // Column Definitions: Defines & controls grid columns.
   colDefs: ColDef<any>[] = [
     {
+      field: 'quality',
+      headerName: 'quality',
+      cellRenderer: this.myCellRendererAction.bind(this)
+    },
+    {
       headerName: "Design",
       field: "designName",
     },
@@ -127,6 +142,11 @@ export class CreatePartyChallan implements OnInit {
       width: 120
     }
   ];
+
+  myCellRendererAction(params: any) {
+    console.log('params :: ', params)
+    return this.qualityList.filter(e => e.id == params.data.quality)[0].qualityName;
+  }
 
   buttonRenderer(params: any): HTMLElement {
     const button = document.createElement('button');
@@ -203,6 +223,7 @@ export class CreatePartyChallan implements OnInit {
 
       challanType: this.clientChallanObj.challanType,
       challanItems: this.items.map(item => ({
+        quality: { id: item.quality },
         design: { id: item.designId },
         color: { id: item.colorId },
         quantity: item.quantity

@@ -1,5 +1,6 @@
 import { color } from "./color";
 import { design } from "./design";
+import { quality } from "./quality";
 
 export class challanItems {
 
@@ -8,6 +9,8 @@ export class challanItems {
     color: color;
     quantity: number;
     createdOn: string;
+    rate: number;
+    quality: quality;
 
 
     constructor() {
@@ -16,5 +19,7 @@ export class challanItems {
         this.color = new color();
         this.quantity = 0;
         this.createdOn = "";
+        this.rate = 0;
+        this.quality = new quality();
     }
 }

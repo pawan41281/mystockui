@@ -104,10 +104,6 @@ export class ContractorChallanRegisterComponent implements OnInit {
       field: "contractor.contractorName",
     },
     {
-      headerName: "Contractor Mobile",
-      field: "contractor.mobile",
-    },
-    {
       headerName: "Challan Type",
       field: 'challanType'
     },
@@ -122,6 +118,7 @@ export class ContractorChallanRegisterComponent implements OnInit {
       cellRenderer: this.myCellRendererAction.bind(this),
       onCellClicked: (event) => {
         this.itemDetails = event.data?.challanItems;
+        console.log('item details ', this.itemDetails)
       }
     }
   ];
@@ -209,7 +206,6 @@ export class ContractorChallanRegisterComponent implements OnInit {
       'Challan Number': e.challanNumber,
       'Challan Date': e.challanDate,
       'Contractor Name': e.contractor.contractorName,
-      'Contractor Mobile': e.contractor.mobile,
       'Challan Type': e.challanType,
       'Total Pieces': this.peaceCount(e),
     }));
@@ -240,6 +236,14 @@ export class ContractorChallanRegisterComponent implements OnInit {
     {
       headerName: "Quantity",
       field: "quantity",
+    },
+    {
+      headerName: "Quality",
+      field: "quality.qualityName",
+    },
+    {
+      headerName: "Rate",
+      field: "rate",
     }
   ];
 

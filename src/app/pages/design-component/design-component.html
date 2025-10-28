@@ -14,7 +14,7 @@
     <div class="col-sm-12">
         <app-card cardTitle="Design">
             <form #form="ngForm" class="row g-3 needs-validation " novalidate>
-                <div class="col-md-5">
+                <div class="col-md-3">
                     <label for="designName" class="form-label fw-bold">Design Name <span
                             class="text-danger">*</span></label>
                     <input type="text" class="form-control" #designName="ngModel" name="designName"
@@ -26,7 +26,17 @@
                             mendatory</span>
                     </div>
                 </div>
-                <div class="col-md-5">
+                <!-- Quality -->
+                <div class="col-md-3">
+                    <label for="quality" class="form-label fw-bold">Quality</label>
+                    <select class="form-select" name="color" [(ngModel)]="designObj.quality" id="color">
+                        @for (quality of qualityList; track quality.id) {
+                        <option [value]="quality.id">{{ quality.qualityName }}</option>
+                        }
+
+                    </select>
+                </div>
+                <div class="col-md-3">
                     <label for="description" class="form-label fw-bold">Description</label>
                     <input type="text" class="form-control" name="description" [(ngModel)]="designObj.description"
                         id="description">

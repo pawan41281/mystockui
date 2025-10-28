@@ -50,30 +50,6 @@
                     <div class="invalid-feedback">Please select a challan type.</div>
                 </div>
 
-
-                <!-- Party -->
-                <!-- <div class="col-md-3">
-
-                    <div class="dropdown">
-                        <label for="selectedClient" class="form-label fw-bold">Party <span
-                                class="text-danger">*</span></label>
-                        <input type="text" class="form-control" [(ngModel)]="selectedClient" #party="ngModel"
-                            list="datalistOptions" name="selectedClient" id="selectedClient"
-                            placeholder="Type to search..." (change)="selectedParty($any($event.target).value)"
-                            required>
-                        <datalist id="datalistOptions">
-                            @for (party of clients; track party.id) {
-                            <option [value]="party.clientName"></option>
-                            }
-                        </datalist>
-                    </div>
-                    <div class="text-danger">
-                        @if(party.errors?.['required'] && party.touched && party.dirty) {
-                        <span>This field is mendatory</span>
-                        }
-                    </div>
-                </div> -->
-
                 <div class="col-md-3">
                     <label for="selectedClient" class="form-label fw-bold">Party</label>
                     <div class="input-group has-validation">
@@ -120,6 +96,18 @@
                         @for (order of orders; track $index) {
                         <option [value]="order.id">{{ order.orderNumber }}</option>
                         }
+                    </select>
+                </div>
+
+                <!-- Quality -->
+                <div class="col-md-2">
+                    <label for="quality" class="form-label fw-bold">Quality</label>
+                    <select class="form-select" name="color" (blur)="onInputBlur()"
+                        [(ngModel)]="clientChallanObj.quality" id="color">
+                        @for (quality of qualityList; track quality.id) {
+                        <option [value]="quality.id">{{ quality.qualityName }}</option>
+                        }
+
                     </select>
                 </div>
 

@@ -286,7 +286,7 @@ export class CreateContractorChallan implements OnInit {
   }
 
   itemExist() {
-    return this.items.some(e => e.designId == this.contractorChallanObj.design && e.colorId == this.contractorChallanObj.color)
+    return this.items.some(e => e.designId == this.contractorChallanObj.design && e.colorId == this.contractorChallanObj.color && e.quality == this.contractorChallanObj.quality)
   }
 
   addItems = () => {
@@ -317,11 +317,12 @@ export class CreateContractorChallan implements OnInit {
     this.contractorChallanObj.color = 0
     this.contractorChallanObj.quality = 0
     this.contractorChallanObj.rate = 0
+    this.contractorChallanObj.quantity = 0
     this.disableAdd = true;
   }
 
   onInputBlur = () => {
-    this.contractorChallanObj.quality = Number(this.contractorChallanObj.quality)
+    // this.contractorChallanObj.quality = Number(this.contractorChallanObj.quality)
     this.isItemExist = this.itemExist();
     const { design, color, quality, rate } = this.contractorChallanObj;
     this.disableAdd = !(design && color && quality && rate && !this.isItemExist);
