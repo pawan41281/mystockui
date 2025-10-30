@@ -26,16 +26,6 @@
                             mendatory</span>
                     </div>
                 </div>
-                <!-- Quality -->
-                <div class="col-md-3">
-                    <label for="quality" class="form-label fw-bold">Quality</label>
-                    <select class="form-select" name="color" [(ngModel)]="designObj.quality" id="color">
-                        @for (quality of qualityList; track quality.id) {
-                        <option [value]="quality.id">{{ quality.qualityName }}</option>
-                        }
-
-                    </select>
-                </div>
                 <div class="col-md-3">
                     <label for="description" class="form-label fw-bold">Description</label>
                     <input type="text" class="form-control" name="description" [(ngModel)]="designObj.description"

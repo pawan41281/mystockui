@@ -7,7 +7,7 @@ export class userData {
     mobile: string
     password: string
     locked: boolean
-    roles: { name: string }[]
+    roles: { name: string, adminrole: boolean }[]
 
     constructor() {
         this.id = 0;

@@ -112,6 +112,10 @@ export class ContractorChallanRegisterComponent implements OnInit {
       cellRenderer: this.myCellRenderer
     },
     {
+      headerName: "Amount",
+      cellRenderer: this.calculateAmount
+    },
+    {
       headerName: '',
       sortable: false,
       filter: false,
@@ -133,6 +137,13 @@ export class ContractorChallanRegisterComponent implements OnInit {
     params.node.data.challanItems.forEach((e: { quantity: number; }) => totalQuantity += e.quantity);
     return `<span>${totalQuantity}</span>`;
   }
+
+  calculateAmount(params: any) {
+    let totalAmount = 0;
+    params.node.data.challanItems.forEach((e: { rate: number, quantity: number; }) => totalAmount += (e.rate * e.quantity));
+    return `<span>${totalAmount}</span>`;
+  }
+
 
   myCellRendererAction(params: any) {
     this.id = params.node.data.id;

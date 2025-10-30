@@ -11,7 +11,6 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { requestResponse } from 'src/app/model/requestResponse';
 import { userData } from 'src/app/model/userData';
-import { quality } from 'src/app/model/quality';
 
 @Component({
   selector: 'app-design-component',
@@ -32,21 +31,12 @@ export class DesignComponent implements OnInit {
   isInactiveDesign: boolean = false;
   totalRecord: number = 0;
   userInfo: userData;
-  qualityList: quality[] = [];
 
   ngOnInit(): void {
     this.getDesignData();
-    this.getQualityList();
     this.userInfo = this.utilsService.getCurrentUserInfo()
   }
 
-  // fetch color list
-  getQualityList = () => {
-    this.dataService.get('quality')
-      .subscribe((res: requestResponse) => {
-        this.qualityList = res.data;
-      })
-  }
 
   getDesignData = () => {
     this.dataService.get(this.url)
@@ -71,11 +61,6 @@ export class DesignComponent implements OnInit {
       field: "designName",
     },
     {
-      field: 'quality',
-      headerName: 'quality',
-      cellRenderer: this.myCellRendererAction.bind(this)
-    },
-    {
       headerName: "Description",
       field: "description",
     }
@@ -95,10 +80,6 @@ export class DesignComponent implements OnInit {
   ];
 
 
-  myCellRendererAction(params: any) {
-    console.log('params :: ', params)
-    return this.qualityList.filter(e => e.id == params.data.quality)[0].qualityName;
-  }
   defaultColDef: ColDef = {
     flex: 1,
     minWidth: 100,
