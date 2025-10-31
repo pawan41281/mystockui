@@ -113,12 +113,13 @@ export class ContractorPaymentComponent {
 
       "paymentDate": this.utilsService.formatDate_dd_MM_YYYY(this.challanDate),
       "contractor": {
-        "id": this.contractorPyamentObj.contractor
+        "id": this.contractorPyamentObj.party
       },
       "paymentAmount": this.contractorPyamentObj.paymentAmount,
       "user": {
         "id": this.userInfo.id
-      }
+      },
+      "remarks": this.contractorPyamentObj.remarks
     }
     return obj;
   }

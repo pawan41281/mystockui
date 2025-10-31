@@ -37,9 +37,9 @@
                     <div class="dropdown">
                         <label for="contractor" class="form-label fw-bold">Contractor <span
                                 class="text-danger">*</span></label>
-                        <select class="form-select" name="contractor" [(ngModel)]="contractorPyamentObj.contractor"
+                        <select class="form-select" name="contractor" [(ngModel)]="contractorPyamentObj.party"
                             #contractor="ngModel" name="contractor" #party="ngModel">
-                            <option value="">Select Options</option>
+                            <option va>Select Options</option>
                             @for (party of constructors; track party.id) {
                             <option [value]="party.id">{{ party.contractorName }}</option>
                             }
@@ -57,6 +57,13 @@
                     <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
                         class="form-control" name="amount" [(ngModel)]="contractorPyamentObj.paymentAmount" id="amount">
                 </div>
+                <div class="col-md-2">
+                    <label for="remark" class="form-label fw-bold">Remarks</label>
+                    <input type="text" maxlength="200" class="form-control" name="remark"
+                        [(ngModel)]="contractorPyamentObj.remarks" id="remark">
+                </div>
+
+
                 <div class="col-2 align-right margin-top-48">
                     <button [disabled]="form.invalid" class="btn btn-primary" type="submit"
                         (click)="save()">Save</button>

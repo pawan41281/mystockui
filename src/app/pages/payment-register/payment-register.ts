@@ -106,6 +106,10 @@ export class PaymentRegister {
       field: "paymentAmount"
     },
     {
+      headerName: "Remarks",
+      field: "remarks"
+    },
+    {
       headerName: '',
       sortable: false,
       filter: false,
@@ -214,20 +218,7 @@ export class PaymentRegister {
   }
   //=================Items details =============
 
-  itemDetailsColDefs: ColDef<challanItems>[] = [
-    {
-      headerName: "Design",
-      field: "design.designName",
-    },
-    {
-      headerName: "Color",
-      field: "color.colorName",
-    },
-    {
-      headerName: "Quantity",
-      field: "quantity",
-    }
-  ];
+
 
 }
 
