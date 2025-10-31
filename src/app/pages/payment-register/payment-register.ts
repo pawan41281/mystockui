@@ -67,9 +67,7 @@ export class PaymentRegister {
     // });
     this.searchContractorPayment()
     this.userInfo = this.utilsService.getCurrentUserInfo()
-    if (this.userInfo?.roles[0].name == 'ROLE_ADMIN') {
-      this.isAdmin = true
-    }
+    this.isAdmin = this.userInfo.roles.filter(e => e.adminrole).length > 0
   }
 
   getClients = () => {
@@ -131,9 +129,7 @@ export class PaymentRegister {
 
   myCellRendererAction(params: any) {
     this.id = params.node.data.id;
-    return this.isAdmin ? `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="bi bi-search"></i> </button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"> <i class="bi bi-trash"></i> </button>`
-      : `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="bi bi-search"></i> </button>`;
+    return this.isAdmin ? ` <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"> <i class="bi bi-trash"></i> </button>` : ``;
   }
 
   defaultColDef: ColDef = {

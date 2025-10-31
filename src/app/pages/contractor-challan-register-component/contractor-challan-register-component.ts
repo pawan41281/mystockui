@@ -67,9 +67,7 @@ export class ContractorChallanRegisterComponent implements OnInit {
     });
     this.searchContractorChallan()
     this.userInfo = this.utilsService.getCurrentUserInfo()
-    if (this.userInfo?.roles[0].name == 'ROLE_ADMIN') {
-      this.isAdmin = true
-    }
+    this.isAdmin = this.userInfo.roles.filter(e => e.adminrole).length > 0
   }
 
   getClients = () => {
