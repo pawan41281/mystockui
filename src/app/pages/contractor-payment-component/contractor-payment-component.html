@@ -1,1 +1,68 @@
-<p>contractor-payment-component works!</p>
+<div class="row">
+    <div class="col-sm-12">
+        <app-card cardTitle="New Payment (Contractor)">
+            <div class="row">
+                <div class="col-12">
+                    @if (showSuccessMessage) {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ successMessage }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <form #form="ngForm" class="row g-3 needs-validation" novalidate>
+                <div class="col-md-3">
+                    <label for="challanDate" class="form-label fw-bold">Payment Date <span
+                            class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <input matInput [matDatepicker]="picker" id="challanDate" [(ngModel)]="challanDate"
+                            name="challanDate" class="form-control height-39" #challanDateModel="ngModel" />
+                        <span class="input-group-text height-39" style="cursor: pointer;">
+                            <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+                        </span>
+                    </div>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <div class="text-danger">
+                        @if(challanDateModel.errors?.['required'] && challanDateModel.touched &&
+                        challanDateModel.dirty) {
+                        <span>This field is mendatory</span>
+                        }
+                    </div>
+                </div>
+
+                <!-- Contractor -->
+                <div class="col-md-3">
+                    <div class="dropdown">
+                        <label for="contractor" class="form-label fw-bold">Contractor <span
+                                class="text-danger">*</span></label>
+                        <select class="form-select" name="contractor" [(ngModel)]="contractorPyamentObj.contractor"
+                            #contractor="ngModel" name="contractor" #party="ngModel">
+                            <option value="">Select Options</option>
+                            @for (party of constructors; track party.id) {
+                            <option [value]="party.id">{{ party.contractorName }}</option>
+                            }
+                        </select>
+
+                        <div class="text-danger">
+                            @if(contractor.errors?.['required'] && contractor.touched && contractor.dirty) {
+                            <span>This field is mendatory</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="amount" class="form-label fw-bold">Amount</label>
+                    <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
+                        class="form-control" name="amount" [(ngModel)]="contractorPyamentObj.paymentAmount" id="amount">
+                </div>
+                <div class="col-2 align-right margin-top-48">
+                    <button [disabled]="form.invalid" class="btn btn-primary" type="submit"
+                        (click)="save()">Save</button>
+                    <!-- <button class="btn btn-primary margin-left-10" type="submit" (click)="cancel()">Cancel</button> -->
+                </div>
+            </form>
+        </app-card>
+    </div>
+</div>

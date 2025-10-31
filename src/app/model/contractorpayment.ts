@@ -1,0 +1,22 @@
+import { contractor } from "./contractor";
+import { userData } from "./userData";
+
+export class contractorpayment {
+
+    id: number;
+    paymentDate: string;
+    contractor: contractor;
+    remarks: string;
+    createdOn: string;
+    paymentAmount: number;
+    user: userData;
+    constructor() {
+        this.id = 0;
+        this.contractor = new contractor();
+        this.paymentDate = "";
+        this.remarks = '';
+        this.paymentAmount = 0;
+        this.user = new userData()
+    }
+
+}

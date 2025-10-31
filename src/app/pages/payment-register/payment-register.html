@@ -1,5 +1,5 @@
 <div class="col-sm-12">
-    <app-card cardTitle="Contractor Challan Register">
+    <app-card cardTitle="Contractor Payment Register">
 
         <form #form="ngForm" class="row g-3 needs-validation" novalidate>
 
@@ -52,7 +52,7 @@
             </div>
 
             <div class="col-md-1 align-right">
-                <button class="margin-top-30 btn btn-primary" name="search" (click)="searchContractorChallan()"
+                <button class="margin-top-30 btn btn-primary" name="search" (click)="searchContractorPayment()"
                     id="search">
                     Search </button>
             </div>
@@ -77,28 +77,6 @@
 </div>
 
 
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" style="margin-top: 0px; margin-bottom: 0px;" id="exampleModalLabel">Challan
-                    Items</h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <ag-grid-angular class="ag-theme-quartz" style="height: 300px;" [rowData]="itemDetails"
-                    [columnDefs]="itemDetailsColDefs" [defaultColDef]="defaultColDef"
-                    (gridReady)="onGridReady($event)" />
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Modal -->
 <div class="modal" id="deleteModal">
     <div class="modal-dialog">
@@ -106,18 +84,18 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Cancel Challan</h4>
+                <h4 class="modal-title">Delete Payment</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
             <!-- Modal body -->
             <div class="modal-body">
-                Do you want to cancel the Challan?
+                Do you want to delete payment?
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
-                <button type="button" class="btn btn-primary" (click)="cancelChallan()"
+                <button type="button" class="btn btn-primary" (click)="deletePayment()"
                     data-bs-dismiss="modal">Yes</button>
             </div>
 

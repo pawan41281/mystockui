@@ -12,7 +12,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { debounceTime, distinctUntilChanged, Observable, of, switchMap } from 'rxjs';
 import { challanItems } from '../../model/challanItems';
-import { contractorChallan } from '../../model/contractorChallan';
 import { contractor } from '../../model/contractor';
 import { formatDate } from '@angular/common';
 import { DownloadSerivceService } from 'src/app/services/download-serivce-service';
@@ -21,6 +20,7 @@ import { DataService } from 'src/app/services/data-service';
 import { requestResponse } from 'src/app/model/requestResponse';
 import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
 import { userData } from 'src/app/model/userData';
+import { contractorpayment } from 'src/app/model/contractorpayment';
 
 @Component({
   selector: 'app-payment-register',
@@ -33,15 +33,15 @@ export class PaymentRegister {
 
 
   id: string = '';
-  url: string = 'contractorchallans';
+  url: string = 'contractorpayments';
   totalRecord: number = 0;
   http = inject(HttpClient)
   dataService = inject(DataService)
   utilsService: UtilService = inject(UtilService);
   router: ActivatedRoute = inject(ActivatedRoute);
   route: Router = inject(Router);
-  contractorChallans: contractorChallan[] = [];
-  contractorChallanObj: contractorChallan = new contractorChallan();
+  contractorChallans: contractorpayment[] = [];
+  contractorChallanObj: contractorpayment = new contractorpayment();
   private readonly downloadService = inject(DownloadSerivceService);
   private gridApi!: GridApi;
   contractors: contractor[] = [];
@@ -58,15 +58,14 @@ export class PaymentRegister {
   }
 
   ngOnInit() {
-    this.router.queryParams.subscribe(params => {
-      if (params['challanType']) {
-        this.filterObj.challantype = params['challanType'];
-        this.fromDate = new Date(params['fromDate']);
-        this.toDate = new Date(params['toDate']);
-      }
+    // this.router.queryParams.subscribe(params => {
+    //   if (params['challanType']) {
+    //     this.fromDate = new Date(params['fromDate']);
+    //     this.toDate = new Date(params['toDate']);
+    //   }
 
-    });
-    this.searchContractorChallan()
+    // });
+    this.searchContractorPayment()
     this.userInfo = this.utilsService.getCurrentUserInfo()
     if (this.userInfo?.roles[0].name == 'ROLE_ADMIN') {
       this.isAdmin = true
@@ -91,7 +90,7 @@ export class PaymentRegister {
   }
 
   // Column Definitions: Defines & controls grid columns.
-  colDefs: ColDef<contractorChallan>[] = [
+  colDefs: ColDef<contractorpayment>[] = [
 
     {
       headerName: "Payment Date",
@@ -104,21 +103,19 @@ export class PaymentRegister {
 
     {
       headerName: "Payment Amount",
-      cellRenderer: this.myCellRenderer
+      field: "paymentAmount"
     },
     {
       headerName: '',
       sortable: false,
       filter: false,
       cellRenderer: this.myCellRendererAction.bind(this),
-      onCellClicked: (event) => {
-        this.itemDetails = event.data?.challanItems;
-      }
+
     }
   ];
 
   renderDate(params: any) {
-    return formatDate(params.node.data.challanDate, 'dd-MM-yyyy', 'en-US');
+    return formatDate(params.node.data.paymentDate, 'dd-MM-yyyy', 'en-US');
   }
 
 
@@ -143,26 +140,26 @@ export class PaymentRegister {
 
   };
 
-  cancelChallan() {
+  deletePayment() {
     this.dataService.delete(`${this.url}/${this.id}`)
       .subscribe((res: requestResponse) => {
         this.contractorChallans = res.data;
         this.totalRecord = res.metadata.recordcount;
-        this.searchContractorChallan()
+        this.searchContractorPayment()
       })
 
   }
 
-  searchContractorChallan = () => {
+  searchContractorPayment = () => {
 
-    this.filterObj.fromchallandate = this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
-    this.filterObj.tochallandate = this.toDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
+    this.filterObj.frompaymentdate = this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
+    this.filterObj.topaymentdate = this.toDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
     let url = '';
     url = this.url + this.utilsService.buildUrl(this.filterObj);
     this.dataService.get(url)
       .subscribe((res: requestResponse) => {
         this.contractorChallans = res.data;
-        this.contractorChallans.forEach(e1 => { e1.challanType = this.utilsService.challanTypes?.find(e => e.val === e1.challanType)?.name ?? '' })
+        // this.contractorChallans.forEach(e1 => { e1.challanType = this.utilsService.challanTypes?.find(e => e.val === e1.challanType)?.name ?? '' })
         this.totalRecord = res.metadata.recordcount;
       })
   }
@@ -196,20 +193,19 @@ export class PaymentRegister {
 
   getReportData() {
     return this.contractorChallans.map(e => ({
-      'Challan Number': e.challanNumber,
-      'Challan Date': e.challanDate,
+
+      'Payment Date': e.paymentDate,
       'Contractor Name': e.contractor.contractorName,
       'Contractor Mobile': e.contractor.mobile,
-      'Challan Type': e.challanType,
-      'Total Pieces': this.peaceCount(e),
+      'Payment Amount': e.paymentAmount,
     }));
   }
 
-  peaceCount(params: any) {
-    let totalQuantity = 0;
-    params.challanItems.forEach((e: { quantity: number; }) => totalQuantity += e.quantity);
-    return `${totalQuantity}`;
-  }
+  // peaceCount(params: any) {
+  //   let totalQuantity = 0;
+  //   params.challanItems.forEach((e: { quantity: number; }) => totalQuantity += e.quantity);
+  //   return `${totalQuantity}`;
+  // }
 
   formatDate(event: any) {
     const [day, month, year] = formatDate(event.value, 'dd-MM-yyyy', 'en-US').split('-').map(Number);
@@ -236,18 +232,13 @@ export class PaymentRegister {
 }
 
 class challanFilter {
-  challannumber: string;
   contractorid: string;
-  fromchallandate: string;
-  tochallandate: string;
-  challantype: string;
-
+  frompaymentdate: string;
+  topaymentdate: string;
   constructor() {
-    this.challannumber = "";
     this.contractorid = '';
-    this.fromchallandate = '';
-    this.tochallandate = '';
-    this.challantype = '';
+    this.frompaymentdate = '';
+    this.topaymentdate = '';
   }
 }
 
