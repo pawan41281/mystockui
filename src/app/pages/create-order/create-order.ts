@@ -18,6 +18,7 @@ import { order } from 'src/app/model/order';
 import { orderFilter } from 'src/app/model/orderFilger';
 import { requestResponse } from 'src/app/model/requestResponse';
 import { userData } from 'src/app/model/userData';
+import { quality } from 'src/app/model/quality';
 
 @Component({
   selector: 'app-create-order',
@@ -35,6 +36,7 @@ export class CreateOrder implements OnInit {
   clientOrderFromData = signal(new order())
   dataService = inject(DataService)
   clientOrder: order = new order();
+  qualityList: quality[] = [];
   utilsService: UtilService = inject(UtilService);
   router: ActivatedRoute = inject(ActivatedRoute);
   route: Router = inject(Router);
@@ -59,6 +61,15 @@ export class CreateOrder implements OnInit {
     this.getClients();
     this.getDesignts();
     this.getColors();
+    this.getQualityList();
+  }
+
+  // fetch quality list
+  getQualityList = () => {
+    this.dataService.get('quality')
+      .subscribe((res: requestResponse) => {
+        this.qualityList = res.data;
+      })
   }
 
   ngOnInit() {
@@ -202,6 +213,7 @@ export class CreateOrder implements OnInit {
       orderDate: this.utilsService.formatDate_dd_MM_YYYY(this.orderDate),
       client: { id: this.selectedClient },
       orderItems: this.items.map(item => ({
+        quality: { id: item.quality },
         design: { id: item.designId },
         color: { id: item.colorId },
         quantity: item.quantity

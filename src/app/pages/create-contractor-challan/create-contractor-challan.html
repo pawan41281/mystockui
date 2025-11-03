@@ -89,7 +89,7 @@
                 <div class="col-md-2">
                     <label for="quality" class="form-label fw-bold">Quality</label>
                     <select class="form-select" name="color" (blur)="onInputBlur()"
-                        [(ngModel)]="contractorChallanObj.quality" id="color">
+                        [(ngModel)]="contractorChallanObj.quality" id="quality">
                         @for (quality of qualityList; track quality.id) {
                         <option [value]="quality.id">{{ quality.qualityName }}</option>
                         }

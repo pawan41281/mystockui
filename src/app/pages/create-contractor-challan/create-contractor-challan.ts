@@ -104,7 +104,7 @@ export class CreateContractorChallan implements OnInit {
       })
   }
 
-  // fetch color list
+  // fetch quality list
   getQualityList = () => {
     this.dataService.get('quality')
       .subscribe((res: requestResponse) => {

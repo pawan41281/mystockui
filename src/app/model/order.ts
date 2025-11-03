@@ -9,6 +9,7 @@ export class order {
   client: client;
   orderItems: challanItems[];
   party: number;
+  quality: number;
   design: number;
   color: number;
   quantity: number;
@@ -20,6 +21,7 @@ export class order {
     this.orderItems = [];
     this.orderDate = "";
     this.party = 0;
+    this.quality = 0;
     this.design = 0;
     this.createdOn = "";
     this.color = 0;

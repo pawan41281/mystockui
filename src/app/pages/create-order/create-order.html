@@ -82,6 +82,19 @@
                     </div>
                 </div>
                 <div class="col-md-3"></div>
+                <!-- Quality -->
+                <div class="col-md-3">
+                    <label for="design" class="form-label fw-bold">Quality</label>
+                    <select id="quality" class="form-select" name="quality" [(ngModel)]="clientOrder.quality"
+                        [disabled]="action === 'view'" (blur)="onInputBlur()">
+                        @for (quality of qualityList; track quality.id) {
+                        <option [value]="quality.id">{{ quality.qualityName }}</option>
+                        }
+
+                    </select>
+                    <div class="invalid-feedback">Please select a design.</div>
+                </div>
+
                 <!-- Design -->
                 <div class="col-md-3">
                     <label for="design" class="form-label fw-bold">Design</label>
