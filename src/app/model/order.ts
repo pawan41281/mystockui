@@ -14,6 +14,7 @@ export class order {
   color: number;
   quantity: number;
   createdOn: string;
+  rate: number;
 
   constructor() {
     this.id = 0;
@@ -26,5 +27,6 @@ export class order {
     this.createdOn = "";
     this.color = 0;
     this.quantity = 0;
+    this.rate = 0
   }
 }

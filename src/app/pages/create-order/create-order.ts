@@ -116,12 +116,22 @@ export class CreateOrder implements OnInit {
   // Column Definitions: Defines & controls grid columns.
   colDefs: ColDef<any>[] = [
     {
+      field: 'quality',
+      headerName: 'quality',
+      cellRenderer: this.myCellRendererAction.bind(this)
+    },
+    {
       headerName: "Design",
       field: "designName",
     },
     {
       headerName: "Color",
       field: "colorName",
+    },
+
+    {
+      field: 'rate',
+      headerName: 'Rate',
     },
     {
       field: 'quantity',
@@ -140,6 +150,10 @@ export class CreateOrder implements OnInit {
     }
   ];
 
+  myCellRendererAction(params: any) {
+    console.log('params :: ', params)
+    return this.qualityList.filter(e => e.id == params.data.quality)[0].qualityName;
+  }
   buttonRenderer(params: any): HTMLElement {
     const button = document.createElement('button');
     button.innerHTML = params.label || 'Click';
@@ -216,7 +230,8 @@ export class CreateOrder implements OnInit {
         quality: { id: item.quality },
         design: { id: item.designId },
         color: { id: item.colorId },
-        quantity: item.quantity
+        quantity: item.quantity,
+        rate: item.rate,
       })),
       user: {
         id: this.userInfo.id
@@ -253,14 +268,17 @@ export class CreateOrder implements OnInit {
     if (this.itemExist()) {
       this.isItemExist = true;
     } else {
-      const { design, color, quantity } = this.clientOrder;
+      const { design, color, quantity, quality, rate } = this.clientOrder;
       const newItem = {
         id: this.rowCnt++,
         designId: design,
         designName: this.getDesignName(design),
         colorId: color,
         colorName: this.getColorName(color),
-        quantity
+        'quantity': quantity,
+        'quality': quality,
+        'rate': rate
+        // 'quantity': this.contractorChallanObj.quantity,
       }
 
       this.items.push(newItem);
@@ -276,6 +294,7 @@ export class CreateOrder implements OnInit {
     this.clientOrder.color = 0
     this.clientOrder.quantity = 0
     this.disableAdd = true;
+    this.clientOrder.quality = 0;
   }
 
   itemExist() {

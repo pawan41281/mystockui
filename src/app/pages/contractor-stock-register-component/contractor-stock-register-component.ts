@@ -18,6 +18,7 @@ import { UtilService } from 'src/app/services/util-service';
 import { DownloadSerivceService } from 'src/app/services/download-serivce-service';
 import { requestResponse } from 'src/app/model/requestResponse';
 import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
+import { quality } from 'src/app/model/quality';
 
 @Component({
   selector: 'app-contractor-stock-register-component',
@@ -39,14 +40,25 @@ export class ContractorStockRegisterComponent implements OnInit {
   stockRegister: stockRegisger[] = [];
   private url: string = 'contractorstockreports'
   totalRecord: number = 0;
+  qualityList: quality[] = [];
 
   ngOnInit(): void {
     this.getDesignts();
     this.getColors();
     this.searchStock()
     this.getContractor()
+    this.getQualityList();
   }
 
+
+
+  // fetch quality list
+  getQualityList = () => {
+    this.dataService.get('quality')
+      .subscribe((res: requestResponse) => {
+        this.qualityList = res.data;
+      })
+  }
   //fethc design list
 
   getDesignts = () => {
@@ -97,6 +109,10 @@ export class ContractorStockRegisterComponent implements OnInit {
       field: "contractorName",
     },
     {
+      headerName: "Quality",
+      field: "quality",
+    },
+    {
       headerName: "Design",
       field: "designName",
     },
@@ -135,10 +151,12 @@ class StockFilter {
   colorName: string;
   designName: string;
   contractorName: string;
+  quality: number;
 
   constructor() {
     this.colorName = "";
     this.designName = '';
     this.contractorName = '';
+    this.quality = 0;
   }
 }

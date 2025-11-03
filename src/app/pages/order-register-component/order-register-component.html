@@ -1,5 +1,5 @@
 <div class="col-sm-12">
-    <app-card cardTitle="Party Challan Register">
+    <app-card cardTitle="Order Register">
         <form #form="ngForm" class="row g-3 needs-validation" novalidate>
             <div class="col-md-3">
                 <label for="orderNumber" class="form-label fw-bold">Order Number</label>
@@ -22,7 +22,7 @@
                 </div>
             </div>
 
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <label for="fromDate" class="form-label fw-bold">From Date</label>
                 <div class="input-group">
                     <input matInput [matDatepicker]="picker1" id="fromDate" [(ngModel)]="fromDate" name="fromDate"
@@ -38,7 +38,7 @@
                     }
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <label for="toDate" class="form-label fw-bold">To Date</label>
                 <div class="input-group">
                     <input matInput [matDatepicker]="picker" id="toDate" [(ngModel)]="toDate" name="toDate"
@@ -54,7 +54,41 @@
                     }
                 </div>
             </div>
-            <div class="col-md-1">
+            <!-- Quality -->
+            <div class="col-md-3">
+                <label for="design" class="form-label fw-bold">Quality</label>
+                <select id="quality" class="form-select" name="quality" [(ngModel)]="filterObj.quality">
+                    @for (quality of qualityList; track quality.id) {
+                    <option [value]="quality.id">{{ quality.qualityName }}</option>
+                    }
+
+                </select>
+                <div class="invalid-feedback">Please select a design.</div>
+            </div>
+
+            <!-- Design -->
+            <div class="col-md-3">
+                <label for="design" class="form-label fw-bold">Design</label>
+                <select id="design" class="form-select" name="design" [(ngModel)]="filterObj.design">
+                    @for (design of designs; track $index) {
+                    <option [value]="design.id">{{ design.designName }}</option>
+                    }
+
+                </select>
+                <div class="invalid-feedback">Please select a design.</div>
+            </div>
+
+            <!-- Color -->
+            <div class="col-md-3">
+                <label for="color" class="form-label fw-bold">Color</label>
+                <select id="color" class="form-select" name="color" [(ngModel)]="filterObj.color">
+                    @for (color of colors; track $index) {
+                    <option [value]="color.id">{{ color.colorName }}</option>
+                    }
+                </select>
+                <div class="invalid-feedback">Please select a color.</div>
+            </div>
+            <div class="col-md-3 align-right">
                 <button class="margin-top-30 btn btn-primary" name="search" (click)="searchClientOrder()" id="search">
                     Search
                 </button>
@@ -82,7 +116,7 @@
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content  model-width-800">
             <div class="modal-header">
                 <h2 class="modal-title" style="margin-top: 0px; margin-bottom: 0px;" id="exampleModalLabel">Order
                     Items</h2>

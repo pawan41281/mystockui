@@ -16,6 +16,7 @@ import { DataService } from 'src/app/services/data-service';
 import { UtilService } from 'src/app/services/util-service';
 import { requestResponse } from 'src/app/model/requestResponse';
 import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
+import { quality } from 'src/app/model/quality';
 
 @Component({
   selector: 'app-stock-register-component',
@@ -37,13 +38,24 @@ export class StockRegisterComponent implements OnInit {
   stockRegister: stockRegisger[] = [];
   private url: string = 'designstockreports'
   totalRecord: number = 0;
+  qualityList: quality[] = [];
+
 
   ngOnInit(): void {
     this.getDesignts();
     this.getColors();
     this.searchStock()
+    this.getQualityList();
   }
 
+
+  // fetch quality list
+  getQualityList = () => {
+    this.dataService.get('quality')
+      .subscribe((res: requestResponse) => {
+        this.qualityList = res.data;
+      })
+  }
   //fethc design list
 
   getDesignts = () => {
@@ -111,6 +123,7 @@ export class StockRegisterComponent implements OnInit {
   getReportData() {
     return this.stockRegister.map(e => ({
       'Design Name': e.designName,
+      'Quality': e.designName,
       'Color Name': e.colorName,
       'Opening Balance': e.openingBalance,
       'Closing Balance': e.closingBalance,
@@ -121,9 +134,11 @@ export class StockRegisterComponent implements OnInit {
 class StockFilter {
   colorName: string;
   designName: string;
+  quality: number;
 
   constructor() {
     this.colorName = "";
     this.designName = '';
+    this.quality = 0;
   }
 }

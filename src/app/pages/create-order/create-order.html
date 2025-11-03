@@ -39,7 +39,7 @@
 
 
                 <!-- Party -->
-                <div class="col-md-3">
+                <div class="col-md-4">
 
                     <div class="dropdown">
                         <label for="selectedClient" class="form-label fw-bold">Party <span
@@ -81,9 +81,9 @@
                         }
                     </div>
                 </div>
-                <div class="col-md-3"></div>
+                <div class="col-md-2"></div>
                 <!-- Quality -->
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label for="design" class="form-label fw-bold">Quality</label>
                     <select id="quality" class="form-select" name="quality" [(ngModel)]="clientOrder.quality"
                         [disabled]="action === 'view'" (blur)="onInputBlur()">
@@ -92,11 +92,11 @@
                         }
 
                     </select>
-                    <div class="invalid-feedback">Please select a design.</div>
+                    <div class="invalid-feedback">Please select quality.</div>
                 </div>
 
                 <!-- Design -->
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label for="design" class="form-label fw-bold">Design</label>
                     <select id="design" class="form-select" name="design" [(ngModel)]="clientOrder.design"
                         [disabled]="action === 'view'" (blur)="onInputBlur()">
@@ -109,7 +109,7 @@
                 </div>
 
                 <!-- Color -->
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label for="color" class="form-label fw-bold">Color</label>
                     <select id="color" class="form-select" name="color" [(ngModel)]="clientOrder.color"
                         [disabled]="action === 'view'" (blur)="onInputBlur()">
@@ -128,6 +128,13 @@
                         (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()" />
                     <div class="invalid-feedback">Please enter quantity.</div>
                 </div>
+
+                <!-- Rate -->
+                <div class="col-md-2">
+                    <label for="rate" class="form-label fw-bold">Rate</label>
+                    <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
+                        class="form-control" name="rate" [(ngModel)]="clientOrder.rate" id="rate">
+                </div>
                 <!-- Add Button -->
                 <div class="col-md-1 margin-top-48">
                     <button type="button" class="btn btn-primary" [disabled]="disableAdd"
@@ -135,7 +142,7 @@
                 </div>
                 @if (isItemExist) {
                 <div class="col-12">
-                    <span class="text-danger">Design and Color already added</span>
+                    <span class="text-danger">Quality, Design and Color already added</span>
                 </div>
                 }
 

@@ -19,6 +19,10 @@ import { DownloadSerivceService } from 'src/app/services/download-serivce-servic
 import { order } from 'src/app/model/order';
 import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
 import { userData } from 'src/app/model/userData';
+import { requestResponse } from 'src/app/model/requestResponse';
+import { quality } from 'src/app/model/quality';
+import { color } from 'src/app/model/color';
+import { design } from 'src/app/model/design';
 
 @Component({
   selector: 'app-order-register-component',
@@ -43,6 +47,9 @@ export class OrderRegisterComponent implements OnInit {
   clients: client[] = [];
   dropdownData: client[] = [];
   itemDetails: challanItems[] | undefined = [];
+  designs: design[] = [];
+  colors: color[] = [];
+  qualityList: quality[] = [];
   fromDate: Date = new Date();
   toDate: Date = new Date();
   filterObj: orderFilter = new orderFilter();
@@ -66,9 +73,36 @@ export class OrderRegisterComponent implements OnInit {
     this.searchClientOrder()
     this.userInfo = this.utilsService.getCurrentUserInfo()
     this.isAdmin = this.userInfo.roles.filter(e => e.adminrole).length > 0
+    this.getDesignts();
+    this.getColors();
+    this.getQualityList();
 
   }
 
+  // fetch quality list
+  getQualityList = () => {
+    this.dataService.get('quality')
+      .subscribe((res: requestResponse) => {
+        this.qualityList = res.data;
+      })
+  }
+
+  //fethc design list
+
+  getDesignts = () => {
+    this.dataService.get('designs')
+      .subscribe((res: requestResponse) => {
+        this.designs = res.data;
+      })
+  }
+
+  // fetch color list
+  getColors = () => {
+    this.dataService.get('colors')
+      .subscribe((res: requestResponse) => {
+        this.colors = res.data;
+      })
+  }
   getClients = () => {
     this.dataService.get('clients')
       .subscribe((res: any) => {
@@ -85,6 +119,13 @@ export class OrderRegisterComponent implements OnInit {
       })
   }
 
+
+  // onInputBlur(): void {
+  //   this.clientOrder.quantity = Number(this.clientOrder.quantity)
+  //   this.isItemExist = this.itemExist();
+  //   const { design, color, quantity } = this.clientOrder;
+  //   this.disableAdd = !(design && color && quantity > 0 && !this.isItemExist);
+  // }
   // Column Definitions: Defines & controls grid columns.
   colDefs: ColDef<order>[] = [
     {
@@ -205,6 +246,10 @@ export class OrderRegisterComponent implements OnInit {
   //=================Items details =============
 
   itemDetailsColDefs: ColDef<challanItems>[] = [
+    {
+      headerName: "Quality",
+      field: "quality.qualityName",
+    },
     {
       headerName: "Design",
       field: "design.designName",

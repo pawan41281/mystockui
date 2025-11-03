@@ -5,5 +5,6 @@ export interface stockRegisger {
     colorName: string
     closingBalance: string
     openingBalance: string
+    quality: string;
 
 }

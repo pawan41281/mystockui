@@ -4,6 +4,9 @@ export class orderFilter {
     fromorderdate: string;
     clientName: string;
     toorderdate: string;
+    quality: number;
+    design: number;
+    color: number;
 
     constructor() {
         this.ordernumber = "";
@@ -11,5 +14,8 @@ export class orderFilter {
         this.fromorderdate = '';
         this.toorderdate = '';
         this.clientName = '';
+        this.quality = 0;
+        this.design = 0;
+        this.color = 0;
     }
 }
