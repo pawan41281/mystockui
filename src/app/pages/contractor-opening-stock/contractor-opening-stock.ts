@@ -161,11 +161,7 @@ export class ContractorOpeningStock implements OnInit {
     {
       headerName: 'Opening Balance',
       field: 'openingBalance'
-    },
-    {
-      headerName: 'Current Balance',
-      field: 'balance'
-    },
+    }
   ];
 
 
