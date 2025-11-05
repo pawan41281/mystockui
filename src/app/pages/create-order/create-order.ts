@@ -66,7 +66,7 @@ export class CreateOrder implements OnInit {
 
   // fetch quality list
   getQualityList = () => {
-    this.dataService.get('quality')
+    this.dataService.get('quality?active=true')
       .subscribe((res: requestResponse) => {
         this.qualityList = res.data;
       })
@@ -89,7 +89,7 @@ export class CreateOrder implements OnInit {
   //fetch client list
 
   getClients = () => {
-    this.dataService.get('clients')
+    this.dataService.get('clients?active=true')
       .subscribe((res: requestResponse) => {
         this.clients = res.data;
       })
@@ -98,7 +98,7 @@ export class CreateOrder implements OnInit {
   //fethc design list
 
   getDesignts = () => {
-    this.dataService.get('designs')
+    this.dataService.get('designs?active=true')
       .subscribe((res: requestResponse) => {
         this.designs = res.data;
       })
@@ -106,7 +106,7 @@ export class CreateOrder implements OnInit {
 
   // fetch color list
   getColors = () => {
-    this.dataService.get('colors')
+    this.dataService.get('colors?active=true')
       .subscribe((res: requestResponse) => {
         this.colors = res.data;
       })

@@ -81,7 +81,7 @@ export class CreateContractorChallan implements OnInit {
   //fetch client list
 
   getContractor = () => {
-    this.dataService.get('contractors')
+    this.dataService.get('contractors?active=true')
       .subscribe((res: requestResponse) => {
         this.constructors = res.data;
       })
@@ -90,7 +90,7 @@ export class CreateContractorChallan implements OnInit {
   //fethc design list
 
   getDesignts = () => {
-    this.dataService.get('designs')
+    this.dataService.get('designs?active=true')
       .subscribe((res: requestResponse) => {
         this.designs = res.data;
       })
@@ -98,7 +98,7 @@ export class CreateContractorChallan implements OnInit {
 
   // fetch color list
   getColors = () => {
-    this.dataService.get('colors')
+    this.dataService.get('colors?active=true')
       .subscribe((res: requestResponse) => {
         this.colors = res.data;
       })
@@ -106,7 +106,7 @@ export class CreateContractorChallan implements OnInit {
 
   // fetch quality list
   getQualityList = () => {
-    this.dataService.get('quality')
+    this.dataService.get('quality?active=true')
       .subscribe((res: requestResponse) => {
         this.qualityList = res.data;
       })

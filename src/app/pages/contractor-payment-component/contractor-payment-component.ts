@@ -70,7 +70,7 @@ export class ContractorPaymentComponent {
   //fetch client list
 
   getContractor = () => {
-    this.dataService.get('contractors')
+    this.dataService.get('contractors?active=true')
       .subscribe((res: requestResponse) => {
         this.constructors = res.data;
       })
