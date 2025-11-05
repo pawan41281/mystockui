@@ -114,9 +114,8 @@ export class CreatePartyChallan implements OnInit {
   // Column Definitions: Defines & controls grid columns.
   colDefs: ColDef<any>[] = [
     {
-      field: 'quality',
-      headerName: 'quality',
-      cellRenderer: this.myCellRendererAction.bind(this)
+      headerName: 'Quality',
+      field: 'qualityName'
     },
     {
       headerName: "Design",
@@ -127,8 +126,14 @@ export class CreatePartyChallan implements OnInit {
       field: "colorName",
     },
     {
-      field: 'quantity',
       headerName: 'Quantity',
+      field: 'quantity',
+      editable: true, // 👈 make this column editable
+      cellEditor: 'agTextCellEditor' // default is already agTextCellEditor
+    },
+    {
+      headerName: 'Rate',
+      field: 'rate',
       editable: true, // 👈 make this column editable
       cellEditor: 'agTextCellEditor' // default is already agTextCellEditor
     },
@@ -223,10 +228,11 @@ export class CreatePartyChallan implements OnInit {
 
       challanType: this.clientChallanObj.challanType,
       challanItems: this.items.map(item => ({
-        quality: { id: item.quality },
+        quality: { id: item.qualityId },
         design: { id: item.designId },
         color: { id: item.colorId },
-        quantity: item.quantity
+        quantity: item.quantity,
+        rate: item.rate
       })),
       user: {
         id: this.userInfo.id
@@ -253,8 +259,13 @@ export class CreatePartyChallan implements OnInit {
   getDesignName = (id: number) => {
     return this.designs.filter(e => e.id == id)[0].designName;
   }
+
   getColorName = (id: number) => {
     return this.colors.filter(e => e.id == id)[0].colorName;
+  }
+
+  getQualityName = (id: number) => {
+    return this.qualityList.filter(e => e.id == id)[0].qualityName;
   }
 
   onGridReady(params: GridReadyEvent): void {
@@ -269,14 +280,17 @@ export class CreatePartyChallan implements OnInit {
     if (this.itemExist()) {
       this.isItemExist = true;
     } else {
-      const { design, color, quantity } = this.clientChallanObj;
+      const { quality, design, color, quantity, rate } = this.clientChallanObj;
       const newItem = {
         id: this.rowCnt++,
+        qualityId: quality,
+        qualityName: this.getQualityName(quality),
         designId: design,
         designName: this.getDesignName(design),
         colorId: color,
         colorName: this.getColorName(color),
-        quantity
+        quantity: quantity,
+        rate: rate
       }
 
       this.items.push(newItem);
@@ -295,7 +309,7 @@ export class CreatePartyChallan implements OnInit {
   }
 
   itemExist() {
-    return this.items.some(e => e.designId == this.clientChallanObj.design && e.colorId == this.clientChallanObj.color)
+    return this.items.some(e => e.designId == this.clientChallanObj.design && e.colorId == this.clientChallanObj.color && e.qualityId == this.clientChallanObj.quality)
   }
 
   onInputBlur(): void {

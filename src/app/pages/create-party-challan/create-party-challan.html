@@ -112,7 +112,7 @@
                 </div>
 
                 <!-- Design -->
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label for="design" class="form-label fw-bold">Design</label>
                     <select id="design" class="form-select" name="design" [(ngModel)]="clientChallanObj.design"
                         [disabled]="action === 'view'" (blur)="onInputBlur()">
@@ -125,7 +125,7 @@
                 </div>
 
                 <!-- Color -->
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label for="color" class="form-label fw-bold">Color</label>
                     <select id="color" class="form-select" name="color" [(ngModel)]="clientChallanObj.color"
                         [disabled]="action === 'view'" (blur)="onInputBlur()">
@@ -144,14 +144,21 @@
                         (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()" />
                     <div class="invalid-feedback">Please enter quantity.</div>
                 </div>
+
+                <!-- Rate -->
+                <div class="col-md-2">
+                    <label for="rate" class="form-label fw-bold">Rate</label>
+                    <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
+                        class="form-control" name="rate" [(ngModel)]="clientChallanObj.rate" id="rate">
+                </div>
                 <!-- Add Button -->
-                <div class="col-md-1 margin-top-48">
+                <div class="col-md-2 margin-top-48">
                     <button type="button" class="btn btn-primary" [disabled]="disableAdd"
                         (click)="addItems()">Add</button>
                 </div>
                 @if (isItemExist) {
                 <div class="col-12">
-                    <span class="text-danger">Design and Color already added</span>
+                    <span class="text-danger">Quality, Design and Color already added</span>
                 </div>
                 }
 

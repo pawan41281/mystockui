@@ -16,9 +16,10 @@ export class clientChallan {
     design: number;
     color: number;
     quantity: number;
+    rate: number;
     createdOn: string;
     orderNumber?: number;
-    quality?: number;
+    quality: number;
 
     constructor() {
         this.id = 0;
