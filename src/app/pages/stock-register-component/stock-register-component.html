@@ -4,16 +4,31 @@
         <form #form="ngForm" class="row g-3 needs-validation" novalidate>
 
             <!-- Quality -->
-            <div class="col-md-2">
+            <!-- <div class="col-md-2">
                 <label for="design" class="form-label fw-bold">Quality</label>
-                <select id="quality" class="form-select" name="quality" [(ngModel)]="filterObj.quality">
-                    @for (quality of qualityList; track quality.id) {
+                <select id="quality" class="form-select" name="quality" [(ngModel)]="filterObj.quality"> -->
+                    <!-- @for (quality of qualityList; track quality.id) {
                     <option [value]="quality.id">{{ quality.qualityName }}</option>
-                    }
+                    } -->
+                   <!-- <option value="">Any</option>
+                    <option *ngFor="let quality of qualityList" [value]="quality.qualityName">{{ quality.qualityName }}</option>
 
                 </select>
                 <div class="invalid-feedback">Please select quality.</div>
-            </div>
+
+            </div> -->
+
+            <!-- Quality -->
+<div class="col-md-3">
+    <label for="quality" class="form-label fw-bold">Quality</label>
+    <select id="quality" class="form-select" name="quality" [(ngModel)]="filterObj.qualityName">
+        <option value="">Any</option>
+        <option *ngFor="let quality of qualityList" [value]="quality.qualityName">{{ quality.qualityName }}</option>
+    </select>
+    <div class="invalid-feedback">Please select quality.</div>
+</div>
+
+
             <!-- Design -->
             <div class="col-md-3">
                 <label for="design" class="form-label fw-bold">Design</label>

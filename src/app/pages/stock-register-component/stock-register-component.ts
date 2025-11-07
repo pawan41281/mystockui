@@ -134,11 +134,11 @@ export class StockRegisterComponent implements OnInit {
 class StockFilter {
   colorName: string;
   designName: string;
-  quality: number;
+  qualityName: string;
 
   constructor() {
     this.colorName = "";
     this.designName = '';
-    this.quality = 0;
+    this.qualityName = "";
   }
 }
