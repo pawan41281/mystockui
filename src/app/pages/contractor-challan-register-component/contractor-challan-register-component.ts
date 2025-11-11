@@ -51,6 +51,8 @@ export class ContractorChallanRegisterComponent implements OnInit {
   filterObj: challanFilter = new challanFilter();
   isAdmin: boolean = false;
   userInfo: userData;
+  invalidDateRange: boolean = false;
+  errorMessage: string = '';
 
   constructor() {
     this.getClients();
@@ -176,10 +178,29 @@ export class ContractorChallanRegisterComponent implements OnInit {
     let url = '';
     url = this.url + this.utilsService.buildUrl(this.filterObj);
     this.dataService.get(url)
-      .subscribe((res: requestResponse) => {
-        this.contractorChallans = res.data;
-        this.contractorChallans.forEach(e1 => { e1.challanType = this.utilsService.challanTypes?.find(e => e.val === e1.challanType)?.name ?? '' })
-        this.totalRecord = res.metadata.recordcount;
+      .subscribe({
+        next: (res: requestResponse) => {
+          this.contractorChallans = res.data;
+          this.contractorChallans.forEach(e1 => {
+            e1.challanType = this.utilsService.challanTypes?.find(e => e.val === e1.challanType)?.name ?? '';
+          });
+          this.totalRecord = res.metadata.recordcount;
+        },
+        error: (err) => {
+          this.invalidDateRange = false;
+          if (err.status === 400) {
+            // Handle 400 Bad Request
+            console.error('Bad Request:', err.message);
+            this.errorMessage = err.message;
+          }
+
+        }
+
+
+        // (res: requestResponse) => {
+        // this.contractorChallans = res.data;
+        // this.contractorChallans.forEach(e1 => { e1.challanType = this.utilsService.challanTypes?.find(e => e.val === e1.challanType)?.name ?? '' })
+        // this.totalRecord = res.metadata.recordcount;
       })
   }
 

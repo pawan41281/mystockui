@@ -300,9 +300,9 @@ export class ContractorOpeningStock implements OnInit {
 
   onInputBlur = () => {
     //this.contractorChallanObj.quality = Number(this.contractorChallanObj.quantityStr)
-    this.isItemExist = this.itemExist();
-    const { design, color, quantity } = this.contractorChallanObj;
-    this.disableAdd = !(design && color && quantity && !this.isItemExist)
+    //this.isItemExist = this.itemExist();
+    //const { design, color, quantity } = this.contractorChallanObj;
+    this.disableAdd = this.itemExist(); // !(design && color && quantity && !this.isItemExist)
 
   }
 

@@ -3,6 +3,12 @@
 
         <form #form="ngForm" class="row g-3 needs-validation" novalidate>
 
+            @if (invalidDateRange) {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{errorMessage}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            }
             <!-- <div class="col-md-3">
                 <label for="party" class="form-label fw-bold">Contractor</label>
                 <div class="input-group has-validation">
