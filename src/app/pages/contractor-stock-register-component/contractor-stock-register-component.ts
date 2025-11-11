@@ -131,6 +131,7 @@ export class ContractorStockRegisterComponent implements OnInit {
   }
 
 }
+
 class StockFilter {
   colorName: string;
   designName: string;

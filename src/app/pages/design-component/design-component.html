@@ -14,7 +14,7 @@
     <div class="col-sm-12">
         <app-card cardTitle="Design">
             <form #form="ngForm" class="row g-3 needs-validation " novalidate>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <label for="designName" class="form-label fw-bold">Design Name <span
                             class="text-danger">*</span></label>
                     <input type="text" class="form-control" #designName="ngModel" name="designName"
@@ -22,17 +22,16 @@
 
                     <div class="text-danger">
                         <span *ngIf="designName.errors?.['required'] && designName.touched && designName.dirty">This
-                            field is
-                            mendatory</span>
+                            field is mendatory</span>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-5">
                     <label for="description" class="form-label fw-bold">Description</label>
                     <input type="text" class="form-control" name="description" [(ngModel)]="designObj.description"
                         id="description">
                 </div>
 
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <label for="active" class="form-label fw-bold">Status</label>
                     <select class="form-select" name="active" [(ngModel)]="designObj.active" id="active">
                         <option value="true">Active</option>

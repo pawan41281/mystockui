@@ -101,12 +101,16 @@ export class OpeningStock implements OnInit {
   // Column Definitions: Defines & controls grid columns.
   colDefs: ColDef<stock>[] = [
     {
+      field: 'quality',
+      headerName: 'Quality'
+    },
+    {
       headerName: "Design",
-      field: "designName",
+      field: "designName"
     },
     {
       headerName: "Color",
-      field: "colorName",
+      field: "colorName"
     },
     {
       field: 'quality',
@@ -128,22 +132,10 @@ export class OpeningStock implements OnInit {
   ];
 
   colDefs_opening_stock: ColDef<intilaStock>[] = [
-    {
-      headerName: "Design",
-      field: "design.designName",
-    },
-    {
-      headerName: "Color",
-      field: "color.colorName",
-    },
-    {
-      headerName: 'Opening Balance',
-      field: 'openingBalance'
-    },
-    {
-      headerName: 'Current Balance',
-      field: 'balance'
-    },
+    { headerName: "Quality", field: "design.designName" },
+    { headerName: "Design", field: "design.designName" },
+    { headerName: "Color", field: "color.colorName" },
+    { headerName: "Opening Balance", field: "openingBalance" }
   ];
 
 

@@ -146,22 +146,11 @@ export class ContractorOpeningStock implements OnInit {
 
 
   colDefs_opening_stock: ColDef<intilaStock>[] = [
-    {
-      headerName: "Contractor",
-      field: "contractor.contractorName",
-    },
-    {
-      headerName: "Design",
-      field: "design.designName",
-    },
-    {
-      headerName: "Color",
-      field: "color.colorName",
-    },
-    {
-      headerName: 'Opening Balance',
-      field: 'openingBalance'
-    }
+    { headerName: "Contractor", field: "contractor.contractorName" },
+    { headerName: "Quality", field: "design.designName" },
+    { headerName: "Design", field: "design.designName" },
+    { headerName: "Color", field: "color.colorName" },
+    { headerName: 'Opening Balance', field: 'openingBalance' }
   ];
 
 

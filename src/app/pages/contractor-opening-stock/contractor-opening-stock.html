@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-sm-12">
-        <app-card cardTitle="Contractor Opening Stock">
+        <app-card
+            cardTitle="Contractor Opening Stock - Kaam pending hai 1. Quality dropdown me quality values miss hai 2. Table me Quality header ke under design ki values aa rahi hai">
             <div class="row">
                 <div class="col-12 mt-3">
                     @if (showSuccessMessage) {
@@ -41,20 +42,21 @@
                     </div> -->
                 </div>
 
-                <!-- Quantity -->
+                <!-- Quality -->
                 <div class="col-md-2">
-                    <label for="quantity" class="form-label fw-bold">Quantity</label>
-                    <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
-                        class="form-control" name="quantity" [(ngModel)]="contractorChallanObj.quantityStr"
-                        id="quantity">
+                    <label for="design" class="form-label fw-bold">Quality</label>
+                    <select class="form-select" name="design" (blur)="onInputBlur()"
+                        [(ngModel)]="contractorChallanObj.design" id="design">
+                        @for (design of designs; track design.id) {
+                        <option [value]="design.id">{{ design.designName }}</option>
+                        }
+
+                    </select>
                 </div>
 
-
-
-
                 <!-- Design -->
-                <div class="col-md-3">
-                    <label for="design" class="form-label fw-bold">Desing</label>
+                <div class="col-md-2">
+                    <label for="design" class="form-label fw-bold">Design</label>
                     <select class="form-select" name="design" (blur)="onInputBlur()"
                         [(ngModel)]="contractorChallanObj.design" id="design">
                         @for (design of designs; track design.id) {
@@ -66,7 +68,7 @@
 
                 <!-- Color -->
 
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label for="color" class="form-label fw-bold">Color</label>
                     <select class="form-select" name="color" (blur)="onInputBlur()"
                         [(ngModel)]="contractorChallanObj.color" id="color">
@@ -75,6 +77,14 @@
                         }
 
                     </select>
+                </div>
+
+                <!-- Quantity -->
+                <div class="col-md-2">
+                    <label for="quantity" class="form-label fw-bold">Quantity</label>
+                    <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
+                        class="form-control" name="quantity" [(ngModel)]="contractorChallanObj.quantityStr"
+                        id="quantity">
                 </div>
 
 

@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-sm-12">
-        <app-card cardTitle="Design Opening Stock">
+        <app-card
+            cardTitle="Design Opening Stock - Kaam pending hai 1. Quality dropdown add karna hai 2. Table me Quality add karna hai">
             <div class="row">
                 <div class="col-12 mt-3">
                     @if (showSuccessMessage) {
@@ -16,7 +17,19 @@
 
                 <!-- Design -->
                 <div class="col-md-3">
-                    <label for="design" class="form-label fw-bold">Desing</label>
+                    <label for="design" class="form-label fw-bold">Quality</label>
+                    <select class="form-select" name="design" (blur)="onInputBlur()"
+                        [(ngModel)]="contractorChallanObj.design" id="design">
+                        @for (design of designs; track design.id) {
+                        <option [value]="design.id">{{ design.designName }}</option>
+                        }
+
+                    </select>
+                </div>
+
+                <!-- Design -->
+                <div class="col-md-3">
+                    <label for="design" class="form-label fw-bold">Design</label>
                     <select class="form-select" name="design" (blur)="onInputBlur()"
                         [(ngModel)]="contractorChallanObj.design" id="design">
                         @for (design of designs; track design.id) {
