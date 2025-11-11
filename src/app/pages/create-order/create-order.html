@@ -21,7 +21,7 @@
             <form #form="ngForm" class="row g-3 needs-validation" novalidate>
                 <!-- Order Date -->
 
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label for="Date" class="form-label fw-bold">Order Date <span class="text-danger">*</span></label>
                     <div class="input-group">
                         <input matInput [matDatepicker]="picker" id="orderDate" name="orderDate"
@@ -39,7 +39,7 @@
 
 
                 <!-- Party -->
-                <div class="col-md-4">
+                <div class="col-md-5">
 
                     <div class="dropdown">
                         <label for="selectedClient" class="form-label fw-bold">Party <span
@@ -68,7 +68,7 @@
                         }
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label for="orderNumber" class="form-label fw-bold">Order Number <span
                             class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="orderNumber" name="orderNumber" maxlength="8"
@@ -81,9 +81,10 @@
                         }
                     </div>
                 </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-3"></div>
+
                 <!-- Quality -->
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label for="design" class="form-label fw-bold">Quality</label>
                     <select id="quality" class="form-select" name="quality" [(ngModel)]="clientOrder.quality"
                         [disabled]="action === 'view'" (blur)="onInputBlur()">
@@ -96,7 +97,7 @@
                 </div>
 
                 <!-- Design -->
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label for="design" class="form-label fw-bold">Design</label>
                     <select id="design" class="form-select" name="design" [(ngModel)]="clientOrder.design"
                         [disabled]="action === 'view'" (blur)="onInputBlur()">
@@ -109,7 +110,7 @@
                 </div>
 
                 <!-- Color -->
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label for="color" class="form-label fw-bold">Color</label>
                     <select id="color" class="form-select" name="color" [(ngModel)]="clientOrder.color"
                         [disabled]="action === 'view'" (blur)="onInputBlur()">
@@ -121,7 +122,7 @@
                 </div>
 
                 <!-- Quantity -->
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <label for="quantity" class="form-label fw-bold">Quantity</label>
                     <input id="quantity" type="text" class="form-control" name="quantity"
                         [(ngModel)]="clientOrder.quantity" [readonly]="action === 'view'"
@@ -130,13 +131,13 @@
                 </div>
 
                 <!-- Rate -->
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <label for="rate" class="form-label fw-bold">Rate</label>
                     <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
                         class="form-control" name="rate" [(ngModel)]="clientOrder.rate" id="rate">
                 </div>
                 <!-- Add Button -->
-                <div class="col-md-1 margin-top-48">
+                <div class="col-md-1 margin-top-48 align-right">
                     <button type="button" class="btn btn-primary" [disabled]="disableAdd"
                         (click)="addItems()">Add</button>
                 </div>

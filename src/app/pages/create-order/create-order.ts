@@ -116,9 +116,8 @@ export class CreateOrder implements OnInit {
   // Column Definitions: Defines & controls grid columns.
   colDefs: ColDef<any>[] = [
     {
-      field: 'quality',
-      headerName: 'quality',
-      cellRenderer: this.myCellRendererAction.bind(this)
+      field: 'qualityName',
+      headerName: 'Quality'
     },
     {
       headerName: "Design",
@@ -255,6 +254,9 @@ export class CreateOrder implements OnInit {
   getColorName = (id: number) => {
     return this.colors.filter(e => e.id == id)[0].colorName;
   }
+  getQualityName = (id: number) => {
+    return this.qualityList.filter(e => e.id == id)[0].qualityName;
+  }
 
   onGridReady(params: GridReadyEvent): void {
     this.gridApi = params.api;
@@ -275,10 +277,10 @@ export class CreateOrder implements OnInit {
         designName: this.getDesignName(design),
         colorId: color,
         colorName: this.getColorName(color),
-        'quantity': quantity,
-        'quality': quality,
-        'rate': rate
-        // 'quantity': this.contractorChallanObj.quantity,
+        quantity: quantity,
+        qualityId: quality,
+        qualityName: this.getQualityName(quality),
+        rate: rate
       }
 
       this.items.push(newItem);
@@ -298,14 +300,14 @@ export class CreateOrder implements OnInit {
   }
 
   itemExist() {
-    return this.items.some(e => e.designId == this.clientOrder.design && e.colorId == this.clientOrder.color)
+    return this.items.some(e => e.designId == this.clientOrder.design && e.colorId == this.clientOrder.color && e.quality == this.clientOrder.quality)
   }
 
   onInputBlur(): void {
-    this.clientOrder.quantity = Number(this.clientOrder.quantity)
+    //this.clientOrder.quantity = Number(this.clientOrder.quantity)
     this.isItemExist = this.itemExist();
-    const { design, color, quantity } = this.clientOrder;
-    this.disableAdd = !(design && color && quantity > 0 && !this.isItemExist);
+    const { design, color, quality } = this.clientOrder;
+    this.disableAdd = !(design && color && quality && !this.isItemExist);
   }
 
   challanTypes = this.utilsService.challanTypes;

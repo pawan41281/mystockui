@@ -50,7 +50,7 @@
                     <div class="invalid-feedback">Please select a challan type.</div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <label for="selectedClient" class="form-label fw-bold">Party</label>
                     <div class="input-group has-validation">
                         <!-- <span class="input-group-text" id="inputGroupPrepend">&#64;</span> -->
@@ -100,7 +100,7 @@
                 </div>
 
                 <!-- Quality -->
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label for="quality" class="form-label fw-bold">Quality</label>
                     <select class="form-select" name="color" (blur)="onInputBlur()"
                         [(ngModel)]="clientChallanObj.quality" id="color">
@@ -112,7 +112,7 @@
                 </div>
 
                 <!-- Design -->
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label for="design" class="form-label fw-bold">Design</label>
                     <select id="design" class="form-select" name="design" [(ngModel)]="clientChallanObj.design"
                         [disabled]="action === 'view'" (blur)="onInputBlur()">
@@ -125,7 +125,7 @@
                 </div>
 
                 <!-- Color -->
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label for="color" class="form-label fw-bold">Color</label>
                     <select id="color" class="form-select" name="color" [(ngModel)]="clientChallanObj.color"
                         [disabled]="action === 'view'" (blur)="onInputBlur()">
@@ -137,7 +137,7 @@
                 </div>
 
                 <!-- Quantity -->
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <label for="quantity" class="form-label fw-bold">Quantity</label>
                     <input id="quantity" type="text" class="form-control" name="quantity"
                         [(ngModel)]="clientChallanObj.quantity" [readonly]="action === 'view'"
@@ -146,13 +146,13 @@
                 </div>
 
                 <!-- Rate -->
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <label for="rate" class="form-label fw-bold">Rate</label>
                     <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
                         class="form-control" name="rate" [(ngModel)]="clientChallanObj.rate" id="rate">
                 </div>
                 <!-- Add Button -->
-                <div class="col-md-2 margin-top-48">
+                <div class="col-md-1 margin-top-48 align-right">
                     <button type="button" class="btn btn-primary" [disabled]="disableAdd"
                         (click)="addItems()">Add</button>
                 </div>
