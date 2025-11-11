@@ -1,7 +1,6 @@
 <div class="row">
     <div class="col-sm-12">
-        <app-card
-            cardTitle="Contractor Opening Stock - Kaam pending hai 1. Quality dropdown me quality values miss hai 2. Table me Quality header ke under design ki values aa rahi hai">
+        <app-card cardTitle="Contractor Opening Stock">
             <div class="row">
                 <div class="col-12 mt-3">
                     @if (showSuccessMessage) {
@@ -20,7 +19,8 @@
                     <label for="party" class="form-label fw-bold">Contractor</label>
                     <div class="input-group has-validation">
                         <!-- <span class="input-group-text" id="inputGroupPrepend">&#64;</span> -->
-                        <select class="form-select" name="party" [(ngModel)]="contractorName" id="party">
+                        <select class="form-select" name="party" [(ngModel)]="contractorName" id="party"
+                            (change)="onInputBlur()">
                             <option value="">Select Options</option>
                             @for (party of contractors; track party.id) {
                             <option [value]="party.contractorName">{{ party.contractorName }}</option>
@@ -44,11 +44,11 @@
 
                 <!-- Quality -->
                 <div class="col-md-2">
-                    <label for="design" class="form-label fw-bold">Quality</label>
-                    <select class="form-select" name="design" (blur)="onInputBlur()"
-                        [(ngModel)]="contractorChallanObj.design" id="design">
-                        @for (design of designs; track design.id) {
-                        <option [value]="design.id">{{ design.designName }}</option>
+                    <label for="quality" class="form-label fw-bold">Quality</label>
+                    <select class="form-select" name="color" (blur)="onInputBlur()"
+                        [(ngModel)]="contractorChallanObj.quality" id="quality">
+                        @for (quality of qualityList; track quality.id) {
+                        <option [value]="quality.id">{{ quality.qualityName }}</option>
                         }
 
                     </select>
@@ -81,16 +81,15 @@
 
                 <!-- Quantity -->
                 <div class="col-md-2">
-                    <label for="quantity" class="form-label fw-bold">Quantity</label>
-                    <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
-                        class="form-control" name="quantity" [(ngModel)]="contractorChallanObj.quantityStr"
-                        id="quantity">
+                    <label for="quantity" class="form-label fw-bold">Opening Balance</label>
+                    <input type="text" (keypress)="utilsService.numberOnly($event)" class="form-control" name="quantity"
+                        (blur)="onInputBlur()" [(ngModel)]="contractorChallanObj.quantity" id="quantity">
                 </div>
 
 
                 <!-- Add Button -->
                 <div class="col-1 margin-top-48">
-                    <button class="btn btn-primary align-left" [disabled]="disableAdd" type="submit"
+                    <button class="btn btn-primary align-right" [disabled]="disableAdd" type="submit"
                         (click)="addItems()">Add</button>
                 </div>
                 @if (isItemExist) {

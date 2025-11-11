@@ -15,7 +15,6 @@ export class contractorChallan {
     color: number;
     quantity: number;
     createdOn: string;
-    quantityStr: string;
     rate: number;
     quality: number;
 
@@ -31,7 +30,6 @@ export class contractorChallan {
         this.challanType = "I";
         this.color = 0;
         this.quantity = 0;
-        this.quantityStr = '';
         this.rate = 0;
         this.quality = 0;
     }

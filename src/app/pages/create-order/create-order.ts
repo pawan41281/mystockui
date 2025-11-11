@@ -226,7 +226,7 @@ export class CreateOrder implements OnInit {
       orderDate: this.utilsService.formatDate_dd_MM_YYYY(this.orderDate),
       client: { id: this.selectedClient },
       orderItems: this.items.map(item => ({
-        quality: { id: item.quality },
+        quality: { id: item.qualityId },
         design: { id: item.designId },
         color: { id: item.colorId },
         quantity: item.quantity,
@@ -297,10 +297,11 @@ export class CreateOrder implements OnInit {
     this.clientOrder.quantity = 0
     this.disableAdd = true;
     this.clientOrder.quality = 0;
+    this.clientOrder.rate = 0;
   }
 
   itemExist() {
-    return this.items.some(e => e.designId == this.clientOrder.design && e.colorId == this.clientOrder.color && e.quality == this.clientOrder.quality)
+    return this.items.some(e => e.designId == this.clientOrder.design && e.colorId == this.clientOrder.color && e.qualityId == this.clientOrder.quality)
   }
 
   onInputBlur(): void {
