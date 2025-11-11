@@ -23,21 +23,22 @@ import { userData } from 'src/app/model/userData';
 })
 export class ColorComponent implements OnInit {
 
-  totalRecord: number = 0;
-  utilsService: UtilService = inject(UtilService);
-  dataService = inject(DataService);
-  downloadService = inject(DownloadSerivceService)
-  colorList: color[] = [];
+
+  private utilsService: UtilService = inject(UtilService);
+  private dataService = inject(DataService);
+  private downloadService = inject(DownloadSerivceService)
   private gridApi!: GridApi;
-  url: string = 'colors';
+  private url: string = 'colors';
+
   isSameEditObj: boolean = false
   colorObj: color = new color();
   userInfo: userData;
   colorObjedit: color = new color();
   saveLabel: string = "Save"
+  colorList: color[] = [];
+  totalRecord: number = 0;
 
   delObj: design = new design();
-  isInactiveDesign: boolean = false;
   colorObj1: Promise<ResponseData>;
 
   ngOnInit(): void {
@@ -51,7 +52,6 @@ export class ColorComponent implements OnInit {
         this.colorList = res.data;
         this.totalRecord = res.metadata.recordcount
       })
-
   }
 
   colDefs: ColDef<color>[] = [

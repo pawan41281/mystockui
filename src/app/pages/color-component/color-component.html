@@ -1,23 +1,11 @@
 <div class="row">
-    <div class="row">
-        <div class="col-12">
-            @if (isInactiveDesign) {
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                Color already InActive statue.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            }
-
-        </div>
-    </div>
-
     <div class="col-sm-12">
         <app-card cardTitle="Color">
             <form #form="ngForm" class="row g-3 needs-validation " novalidate>
                 <div class="col-md-4">
                     <label for="colorName" class="form-label fw-bold">Color Name <span
                             class="text-danger">*</span></label>
-                    <input type="text" class="form-control" #colorName="ngModel" name="colorName"
+                    <input type="text" class="form-control" #colorName="ngModel" name="colorName" id="colorName"
                         [(ngModel)]="colorObj.colorName" id="colorName" (change)="checkData()" required>
 
                     <div class="text-danger">
@@ -27,14 +15,13 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <label for="active" class="form-label fw-bold">Status</label>
-                    <select class="form-select" name="active" [(ngModel)]="colorObj.active" id="active">
+                    <label for="status" class="form-label fw-bold">Status</label>
+                    <select class="form-select" name="status" [(ngModel)]="colorObj.active" id="status">
                         <option value="true">Active</option>
                         <option value="false">InActive</option>
                     </select>
                 </div>
-                <!-- <div class="col-md-1 margin-top-45">{{form.invalid}} === {{!isSameEditObj}} --- {{form.invalid && isSameEditObj}} -->
-                  <div class="col-md-1 margin-top-45">
+                <div class="col-md-1 margin-top-45">
                     <button [disabled]="form.invalid && isSameEditObj" class="btn btn-primary align-left" type="submit"
                         (click)="onSave()">{{saveLabel}}</button>
                 </div>
@@ -42,7 +29,6 @@
 
             <div class="row margin-top-30">
                 <div class="col-12">
-
                     <div class="row">
                         <div class="col-2 div-margin-top align-left font-bold">Record Count : {{totalRecord}}</div>
                         <div class="col-8"></div>
