@@ -13,7 +13,7 @@
             </div>
 
             <form #form="ngForm" class="row g-3 needs-validation" novalidate>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label for="challanDate" class="form-label fw-bold">Payment Date <span
                             class="text-danger">*</span></label>
                     <div class="input-group">
@@ -52,19 +52,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <label for="amount" class="form-label fw-bold">Amount</label>
                     <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
                         class="form-control" name="amount" [(ngModel)]="contractorPyamentObj.paymentAmount" id="amount">
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-5">
                     <label for="remark" class="form-label fw-bold">Remarks</label>
                     <input type="text" maxlength="200" class="form-control" name="remark"
                         [(ngModel)]="contractorPyamentObj.remarks" id="remark">
                 </div>
 
 
-                <div class="col-2 align-right margin-top-48">
+                <div class="col-1 align-right margin-top-48">
                     <button [disabled]="form.invalid" class="btn btn-primary" type="submit"
                         (click)="save()">Save</button>
                     <!-- <button class="btn btn-primary margin-left-10" type="submit" (click)="cancel()">Cancel</button> -->
