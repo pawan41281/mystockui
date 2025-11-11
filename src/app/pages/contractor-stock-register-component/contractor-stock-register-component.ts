@@ -102,33 +102,17 @@ export class ContractorStockRegisterComponent implements OnInit {
     filter: true,
 
   };
+
   // Column Definitions: Defines & controls grid columns.
   colDefs: ColDef<stockRegisger>[] = [
-    {
-      headerName: "Contractor",
-      field: "contractorName",
-    },
-    {
-      headerName: "Quality",
-      field: "quality",
-    },
-    {
-      headerName: "Design",
-      field: "designName",
-    },
-    {
-      headerName: "Color",
-      field: "colorName",
-    },
-    {
-      headerName: "Opening Balance",
-      field: "openingBalance",
-    },
-    {
-      headerName: "Current Balance",
-      field: "closingBalance",
-    }
+    { headerName: "Contractor", field: "contractorName" },
+    { headerName: "Quality", field: "qualityName" },
+    { headerName: "Design", field: "designName" },
+    { headerName: "Color", field: "colorName" },
+    { headerName: "Opening Balance", field: "openingBalance" },
+    { headerName: "Current Balance", field: "closingBalance" }
   ];
+
   onBtnExport() {
     this.downloadService.exportToCSV(this.getReportData(), 'contractor_stock_report.csv')
   }

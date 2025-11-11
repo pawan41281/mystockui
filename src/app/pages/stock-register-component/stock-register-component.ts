@@ -93,25 +93,17 @@ export class StockRegisterComponent implements OnInit {
     filter: true,
 
   };
+
+
   // Column Definitions: Defines & controls grid columns.
   colDefs: ColDef<stockRegisger>[] = [
-    {
-      headerName: "Design",
-      field: "designName",
-    },
-    {
-      headerName: "Color",
-      field: "colorName",
-    },
-    {
-      headerName: "Opening Balance",
-      field: "openingBalance",
-    },
-    {
-      headerName: "Closing Balance",
-      field: "closingBalance",
-    }
+    { headerName: "Quality", field: "qualityName" },
+    { headerName: "Design", field: "designName" },
+    { headerName: "Color", field: "colorName" },
+    { headerName: "Opening Balance", field: "openingBalance" },
+    { headerName: "Current Balance", field: "closingBalance" }
   ];
+
   onBtnExport() {
     this.downloadService.exportToCSV(this.getReportData(), 'stock_report.csv')
   }
@@ -122,11 +114,11 @@ export class StockRegisterComponent implements OnInit {
 
   getReportData() {
     return this.stockRegister.map(e => ({
-      'Design Name': e.designName,
-      'Quality': e.designName,
-      'Color Name': e.colorName,
+      'Design': e.designName,
+      'Quality': e.qualityName,
+      'Color': e.colorName,
       'Opening Balance': e.openingBalance,
-      'Closing Balance': e.closingBalance,
+      'Closing Balance': e.closingBalance
     }));
   }
 

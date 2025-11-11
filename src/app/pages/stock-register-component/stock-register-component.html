@@ -7,10 +7,10 @@
             <!-- <div class="col-md-2">
                 <label for="design" class="form-label fw-bold">Quality</label>
                 <select id="quality" class="form-select" name="quality" [(ngModel)]="filterObj.quality"> -->
-                    <!-- @for (quality of qualityList; track quality.id) {
+            <!-- @for (quality of qualityList; track quality.id) {
                     <option [value]="quality.id">{{ quality.qualityName }}</option>
                     } -->
-                   <!-- <option value="">Any</option>
+            <!-- <option value="">Any</option>
                     <option *ngFor="let quality of qualityList" [value]="quality.qualityName">{{ quality.qualityName }}</option>
 
                 </select>
@@ -19,14 +19,15 @@
             </div> -->
 
             <!-- Quality -->
-<div class="col-md-3">
-    <label for="quality" class="form-label fw-bold">Quality</label>
-    <select id="quality" class="form-select" name="quality" [(ngModel)]="filterObj.qualityName">
-        <option value="">Any</option>
-        <option *ngFor="let quality of qualityList" [value]="quality.qualityName">{{ quality.qualityName }}</option>
-    </select>
-    <div class="invalid-feedback">Please select quality.</div>
-</div>
+            <div class="col-md-3">
+                <label for="quality" class="form-label fw-bold">Quality</label>
+                <select id="quality" class="form-select" name="quality" [(ngModel)]="filterObj.qualityName">
+                    <option value="">Any</option>
+                    <option *ngFor="let quality of qualityList" [value]="quality.qualityName">{{ quality.qualityName }}
+                    </option>
+                </select>
+                <div class="invalid-feedback">Please select quality.</div>
+            </div>
 
 
             <!-- Design -->
@@ -69,8 +70,9 @@
             <div class="col-12">
                 <ag-grid-angular class="ag-theme-quartz grid-height" [rowData]="stockRegister" [columnDefs]="colDefs"
                     [defaultColDef]="defaultColDef" [pagination]="true" [paginationPageSize]="10"
-                    [paginationPageSizeSelector]="[10, 20, 50]" />
+                    [paginationPageSizeSelector]="[10, 20, 50, 100]" />
             </div>
         </div>
     </app-card>
+
 </div>

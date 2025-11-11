@@ -139,11 +139,15 @@ body {
 .dot-red {
     @extend %dot-base;
     background-color: red;
+    height: 16px;
+    width: 16px;
 }
 
 .dot-green {
     @extend %dot-base;
     background-color: green;
+    height: 16px;
+    width: 16px;
 }
 
 /* Importing Bootstrap SCSS file. */
