@@ -63,9 +63,6 @@ export class PartyComponent implements OnInit {
       field: "mobile",
     },
     {
-      headerName: "Email",
-      field: "email",
-    }, {
       headerName: '',
       field: 'id',
       sortable: false,
@@ -82,10 +79,9 @@ export class PartyComponent implements OnInit {
 
   defaultColDef: ColDef = {
     flex: 1,
-    minWidth: 100,
+    minWidth: 50,
     sortable: true,
-    filter: true,
-
+    filter: true
   };
 
   onGridReady(params: GridReadyEvent) {

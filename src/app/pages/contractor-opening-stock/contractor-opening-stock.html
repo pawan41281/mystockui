@@ -12,122 +12,122 @@
                 </div>
             </div>
 
+
             <form #form="ngForm" class="row g-3 needs-validation " novalidate>
 
-                <!-- Contractor -->
-                <div class="col-md-3">
-                    <label for="party" class="form-label fw-bold">Contractor</label>
-                    <div class="input-group has-validation">
-                        <!-- <span class="input-group-text" id="inputGroupPrepend">&#64;</span> -->
-                        <select class="form-select" name="party" [(ngModel)]="contractorName" id="party"
-                            (change)="onInputBlur()">
-                            <option value="">Select Options</option>
-                            @for (party of contractors; track party.id) {
-                            <option [value]="party.contractorName">{{ party.contractorName }}</option>
-                            }
-                        </select>
-                        <div class="invalid-feedback">
-                            Please Select Party.
+                <div class="row">
+                    <!-- Contractor -->
+                    <div class="col-md-3">
+                        <label for="party" class="form-label fw-bold">Contractor</label>
+                        <div class="input-group has-validation">
+                            <!-- <span class="input-group-text" id="inputGroupPrepend">&#64;</span> -->
+                            <select class="form-select" name="party" [(ngModel)]="contractorName" id="party"
+                                (change)="onInputBlur()">
+                                <option value="">Select Options</option>
+                                @for (party of contractors; track party.id) {
+                                <option [value]="party.contractorName">{{ party.contractorName }}</option>
+                                }
+                            </select>
+                            <div class="invalid-feedback">
+                                Please Select Party.
+                            </div>
                         </div>
                     </div>
-                    <!-- <div class="dropdown">
-                        <label for="contractor" class="form-label fw-bold">Contractor</label>{{contractorName}}
-                        <input type="text" class="form-control" [(ngModel)]="contractorName" (change)="onInputBlur()"
-                            #contractor="ngModel" list="constructors" name="contractor" id="contractor"
-                            placeholder="Type to search...">
-                        <datalist id="constructors">
-                            <option *ngFor="let party of contractors" [value]="party.contractorName">
-                            </option>
-                        </datalist>
-                    </div> -->
+
+                    <!-- Quality -->
+                    <div class="col-md-2">
+                        <label for="quality" class="form-label fw-bold">Quality</label>
+                        <select class="form-select" name="color" (blur)="onInputBlur()"
+                            [(ngModel)]="contractorChallanObj.quality" id="quality">
+                            @for (quality of qualityList; track quality.id) {
+                            <option [value]="quality.id">{{ quality.qualityName }}</option>
+                            }
+
+                        </select>
+                    </div>
+
+                    <!-- Design -->
+                    <div class="col-md-2">
+                        <label for="design" class="form-label fw-bold">Design</label>
+                        <select class="form-select" name="design" (blur)="onInputBlur()"
+                            [(ngModel)]="contractorChallanObj.design" id="design">
+                            @for (design of designs; track design.id) {
+                            <option [value]="design.id">{{ design.designName }}</option>
+                            }
+
+                        </select>
+                    </div>
+
+                    <!-- Color -->
+
+                    <div class="col-md-2">
+                        <label for="color" class="form-label fw-bold">Color</label>
+                        <select class="form-select" name="color" (blur)="onInputBlur()"
+                            [(ngModel)]="contractorChallanObj.color" id="color">
+                            @for (color of colors; track color.id) {
+                            <option [value]="color.id">{{ color.colorName }}</option>
+                            }
+
+                        </select>
+                    </div>
+
+                    <!-- Quantity -->
+                    <div class="col-md-2">
+                        <label for="quantity" class="form-label fw-bold">Opening Balance</label>
+                        <input type="text" (keypress)="utilsService.numberOnly($event)" class="form-control"
+                            name="quantity" (blur)="onInputBlur()" [(ngModel)]="contractorChallanObj.quantity"
+                            id="quantity">
+                    </div>
+
+
+                    <!-- Add Button -->
+                    <div class="col-1 margin-top-30">
+                        <button class="btn btn-primary" [disabled]="disableAdd" type="submit"
+                            (click)="addItems()">Add</button>
+                    </div>
                 </div>
 
-                <!-- Quality -->
-                <div class="col-md-2">
-                    <label for="quality" class="form-label fw-bold">Quality</label>
-                    <select class="form-select" name="color" (blur)="onInputBlur()"
-                        [(ngModel)]="contractorChallanObj.quality" id="quality">
-                        @for (quality of qualityList; track quality.id) {
-                        <option [value]="quality.id">{{ quality.qualityName }}</option>
-                        }
-
-                    </select>
-                </div>
-
-                <!-- Design -->
-                <div class="col-md-2">
-                    <label for="design" class="form-label fw-bold">Design</label>
-                    <select class="form-select" name="design" (blur)="onInputBlur()"
-                        [(ngModel)]="contractorChallanObj.design" id="design">
-                        @for (design of designs; track design.id) {
-                        <option [value]="design.id">{{ design.designName }}</option>
-                        }
-
-                    </select>
-                </div>
-
-                <!-- Color -->
-
-                <div class="col-md-2">
-                    <label for="color" class="form-label fw-bold">Color</label>
-                    <select class="form-select" name="color" (blur)="onInputBlur()"
-                        [(ngModel)]="contractorChallanObj.color" id="color">
-                        @for (color of colors; track color.id) {
-                        <option [value]="color.id">{{ color.colorName }}</option>
-                        }
-
-                    </select>
-                </div>
-
-                <!-- Quantity -->
-                <div class="col-md-2">
-                    <label for="quantity" class="form-label fw-bold">Opening Balance</label>
-                    <input type="text" (keypress)="utilsService.numberOnly($event)" class="form-control" name="quantity"
-                        (blur)="onInputBlur()" [(ngModel)]="contractorChallanObj.quantity" id="quantity">
-                </div>
-
-
-                <!-- Add Button -->
-                <div class="col-1 margin-top-48">
-                    <button class="btn btn-primary align-right" [disabled]="disableAdd" type="submit"
-                        (click)="addItems()">Add</button>
-                </div>
                 @if (isItemExist) {
-                <div class="col-12">
-                    <span class="text-danger">Contractor, Design and Color already added into challan </span>
+                <div class="row">
+                    <div class="col-12">
+                        <span class="text-danger">Contractor, Design and Color already added into challan </span>
+                    </div>
                 </div>
                 }
 
-                <div class="margin-top-30">
-                    <div class="col-12">
-                        <ag-grid-angular class="ag-theme-quartz" style="height: 340px;" [rowData]="items"
-                            [columnDefs]="colDefs" [defaultColDef]="defaultColDef" (gridReady)="onGridReady($event)"
-                            [getRowId]="getRowId" (cellValueChanged)="onCellValueChanged()" />
+                <div class="row">
+                    <div class="margin-top-18">
+                        <div class="col-12">
+                            <ag-grid-angular class="ag-theme-quartz" style="height: 240px;" [rowData]="items"
+                                [columnDefs]="colDefs" [defaultColDef]="defaultColDef" (gridReady)="onGridReady($event)"
+                                [getRowId]="getRowId" (cellValueChanged)="onCellValueChanged()" />
+                        </div>
                     </div>
                 </div>
 
-                <!-- Cancel Button -->
-                <div class="col-10">
-
-                </div>
-                <div class="col-2 align-right">
-                    <button [disabled]="form.invalid || items.length <= 0 " class="btn btn-primary" type="submit"
-                        (click)="onSave()">Save</button>
+                <div class="row">
+                    <div class="col-12 align-right margin-top-8">
+                        <!-- Cancel Button -->
+                        <button [disabled]="form.invalid || items.length <= 0 " class="btn btn-primary" type="submit"
+                            (click)="onSave()">Save</button>
+                    </div>
                 </div>
 
                 <div class="row margin-top-30">
-                    <div class="col-2 div-margin-top align-left font-bold">Record Count : {{totalRecord}}</div>
-                    <div class="col-8"></div>
-                    <div class="col-2 align-right">
+                    <div class="col-4 div-margin-top align-left font-bold">Record Count : {{totalRecord}}</div>
+                    <!-- <div class="col-8"></div> -->
+                    <div class="col-8 align-right">
                         <i class="bi bi-filetype-csv font-size-30" (click)="onBtnExport()"></i>
                         <i class="bi bi-filetype-xls font-size-30" (click)="onBtnExportExcel()"></i>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-12">
-                        <ag-grid-angular class="ag-theme-quartz" style="height: 340px;" [rowData]="stockData"
+                        <ag-grid-angular class="ag-theme-quartz" style="height: 240px;" [rowData]="stockData"
                             [columnDefs]="colDefs_opening_stock" [defaultColDef]="defaultColDef" [getRowId]="getRowId"
-                            [pagination]="true" [paginationPageSize]="10" [paginationPageSizeSelector]="[10, 20, 50]" />
+                            [pagination]="true" [paginationPageSize]="10"
+                            [paginationPageSizeSelector]="[10, 20, 50, 100]" />
                     </div>
                 </div>
             </form>

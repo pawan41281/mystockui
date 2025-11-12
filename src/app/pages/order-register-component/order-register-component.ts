@@ -162,9 +162,35 @@ export class OrderRegisterComponent implements OnInit {
 
   myCellRendererAction(params: any) {
     this.id = params.node.data.id;
-    return this.isAdmin ? `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="bi bi-search"></i> </button>
-     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"> <i class="bi bi-trash"></i> </button>`
-      : `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="bi bi-search"></i> </button>`;
+    // return this.isAdmin ? `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="bi bi-search"></i> </button>
+    //  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"> <i class="bi bi-trash"></i> </button>`
+    //   : `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="bi bi-search"></i> </button>`;
+
+    return this.isAdmin ?
+      // `
+      //  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> 
+      //   <i class="bi bi-search"></i> 
+      //  </button>
+      //  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal">
+      //   <i class="bi bi-trash"></i> 
+      //  </button>
+      // `
+      `
+       <img src="assets/images/find.png" style="width: 20px; height: 20px;" (click)="searchContractorChallan()" data-bs-toggle="modal" data-bs-target="#exampleModal">
+       &nbsp;
+       <img src="assets/images/delete.png" style="width: 20px; height: 20px;" (click)="cancelChallan()" data-bs-toggle="modal" data-bs-target="#deleteModal">
+      `
+      :
+      // `
+      //  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> 
+      //   <i class="bi bi-search"></i> 
+      //  </button>
+      // `
+      `
+       <img src="assets/images/find.png" style="width: 20px; height: 20px;" (click)="searchContractorChallan()" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      `
+      ;
+
   }
 
 

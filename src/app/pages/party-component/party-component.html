@@ -2,7 +2,7 @@
 
     <div class="col-sm-12">
         <app-card cardTitle="Party">
-           @if (showSuccessMessage) {
+            @if (showSuccessMessage) {
             <div class="row">
                 <div class="col-12 mt-3">
 
@@ -13,7 +13,7 @@
 
                 </div>
             </div>
-             }
+            }
             <form #form="ngForm" class="row g-3 needs-validation " novalidate>
                 <div class="col-md-4">
                     <label for="clientName" class="form-label fw-bold">Party <span class="text-danger">*</span></label>
@@ -112,10 +112,10 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <ag-grid-angular class="ag-theme-quartz grid-height" [rowData]="clients"
-                                [columnDefs]="colDefs" [defaultColDef]="defaultColDef" (gridReady)="onGridReady($event)"
-                                [pagination]="true" [paginationPageSize]="10"
-                                [paginationPageSizeSelector]="[10, 20, 50]" />
+                            <ag-grid-angular style="height: 300px;" class="ag-theme-quartz grid-height"
+                                [rowData]="clients" [columnDefs]="colDefs" [defaultColDef]="defaultColDef"
+                                (gridReady)="onGridReady($event)" [pagination]="true" [paginationPageSize]="10"
+                                [paginationPageSizeSelector]="[10, 20, 50, 100]" />
                         </div>
                     </div>
                 </div>

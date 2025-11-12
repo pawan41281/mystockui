@@ -19,7 +19,7 @@ export class CustomeCellComponent implements OnInit {
   http = inject(HttpClient)
   utilService = inject(UtilService)
   router: Router = inject(Router)
-  utilsService: UtilService = inject(UtilService);
+  //utilsService: UtilService = inject(UtilService);
   pageList: any;
   pageData: any;
   userInfo: userData;
@@ -40,7 +40,7 @@ export class CustomeCellComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userInfo = this.utilsService.getCurrentUserInfo()
+    this.userInfo = this.utilService.getCurrentUserInfo()
     this.isAdmin = this.userInfo.roles.filter(e => e.adminrole).length > 0
 
   }
