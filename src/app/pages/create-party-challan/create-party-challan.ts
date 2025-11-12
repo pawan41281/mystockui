@@ -306,6 +306,7 @@ export class CreatePartyChallan implements OnInit {
     this.clientChallanObj.color = 0
     this.clientChallanObj.quantity = 0
     this.disableAdd = true;
+    this.clientChallanObj.rate = 0;
   }
 
   itemExist() {

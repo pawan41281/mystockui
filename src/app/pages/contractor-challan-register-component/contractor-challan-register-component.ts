@@ -277,6 +277,10 @@ export class ContractorChallanRegisterComponent implements OnInit {
 
   itemDetailsColDefs: ColDef<challanItems>[] = [
     {
+      headerName: "Quality",
+      field: "quality.qualityName",
+    },
+    {
       headerName: "Design",
       field: "design.designName",
     },
@@ -287,10 +291,6 @@ export class ContractorChallanRegisterComponent implements OnInit {
     {
       headerName: "Quantity",
       field: "quantity",
-    },
-    {
-      headerName: "Quality",
-      field: "quality.qualityName",
     },
     {
       headerName: "Rate",
