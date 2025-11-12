@@ -17,6 +17,8 @@ import { CardComponent } from 'src/app/theme/shared/components/card/card.compone
 import { intilaStock } from 'src/app/model/initialStock';
 import { stock } from 'src/app/model/stock';
 import { DownloadSerivceService } from 'src/app/services/download-serivce-service';
+import { quality } from 'src/app/model/quality';
+import { requestResponse } from 'src/app/model/requestResponse';
 
 @Component({
   selector: 'app-opening-stock',
@@ -41,6 +43,7 @@ export class OpeningStock implements OnInit {
   items: any[] = [];
   stockData: intilaStock[] = []
   designs: design[] = [];
+  qualityList: quality[] = [];
   colors: color[] = [];
   disableAdd: boolean = true;
   isItemExist: boolean = false;
@@ -55,6 +58,7 @@ export class OpeningStock implements OnInit {
     this.getDesignts();
     this.getColors();
     this.getAllInitialStock()
+    this.getQualityList()
   }
 
   getAllInitialStock = () => {
@@ -73,7 +77,12 @@ export class OpeningStock implements OnInit {
         })
     }
   }
-
+ getQualityList = () => {
+    this.dataService.get('quality?active=true')
+      .subscribe((res: requestResponse) => {
+        this.qualityList = res.data;
+      })
+  }
   onInput(event: Event) {
     const input = event.target as HTMLInputElement;
     input.value = input.value.replace(/[^0-9]/g, '');
@@ -101,7 +110,7 @@ export class OpeningStock implements OnInit {
   // Column Definitions: Defines & controls grid columns.
   colDefs: ColDef<stock>[] = [
     {
-      field: 'quality',
+      field: 'qualityName',
       headerName: 'Quality'
     },
     {

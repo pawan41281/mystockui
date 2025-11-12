@@ -15,13 +15,13 @@
 
             <form #form="ngForm" class="row g-3 needs-validation " novalidate>
 
-                <!-- Design -->
+                <!-- Quality -->
                 <div class="col-md-3">
                     <label for="design" class="form-label fw-bold">Quality</label>
                     <select class="form-select" name="design" (blur)="onInputBlur()"
-                        [(ngModel)]="contractorChallanObj.design" id="design">
-                        @for (design of designs; track design.id) {
-                        <option [value]="design.id">{{ design.designName }}</option>
+                        [(ngModel)]="contractorChallanObj.quality" id="quality">
+                        @for (quality of qualityList; track quality.id) {
+                        <option [value]="quality.id">{{ quality.qualityName }}</option>
                         }
 
                     </select>
