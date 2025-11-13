@@ -1,1 +1,118 @@
-<p>account-statement works!</p>
+<div class="col-sm-12">
+    <app-card cardTitle="Contractor Challan Register">
+
+        <form #form="ngForm" class="row g-3 needs-validation" novalidate>
+
+            @if (invalidDateRange) {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{errorMessage}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            }
+
+            <div class="col-md-2">
+                <label for="fromDate" class="form-label fw-bold">From Date</label>
+                <div class="input-group">
+                    <input matInput [matDatepicker]="picker1" id="fromDate" [(ngModel)]="fromDate" name="fromDate"
+                        (dateChange)="formatDate($event)" class="form-control height-39" #challanDate="ngModel" />
+                    <span class="input-group-text height-39" style="cursor: pointer;">
+                        <mat-datepicker-toggle [for]="picker1"></mat-datepicker-toggle>
+                    </span>
+                </div>
+                <mat-datepicker #picker1></mat-datepicker>
+                <div class="text-danger">
+                    @if(challanDate.errors?.['required'] && challanDate.touched && challanDate.dirty) {
+                    <span>This field is mendatory</span>
+                    }
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label for="toDate" class="form-label fw-bold">To Date</label>
+                <div class="input-group">
+                    <input matInput [matDatepicker]="picker" id="toDate" [(ngModel)]="toDate" name="toDate"
+                        class="form-control height-39" #challanDate="ngModel" />
+                    <span class="input-group-text height-39" style="cursor: pointer;">
+                        <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+                    </span>
+                </div>
+                <mat-datepicker #picker></mat-datepicker>
+                <div class="text-danger">
+                    @if(challanDate.errors?.['required'] && challanDate.touched && challanDate.dirty) {
+                    <span>This field is mendatory</span>
+                    }
+                </div>
+            </div>
+
+
+
+            <div class="col-md-4">
+                <label for="party" class="form-label fw-bold">Contractor</label>
+                <div class="input-group has-validation">
+                    <!-- <span class="input-group-text" id="inputGroupPrepend">&#64;</span> -->
+                    <select class="form-select" name="party" [(ngModel)]="filterObj.contractorid" id="party">
+                        <option value="">Select Options</option>
+                        @for (party of dropdownData; track party.id) {
+                        <option [value]="party.id">{{ party.contractorName }}</option>
+                        }
+                    </select>
+                    <div class="invalid-feedback">
+                        Please Select Party.
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-1 align-right">
+                <button class="margin-top-30 btn btn-primary" name="search" (click)="searchAccountStatement()"
+                    id="search">
+                    Search </button>
+            </div>
+        </form>
+        <div class="row margin-top-30">
+            <div class="col-2 div-margin-top align-left font-bold">Record Count : {{totalRecord}}</div>
+            <div class="col-8"></div>
+            <div class="col-2 align-right">
+                <i class="bi bi-filetype-csv font-size-30" (click)="onBtnExport()"></i>
+                <i class="bi bi-filetype-xls font-size-30" (click)="onBtnExportExcel()"></i>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <ag-grid-angular class="ag-theme-quartz grid-height" [rowData]="accountStatements"
+                    [columnDefs]="colDefs" [defaultColDef]="defaultColDef" (gridReady)="onGridReady($event)"
+                    [pagination]="true" [paginationPageSize]="10" [paginationPageSizeSelector]="[10, 20, 50]" />
+            </div>
+        </div>
+    </app-card>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content model-width-800">
+            <div class="modal-header">
+                <h2 class="modal-title" style="margin-top: 0px; margin-bottom: 0px;" id="exampleModalLabel">Challan
+                    Items</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h3>Challan Received </h3>
+                <div class="modal-body">
+                    <ag-grid-angular class="ag-theme-quartz" style="height: 300px;" [rowData]="itemDetails"
+                        [columnDefs]="itemDetailsColDefs" [defaultColDef]="defaultColDef"
+                        (gridReady)="onGridReady($event)" />
+                </div>
+
+                <h3>Payment</h3>
+                <div class="modal-body">
+                    <ag-grid-angular class="ag-theme-quartz" style="height: 300px;" [rowData]="itemDetails"
+                        [columnDefs]="itemDetailsColDefs" [defaultColDef]="defaultColDef"
+                        (gridReady)="onGridReady($event)" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
