@@ -22,7 +22,7 @@
             <div class="col-md-3">
                 <label for="quality" class="form-label fw-bold">Quality</label>
                 <select id="quality" class="form-select" name="quality" [(ngModel)]="filterObj.qualityName">
-                    <option value="">Any</option>
+                    <option value="">Select Options</option>
                     <option *ngFor="let quality of qualityList" [value]="quality.qualityName">{{ quality.qualityName }}
                     </option>
                 </select>
@@ -34,7 +34,7 @@
             <div class="col-md-3">
                 <label for="design" class="form-label fw-bold">Design</label>
                 <select id="design" class="form-select" name="design" [(ngModel)]="filterObj.designName">
-                    <option value="">Any</option>
+                    <option value="">Select Options</option>
                     <option *ngFor="let design of designs" [value]="design.designName">{{ design.designName }}</option>
                 </select>
                 <div class="invalid-feedback">Please select a design.</div>

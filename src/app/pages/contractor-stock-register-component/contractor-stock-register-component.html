@@ -31,7 +31,7 @@
             <div class="col-md-3">
                 <label for="design" class="form-label fw-bold">Design</label>
                 <select id="design" class="form-select" name="design" [(ngModel)]="filterObj.designName">
-                    <option value="">Any</option>
+                    <option value="">Select Options</option>
                     <option *ngFor="let design of designs" [value]="design.designName">{{ design.designName }}</option>
                 </select>
                 <div class="invalid-feedback">Please select a design.</div>
@@ -41,7 +41,7 @@
             <div class="col-md-3">
                 <label for="color" class="form-label fw-bold">Color</label>
                 <select id="color" class="form-select" name="color" [(ngModel)]="filterObj.colorName">
-                    <option value="">Any</option>
+                    <option value="">Select Options</option>
                     <option *ngFor="let color of colors" [value]="color.colorName">{{ color.colorName }}</option>
                 </select>
                 <div class="invalid-feedback">Please select a color.</div>
