@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-sm-12">
         <app-card cardTitle="Create New Order">
+
             <div class="row">
                 <div class="col-12">
                     @if (showSuccessMessage) {
@@ -18,152 +19,158 @@
                 </div>
             </div>
 
-            <form #form="ngForm" class="row g-3 needs-validation" novalidate>
-                <!-- Order Date -->
 
-                <div class="col-md-2">
-                    <label for="Date" class="form-label fw-bold">Order Date <span class="text-danger">*</span></label>
-                    <div class="input-group">
-                        <input matInput [matDatepicker]="picker" id="orderDate" name="orderDate"
-                            class="form-control height-39" [(ngModel)]="orderDate" required #orderDateModel="ngModel" />
-                        <span class="input-group-text  height-39" style="cursor: pointer;">
-                            <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
-                        </span>
+            <div class="row">
+                <form #form="ngForm" class="g-3 needs-validation" novalidate>
+
+                    <div class="row">
+                        <!-- Order Date -->
+
+                        <div class="col-3">
+                            <label for="Date" class="form-label fw-bold">Order Date <span
+                                    class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <input matInput [matDatepicker]="picker" id="orderDate" name="orderDate"
+                                    class="form-control height-39" [(ngModel)]="orderDate" required
+                                    #orderDateModel="ngModel" />
+                                <span class="input-group-text  height-39" style="cursor: pointer;">
+                                    <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+                                </span>
+                            </div>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <div class="text-danger"
+                                *ngIf="orderDateModel.invalid && (orderDateModel.dirty || orderDateModel.touched)">
+                                <span *ngIf="orderDateModel.errors?.['required']">This field is required.</span>
+                            </div>
+                        </div>
+
+
+                        <!-- Party -->
+                        <div class="col-5">
+
+                            <div class="dropdown">
+                                <label for="selectedClient" class="form-label fw-bold">Party <span
+                                        class="text-danger">*</span></label>
+                                <select class="form-select" name="party" [(ngModel)]="selectedClient"
+                                    name="selectedClient" #party="ngModel">
+                                    <option value="">Select Options</option>
+                                    @for (party of clients; track party.id) {
+                                    <option [value]="party.id">{{ party.clientName }}</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="text-danger">
+                                @if(party.errors?.['required'] && party.touched && party.dirty) {
+                                <span>This field is mendatory</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-4 align-left">
+                            <label for="orderNumber" class="form-label fw-bold">Order Number <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="orderNumber" name="orderNumber" maxlength="8"
+                                (keyup)="onOrderNumberChange()" [(ngModel)]="clientOrder.orderNumber"
+                                #orderNumber="ngModel" required />
+
+                            <div class="text-danger">
+                                @if(orderNumber.errors?.['required'] && orderNumber.touched && orderNumber.dirty) {
+                                <span>This field is mendatory</span>
+                                }
+                            </div>
+                        </div>
                     </div>
-                    <mat-datepicker #picker></mat-datepicker>
-                    <div class="text-danger"
-                        *ngIf="orderDateModel.invalid && (orderDateModel.dirty || orderDateModel.touched)">
-                        <span *ngIf="orderDateModel.errors?.['required']">This field is required.</span>
+
+                    <div class="row">
+                        <!-- Quality -->
+                        <div class="col-3">
+                            <label for="design" class="form-label fw-bold">Quality</label>
+                            <select id="quality" class="form-select" name="quality" [(ngModel)]="clientOrder.quality"
+                                [disabled]="action === 'view'" (blur)="onInputBlur()">
+                                @for (quality of qualityList; track quality.id) {
+                                <option [value]="quality.id">{{ quality.qualityName }}</option>
+                                }
+
+                            </select>
+                            <div class="invalid-feedback">Please select quality.</div>
+                        </div>
+
+                        <!-- Design -->
+                        <div class="col-3">
+                            <label for="design" class="form-label fw-bold">Design</label>
+                            <select id="design" class="form-select" name="design" [(ngModel)]="clientOrder.design"
+                                [disabled]="action === 'view'" (blur)="onInputBlur()">
+                                @for (design of designs; track $index) {
+                                <option [value]="design.id">{{ design.designName }}</option>
+                                }
+
+                            </select>
+                            <div class="invalid-feedback">Please select a design.</div>
+                        </div>
+
+                        <!-- Color -->
+                        <div class="col-3">
+                            <label for="color" class="form-label fw-bold">Color</label>
+                            <select id="color" class="form-select" name="color" [(ngModel)]="clientOrder.color"
+                                [disabled]="action === 'view'" (blur)="onInputBlur()">
+                                @for (color of colors; track $index) {
+                                <option [value]="color.id">{{ color.colorName }}</option>
+                                }
+                            </select>
+                            <div class="invalid-feedback">Please select a color.</div>
+                        </div>
+
+                        <!-- Quantity -->
+                        <div class="col-1">
+                            <label for="quantity" class="form-label fw-bold">Quantity</label>
+                            <input id="quantity" type="text" class="form-control" name="quantity"
+                                [(ngModel)]="clientOrder.quantity" [readonly]="action === 'view'"
+                                (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()" />
+                            <div class="invalid-feedback">Please enter quantity.</div>
+                        </div>
+
+                        <!-- Rate -->
+                        <div class="col-1">
+                            <label for="rate" class="form-label fw-bold">Rate</label>
+                            <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
+                                class="form-control" name="rate" [(ngModel)]="clientOrder.rate" id="rate">
+                        </div>
+                        <!-- Add Button -->
+                        <div class="col-1 margin-top-30 align-left">
+                            <button type=" button" class="btn btn-primary" [disabled]="disableAdd"
+                                (click)="addItems()">Add</button>
+                        </div>
                     </div>
-                </div>
 
-
-                <!-- Party -->
-                <div class="col-md-5">
-
-                    <div class="dropdown">
-                        <label for="selectedClient" class="form-label fw-bold">Party <span
-                                class="text-danger">*</span></label>
-                        <!-- <input type="text" class="form-control" [(ngModel)]="selectedClient" #party="ngModel"
-                            list="datalistOptions" name="selectedClient" id="selectedClient"
-                            placeholder="Type to search..." (change)="selectedParty($any($event.target).value)"
-                            required>
-                        <datalist id="datalistOptions">
-                            @for (party of clients; track party.id) {
-                            <option [value]="party.clientName"></option>
-                            }
-                        </datalist> -->
-
-                        <select class="form-select" name="party" [(ngModel)]="selectedClient" name="selectedClient"
-                            #party="ngModel">
-                            <option value="">Select Options</option>
-                            @for (party of clients; track party.id) {
-                            <option [value]="party.id">{{ party.clientName }}</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="text-danger">
-                        @if(party.errors?.['required'] && party.touched && party.dirty) {
-                        <span>This field is mendatory</span>
+                    <div class="row margin-top-8">
+                        @if (isItemExist) {
+                        <div class="col-12">
+                            <span class="text-danger">Quality, Design and Color already added</span>
+                        </div>
                         }
+
                     </div>
-                </div>
-                <div class="col-md-2">
-                    <label for="orderNumber" class="form-label fw-bold">Order Number <span
-                            class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="orderNumber" name="orderNumber" maxlength="8"
-                        (keyup)="onOrderNumberChange()" [(ngModel)]="clientOrder.orderNumber" #orderNumber="ngModel"
-                        required />
 
-                    <div class="text-danger">
-                        @if(orderNumber.errors?.['required'] && orderNumber.touched && orderNumber.dirty) {
-                        <span>This field is mendatory</span>
-                        }
+                    <div class="row margin-top-30">
+                        <!-- Data Grid -->
+                        <div class="col-12">
+                            <ag-grid-angular class="ag-theme-quartz" style="height: 340px;" [rowData]="items"
+                                [columnDefs]="colDefs" [defaultColDef]="defaultColDef" (gridReady)="onGridReady($event)"
+                                [getRowId]="getRowId" (cellValueChanged)="onCellValueChanged()"></ag-grid-angular>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3"></div>
 
-                <!-- Quality -->
-                <div class="col-md-3">
-                    <label for="design" class="form-label fw-bold">Quality</label>
-                    <select id="quality" class="form-select" name="quality" [(ngModel)]="clientOrder.quality"
-                        [disabled]="action === 'view'" (blur)="onInputBlur()">
-                        @for (quality of qualityList; track quality.id) {
-                        <option [value]="quality.id">{{ quality.qualityName }}</option>
-                        }
+                    <div class="row">
+                        <!-- Action Buttons -->
+                        <div class="col-12 text-end mt-4">
+                            <button type="button" class="btn btn-primary"
+                                [disabled]="form.invalid || items.length <= 0 || isDuplicateOrder" (click)="onSave()">
+                                Save
+                            </button>
+                        </div>
 
-                    </select>
-                    <div class="invalid-feedback">Please select quality.</div>
-                </div>
-
-                <!-- Design -->
-                <div class="col-md-3">
-                    <label for="design" class="form-label fw-bold">Design</label>
-                    <select id="design" class="form-select" name="design" [(ngModel)]="clientOrder.design"
-                        [disabled]="action === 'view'" (blur)="onInputBlur()">
-                        @for (design of designs; track $index) {
-                        <option [value]="design.id">{{ design.designName }}</option>
-                        }
-
-                    </select>
-                    <div class="invalid-feedback">Please select a design.</div>
-                </div>
-
-                <!-- Color -->
-                <div class="col-md-3">
-                    <label for="color" class="form-label fw-bold">Color</label>
-                    <select id="color" class="form-select" name="color" [(ngModel)]="clientOrder.color"
-                        [disabled]="action === 'view'" (blur)="onInputBlur()">
-                        @for (color of colors; track $index) {
-                        <option [value]="color.id">{{ color.colorName }}</option>
-                        }
-                    </select>
-                    <div class="invalid-feedback">Please select a color.</div>
-                </div>
-
-                <!-- Quantity -->
-                <div class="col-md-1">
-                    <label for="quantity" class="form-label fw-bold">Quantity</label>
-                    <input id="quantity" type="text" class="form-control" name="quantity"
-                        [(ngModel)]="clientOrder.quantity" [readonly]="action === 'view'"
-                        (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()" />
-                    <div class="invalid-feedback">Please enter quantity.</div>
-                </div>
-
-                <!-- Rate -->
-                <div class="col-md-1">
-                    <label for="rate" class="form-label fw-bold">Rate</label>
-                    <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
-                        class="form-control" name="rate" [(ngModel)]="clientOrder.rate" id="rate">
-                </div>
-                <!-- Add Button -->
-                <div class="col-md-1 margin-top-48 align-right">
-                    <button type="button" class="btn btn-primary" [disabled]="disableAdd"
-                        (click)="addItems()">Add</button>
-                </div>
-                @if (isItemExist) {
-                <div class="col-12">
-                    <span class="text-danger">Quality, Design and Color already added</span>
-                </div>
-                }
-
-                <!-- Data Grid -->
-                <div class="mt-4">
-                    <div class="col-12">
-                        <ag-grid-angular class="ag-theme-quartz" style="height: 340px;" [rowData]="items"
-                            [columnDefs]="colDefs" [defaultColDef]="defaultColDef" (gridReady)="onGridReady($event)"
-                            [getRowId]="getRowId" (cellValueChanged)="onCellValueChanged()"></ag-grid-angular>
                     </div>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="col-12 text-end mt-4">
-                    <button type="button" class="btn btn-primary"
-                        [disabled]="form.invalid || items.length <= 0 || isDuplicateOrder" (click)="onSave()">
-                        Save
-                    </button>
-                </div>
-            </form>
+                </form>
+            </div>
         </app-card>
     </div>
 </div>

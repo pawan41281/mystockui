@@ -157,20 +157,19 @@ export class ContractorChallanRegisterComponent implements OnInit {
       //   <i class="bi bi-trash"></i> 
       //  </button>
       // `
-      `
-       <img src="assets/images/find.png" style="width: 20px; height: 20px;" (click)="searchContractorChallan()" data-bs-toggle="modal" data-bs-target="#exampleModal">
-       &nbsp;
-       <img src="assets/images/delete.png" style="width: 20px; height: 20px;" (click)="cancelChallan()" data-bs-toggle="modal" data-bs-target="#deleteModal">
-      `
+      `<div style="text-align: right">
+         <img src="assets/images/find.png" style="width: 20px; height: 20px;" (click)="searchContractorChallan()" data-bs-toggle="modal" data-bs-target="#exampleModal">          
+         <img src="assets/images/delete.png" style="width: 20px; height: 20px;" (click)="cancelChallan()" data-bs-toggle="modal" data-bs-target="#deleteModal">
+       </div>`
       :
       // `
       //  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> 
       //   <i class="bi bi-search"></i> 
       //  </button>
       // `
-      `
-       <img src="assets/images/find.png" style="width: 20px; height: 20px;" (click)="searchContractorChallan()" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      `
+      `<div style="text-align: right">
+         <img src="assets/images/find.png" style="width: 20px; height: 20px;" (click)="searchContractorChallan()" data-bs-toggle="modal" data-bs-target="#exampleModal">
+       </div>`
       ;
   }
 
