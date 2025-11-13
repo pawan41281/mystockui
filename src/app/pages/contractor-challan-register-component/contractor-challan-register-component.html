@@ -2,27 +2,31 @@
     <app-card cardTitle="Contractor Challan Register">
 
         <form #form="ngForm" class="row g-3 needs-validation" novalidate>
+            <div class="row">
 
-            @if (invalidDateRange) {
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{errorMessage}}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            }
-            <!-- <div class="col-md-3">
-                <label for="party" class="form-label fw-bold">Contractor</label>
-                <div class="input-group has-validation">
-
-                    <select class="form-select" name="party" [(ngModel)]="filterObj.contractorid" id="party">
-                        <option value="">Select Options</option>
-                        @for (party of dropdownData; track party.id) {
-                        <option [value]="party.id">{{ party.contractorName }}</option>
+                @if (invalidDateRange) {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{errorMessage}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                }
+                <div class="col-md-2">
+                    <label for="fromDate" class="form-label fw-bold">From Date</label>
+                    <div class="input-group">
+                        <input matInput [matDatepicker]="picker1" id="fromDate" [(ngModel)]="fromDate" name="fromDate"
+                            (dateChange)="formatDate($event)" class="form-control height-39" #challanDate="ngModel" />
+                        <span class="input-group-text height-39" style="cursor: pointer;">
+                            <mat-datepicker-toggle [for]="picker1"></mat-datepicker-toggle>
+                        </span>
+                    </div>
+                    <mat-datepicker #picker1></mat-datepicker>
+                    <div class="text-danger">
+                        @if(challanDate.errors?.['required'] && challanDate.touched && challanDate.dirty) {
+                        <span>This field is mendatory</span>
                         }
-                    </select>
-                    <div class="invalid-feedback">
-                        Please Select Party.
                     </div>
                 </div>
+<<<<<<< HEAD
             </div> -->
             <!-- <div class="col-md-2">
                 <label for="challannumber" class="form-label fw-bold">challan Number</label>
@@ -81,33 +85,69 @@
                         <option value="">Select Options</option>
                         @for (party of dropdownData; track party.id) {
                         <option [value]="party.id">{{ party.contractorName }}</option>
+=======
+                <div class="col-md-2">
+                    <label for="toDate" class="form-label fw-bold">To Date</label>
+                    <div class="input-group">
+                        <input matInput [matDatepicker]="picker" id="toDate" [(ngModel)]="toDate" name="toDate"
+                            class="form-control height-39" #challanDate="ngModel" />
+                        <span class="input-group-text height-39" style="cursor: pointer;">
+                            <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+                        </span>
+                    </div>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <div class="text-danger">
+                        @if(challanDate.errors?.['required'] && challanDate.touched && challanDate.dirty) {
+                        <span>This field is mendatory</span>
+>>>>>>> 2c8311b0d1c1e46e4748143dc947e9035d2aa413
                         }
-                    </select>
-                    <div class="invalid-feedback">
-                        Please Select Party.
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-2">
-                <label for="challannumber" class="form-label fw-bold">challan Number</label>
-                <input type="text" class="form-control" maxlength="8" #challannumber="ngModel" name="challannumber"
-                    [(ngModel)]="filterObj.challannumber" id="challannumber">
-            </div>
+                <div class="col-md-2">
+                    <label for="challantype" class="form-label fw-bold">Challan Type</label>
+                    <select id="challantype" class="form-select" name="challantype" [(ngModel)]="filterObj.challantype">
+                        <!-- <option value="">Select</option> -->
+                        <option value="">Any</option>
+                        <option value="I">Issue</option>
+                        <option value="R">Receive</option>
+                    </select>
+                    <div class="invalid-feedback">Please select a challan type.</div>
+                </div>
 
+                <div class="col-md-3">
+                    <label for="party" class="form-label fw-bold">Contractor</label>
+                    <div class="input-group has-validation">
+                        <!-- <span class="input-group-text" id="inputGroupPrepend">&#64;</span> -->
+                        <select class="form-select" name="party" [(ngModel)]="filterObj.contractorid" id="party">
+                            <option value="">Select Options</option>
+                            @for (party of dropdownData; track party.id) {
+                            <option [value]="party.id">{{ party.contractorName }}</option>
+                            }
+                        </select>
+                        <div class="invalid-feedback">
+                            Please Select Party.
+                        </div>
+                    </div>
+                </div>
 
+                <div class="col-md-2">
+                    <label for="challannumber" class="form-label fw-bold">challan Number</label>
+                    <input type="text" class="form-control" maxlength="8" #challannumber="ngModel" name="challannumber"
+                        [(ngModel)]="filterObj.challannumber" id="challannumber">
+                </div>
 
-
-            <div class="col-md-1 align-right">
-                <button class="margin-top-30 btn btn-primary" name="search" (click)="searchContractorChallan()"
-                    id="search">
-                    Search </button>
+                <div class="col-md-1 align-right">
+                    <button class="margin-top-30 btn btn-primary" name="search" (click)="searchContractorChallan()"
+                        id="search">
+                        Search </button>
+                </div>
             </div>
         </form>
+
         <div class="row margin-top-30">
-            <div class="col-2 div-margin-top align-left font-bold">Record Count : {{totalRecord}}</div>
-            <div class="col-8"></div>
-            <div class="col-2 align-right">
+            <div class="col-4 div-margin-top align-left font-bold">Record Count : {{totalRecord}}</div>
+            <div class="col-8 align-right">
                 <i class="bi bi-filetype-csv font-size-30" (click)="onBtnExport()"></i>
                 <i class="bi bi-filetype-xls font-size-30" (click)="onBtnExportExcel()"></i>
             </div>
@@ -120,6 +160,7 @@
                     [pagination]="true" [paginationPageSize]="10" [paginationPageSizeSelector]="[10, 20, 50]" />
             </div>
         </div>
+
     </app-card>
 </div>
 
