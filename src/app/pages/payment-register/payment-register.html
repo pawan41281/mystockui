@@ -3,21 +3,7 @@
 
         <form #form="ngForm" class="row g-3 needs-validation" novalidate>
 
-            <div class="col-md-3">
-                <label for="party" class="form-label fw-bold">Contractor</label>
-                <div class="input-group has-validation">
-                    <!-- <span class="input-group-text" id="inputGroupPrepend">&#64;</span> -->
-                    <select class="form-select" name="party" [(ngModel)]="filterObj.contractorid" id="party">
-                        <option value="">Select Options</option>
-                        @for (party of dropdownData; track party.id) {
-                        <option [value]="party.id">{{ party.contractorName }}</option>
-                        }
-                    </select>
-                    <div class="invalid-feedback">
-                        Please Select paryt.
-                    </div>
-                </div>
-            </div>
+
             <div class="col-md-2">
                 <label for="fromDate" class="form-label fw-bold">From Date</label>
                 <div class="input-group">
@@ -34,6 +20,7 @@
                     }
                 </div>
             </div>
+
             <div class="col-md-2">
                 <label for="toDate" class="form-label fw-bold">To Date</label>
                 <div class="input-group">
@@ -51,7 +38,23 @@
                 </div>
             </div>
 
-            <div class="col-md-1 align-right">
+            <div class="col-md-4">
+                <label for="party" class="form-label fw-bold">Contractor</label>
+                <div class="input-group has-validation">
+                    <!-- <span class="input-group-text" id="inputGroupPrepend">&#64;</span> -->
+                    <select class="form-select" name="party" [(ngModel)]="filterObj.contractorid" id="party">
+                        <option value="">Select Options</option>
+                        @for (party of dropdownData; track party.id) {
+                        <option [value]="party.id">{{ party.contractorName }}</option>
+                        }
+                    </select>
+                    <div class="invalid-feedback">
+                        Please Select paryt.
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 align-left">
                 <button class="margin-top-30 btn btn-primary" name="search" (click)="searchContractorPayment()"
                     id="search">
                     Search </button>

@@ -54,9 +54,9 @@
 
                 <!-- quality -->
                 <div class="col-md-2">
-                    <label for="quality" class="form-label fw-bold">Quality</label>
+                    <label for="quality" class="form-label fw-bold">Quantity</label>
                     <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
-                        class="form-control" name="quality" [(ngModel)]="contractorChallanObj.quality" id="quality">
+                        class="form-control" name="quality" [(ngModel)]="contractorChallanObj.quantity" id="quantity">
                 </div>
 
                 <!-- Add Button -->
@@ -66,7 +66,7 @@
                 </div>
                 @if (isItemExist) {
                 <div class="col-12">
-                    <span class="text-danger">Design and Color already added</span>
+                    <span class="text-danger">Quality, Design and Color already added</span>
                 </div>
                 }
 

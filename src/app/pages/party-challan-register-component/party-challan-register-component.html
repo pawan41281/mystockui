@@ -3,29 +3,6 @@
 
         <form #form="ngForm" class="row g-3 needs-validation" novalidate>
 
-
-            <div class="col-md-2">
-                <label for="party" class="form-label fw-bold">Party</label>
-                <div class="input-group has-validation">
-                    <!-- <span class="input-group-text" id="inputGroupPrepend">&#64;</span> -->
-                    <select class="form-select" name="party" [(ngModel)]="filterObj.clientName" name="party">
-                        <option value="">Select Options</option>
-                        @for (party of dropdownData; track party.id) {
-                        <option [value]="party.id">{{ party.clientName }}</option>
-                        }
-                    </select>
-                    <div class="invalid-feedback">
-                        Please Select Party.
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-2">
-                <label for="challannumber" class="form-label fw-bold">challan No</label>
-                <input type="text" class="form-control" maxlength="8" name="challannumber"
-                    [(ngModel)]="filterObj.challannumber" id="challannumber">
-            </div>
-
             <div class="col-md-2">
                 <label for="fromDate" class="form-label fw-bold">From Date</label>
                 <div class="input-group">
@@ -59,8 +36,26 @@
                 </div>
             </div>
 
+            <div class="col-md-3">
+                <label for="party" class="form-label fw-bold">Party</label>
+                <div class="input-group has-validation">
+                    <!-- <span class="input-group-text" id="inputGroupPrepend">&#64;</span> -->
+                    <select class="form-select" name="party" [(ngModel)]="filterObj.clientName" name="party">
+                        <option value="">Select Options</option>
+                        @for (party of dropdownData; track party.id) {
+                        <option [value]="party.id">{{ party.clientName }}</option>
+                        }
+                    </select>
+                    <div class="invalid-feedback">
+                        Please Select Party.
+                    </div>
+                </div>
+            </div>
 
-            <div class="col-md-1">
+
+
+
+            <div class="col-md-2">
                 <label for="challantype" class="form-label fw-bold">Challan Type</label>
                 <select id="challantype" class="form-select" name="challantype" [(ngModel)]="filterObj.challantype">
                     <!-- <option value="">Select</option> -->
@@ -71,7 +66,13 @@
                 <div class="invalid-feedback">Please select a challan type.</div>
             </div>
 
-            <div class="col-md-2">
+            <div class="col-md-1">
+                <label for="challannumber" class="form-label fw-bold">challan No</label>
+                <input type="text" class="form-control" maxlength="8" name="challannumber"
+                    [(ngModel)]="filterObj.challannumber" id="challannumber">
+            </div>
+
+            <div class="col-md-1">
                 <label for="orderid" class="form-label fw-bold">Order No</label>
                 <input type="text" class="form-control" maxlength="8" name="orderid" [(ngModel)]="filterObj.orderid"
                     id="orderid">

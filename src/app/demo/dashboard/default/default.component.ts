@@ -189,7 +189,7 @@ export class DefaultComponent implements OnInit {
               queryParams: {
                 challanType: 'I',
                 fromDate: yesterday,
-                toDate: today
+                toDate: yesterday
               }
             },
             challancount: this.getChallanCount(this.cardsData.dashboardPreviousDayContractorCardVos[0])
@@ -201,7 +201,7 @@ export class DefaultComponent implements OnInit {
               queryParams: {
                 challanType: 'R',
                 fromDate: yesterday,
-                toDate: today
+                toDate: yesterday
               }
             },
             challancount: this.getChallanCount(this.cardsData.dashboardPreviousDayContractorCardVos[1])
@@ -213,7 +213,7 @@ export class DefaultComponent implements OnInit {
               queryParams: {
                 challanType: 'I',
                 fromDate: yesterday,
-                toDate: today
+                toDate: yesterday
               }
             },
             challancount: this.getChallanCount(this.cardsData.dashboardPreviousDayClientCardVos[0])
@@ -225,7 +225,7 @@ export class DefaultComponent implements OnInit {
               queryParams: {
                 challanType: 'R',
                 fromDate: yesterday,
-                toDate: today
+                toDate: yesterday
               }
             },
             challancount: this.getChallanCount(this.cardsData.dashboardPreviousDayClientCardVos[1])

@@ -1,26 +1,6 @@
 <div class="col-sm-12">
     <app-card cardTitle="Order Register">
         <form #form="ngForm" class="row g-3 needs-validation" novalidate>
-            <div class="col-md-3">
-                <label for="orderNumber" class="form-label fw-bold">Order Number</label>
-                <input type="text" class="form-control" maxlength="8" name="orderNumber"
-                    [(ngModel)]="filterObj.ordernumber" id="orderNumber">
-            </div>
-
-            <div class="col-md-3">
-                <label for="party" class="form-label fw-bold">Client</label>
-                <div class="input-group has-validation">
-                    <select class="form-select" name="party" [(ngModel)]="filterObj.clientName" name="party">
-                        <option value="">Select Options</option>
-                        @for (party of dropdownData; track party.id) {
-                        <option [value]="party.id">{{ party.clientName }}</option>
-                        }
-                    </select>
-                    <div class="invalid-feedback">
-                        Please Select Party.
-                    </div>
-                </div>
-            </div>
 
             <div class="col-md-3">
                 <label for="fromDate" class="form-label fw-bold">From Date</label>
@@ -54,6 +34,30 @@
                     }
                 </div>
             </div>
+
+            <div class="col-md-3">
+                <label for="party" class="form-label fw-bold">Client</label>
+                <div class="input-group has-validation">
+                    <select class="form-select" name="party" [(ngModel)]="filterObj.clientName" name="party">
+                        <option value="">Select Options</option>
+                        @for (party of dropdownData; track party.id) {
+                        <option [value]="party.id">{{ party.clientName }}</option>
+                        }
+                    </select>
+                    <div class="invalid-feedback">
+                        Please Select Party.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Number -->
+            <div class="col-md-3">
+                <label for="orderNumber" class="form-label fw-bold">Order Number</label>
+                <input type="text" class="form-control" maxlength="8" name="orderNumber"
+                    [(ngModel)]="filterObj.ordernumber" id="orderNumber">
+            </div>
+
+
             <!-- Quality -->
             <div class="col-md-3">
                 <label for="design" class="form-label fw-bold">Quality</label>
