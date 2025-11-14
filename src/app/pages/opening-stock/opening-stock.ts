@@ -77,7 +77,7 @@ export class OpeningStock implements OnInit {
         })
     }
   }
- getQualityList = () => {
+  getQualityList = () => {
     this.dataService.get('quality?active=true')
       .subscribe((res: requestResponse) => {
         this.qualityList = res.data;
@@ -122,8 +122,8 @@ export class OpeningStock implements OnInit {
       field: "colorName"
     },
     {
-      field: 'quality',
-      headerName: 'Quality',
+      field: 'quantity',
+      headerName: 'Quantity',
       editable: true, // 👈 make this column editable
       cellEditor: 'agTextCellEditor' // default is already agTextCellEditor
     },
@@ -141,7 +141,7 @@ export class OpeningStock implements OnInit {
   ];
 
   colDefs_opening_stock: ColDef<intilaStock>[] = [
-    { headerName: "Quality", field: "design.designName" },
+    { headerName: "Quality", field: "quality.qualityName" },
     { headerName: "Design", field: "design.designName" },
     { headerName: "Color", field: "color.colorName" },
     { headerName: "Opening Balance", field: "openingBalance" }
@@ -212,9 +212,10 @@ export class OpeningStock implements OnInit {
 
     this.items.forEach(e => {
       arr.push({
+        quality: { id: e.qualityId },
         design: { id: e.designId },
         color: { id: e.colorId },
-        openingBalance: e.quality,
+        openingBalance: e.quantity,
       });
     });
     return arr;
@@ -226,6 +227,9 @@ export class OpeningStock implements OnInit {
   getColorData = (id: number) => {
     return this.colors.filter(e => e.id == id)[0].colorName;
   }
+  getQualityData = (id: number) => {
+    return this.qualityList.filter(e => e.id == id)[0].qualityName;
+  }
 
   onGridReady(params: GridReadyEvent): void {
     this.gridApi = params.api;
@@ -236,7 +240,7 @@ export class OpeningStock implements OnInit {
   }
 
   itemExist() {
-    return this.items.some(e => e.designId == this.contractorChallanObj.design && e.colorId == this.contractorChallanObj.color)
+    return this.items.some(e => e.quality == this.contractorChallanObj.quality && e.designId == this.contractorChallanObj.design && e.colorId == this.contractorChallanObj.color)
   }
 
   addItems = () => {
@@ -251,7 +255,9 @@ export class OpeningStock implements OnInit {
         'designName': this.getDesignName(this.contractorChallanObj.design),
         'colorId': this.contractorChallanObj.color,
         'colorName': this.getColorData(this.contractorChallanObj.color),
-        'quality': this.contractorChallanObj.quality
+        'qualityId': this.contractorChallanObj.quality,
+        'qualityName': this.getQualityData(this.contractorChallanObj.quality),
+        'quantity': this.contractorChallanObj.quantity
       })
       this.gridApi.applyTransaction({ remove: this.items });
       this.gridApi.applyTransaction({ add: this.items });
@@ -264,14 +270,16 @@ export class OpeningStock implements OnInit {
     this.contractorChallanObj.design = 0;
     this.contractorChallanObj.color = 0
     this.contractorChallanObj.quality = 0
+    this.contractorChallanObj.quantity = 0
     this.disableAdd = true;
   }
 
   onInputBlur = () => {
+    console.log("onInputBlus...")
     this.contractorChallanObj.quality = Number(this.contractorChallanObj.quality)
     this.isItemExist = this.itemExist();
-    const { design, color, quality } = this.contractorChallanObj;
-    this.disableAdd = !(design && color && quality > 0 && !this.isItemExist)
+    const { design, color, quality, quantity } = this.contractorChallanObj;
+    this.disableAdd = !(design && color && quality && quantity > 0 && !this.isItemExist)
 
   }
 

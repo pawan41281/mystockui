@@ -57,15 +57,16 @@ export class ContractorOpeningStock implements OnInit {
 
   filterObj: challanFilter = new challanFilter();
   contractorName: string;
+  contractorId: number;
 
 
   constructor() {
     this.rowCnt = 1;
-    this.getDesignts();
-    this.getColors();
-    this.getAllInitialStock()
+    this.getDesigns()
+    this.getColors()
     this.getContractor()
     this.getQualityList()
+    this.getAllInitialStock()
   }
 
   getAllInitialStock = () => {
@@ -91,6 +92,7 @@ export class ContractorOpeningStock implements OnInit {
   }
 
   ngOnInit() {
+    console.log("ngOnInit() invoked.....")
     if (this.id) {
       this.dataService.get(`${this.id}/${this.url}`)
         .subscribe((res: any) => {
@@ -107,7 +109,7 @@ export class ContractorOpeningStock implements OnInit {
 
   //fethc design list
 
-  getDesignts = () => {
+  getDesigns = () => {
     this.dataService.get('designs')
       .subscribe((res: any) => {
         this.designs = res.data;
@@ -217,6 +219,7 @@ export class ContractorOpeningStock implements OnInit {
           this.showSuccessMessage = true;
           this.contractorChallanObj = new contractorChallan();
           this.contractorName = ''
+          this.contractorId = 0;
           this.getAllInitialStock();
           setTimeout(() => {
             this.showSuccessMessage = false;
@@ -264,7 +267,7 @@ export class ContractorOpeningStock implements OnInit {
   itemExist() {
 
     return this.items.some(e => e.designId == this.contractorChallanObj.design && e.colorId == this.contractorChallanObj.color
-      && e.contractorName == this.contractorName && e.qualityId == this.contractorChallanObj.quality)
+      && e.contractorId == this.contractorId && e.qualityId == this.contractorChallanObj.quality)
   }
 
   addItems = () => {
@@ -275,8 +278,8 @@ export class ContractorOpeningStock implements OnInit {
 
       this.items.push({
         'id': this.rowCnt++,
-        'contractorId': this.contractors.find(e => e.contractorName == this.contractorName).id,
-        'contractorName': this.contractorName,
+        'contractorId': this.contractorChallanObj.contractorId,
+        'contractorName': this.contractors.find(e => e.id == this.contractorChallanObj.contractorId).contractorName,
         'designId': this.contractorChallanObj.design,
         'designName': this.getDesignName(this.contractorChallanObj.design),
         'colorId': this.contractorChallanObj.color,
@@ -296,6 +299,7 @@ export class ContractorOpeningStock implements OnInit {
     this.contractorChallanObj = new contractorChallan();
     this.disableAdd = true;
     this.contractorName = '';
+    this.contractorId = 0;
   }
 
   onInputBlur = () => {

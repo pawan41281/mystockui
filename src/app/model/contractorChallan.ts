@@ -10,7 +10,8 @@ export class contractorChallan {
     contractor: contractor;
     challanType: string;
     challanItems: challanItems[];
-    party: string;
+    contractorName: string;
+    contractorId: number;
     design: number;
     color: number;
     quantity: number;
@@ -24,7 +25,8 @@ export class contractorChallan {
         this.contractor = new contractor();
         this.challanItems = [];
         this.challanDate = "";
-        this.party = '';
+        this.contractorName = '';
+        this.contractorId = 0;
         this.design = 0;
         this.createdOn = "";
         this.challanType = "I";

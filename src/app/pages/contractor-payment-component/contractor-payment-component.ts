@@ -39,7 +39,7 @@ export class ContractorPaymentComponent {
   rowCnt: number;
   challanDate: Date = new Date();
   items: any[] = [];
-  constructors: contractor[] = [];
+  contractors: contractor[] = [];
   disableAdd: boolean = true;
   showSuccessMessage: boolean = false;
   successMessage: string = '';
@@ -72,7 +72,7 @@ export class ContractorPaymentComponent {
   getContractor = () => {
     this.dataService.get('contractors?active=true')
       .subscribe((res: requestResponse) => {
-        this.constructors = res.data;
+        this.contractors = res.data;
       })
   }
 
@@ -113,7 +113,7 @@ export class ContractorPaymentComponent {
 
       "paymentDate": this.utilsService.formatDate_dd_MM_YYYY(this.challanDate),
       "contractor": {
-        "id": this.contractorPyamentObj.party
+        "id": this.contractorPyamentObj.contractorName
       },
       "paymentAmount": this.contractorPyamentObj.paymentAmount,
       "user": {

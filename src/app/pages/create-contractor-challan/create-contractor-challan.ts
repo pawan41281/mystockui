@@ -42,7 +42,7 @@ export class CreateContractorChallan implements OnInit {
   challanDate: Date = new Date();
   rowId: string = '';
   items: any[] = [];
-  constructors: contractor[] = [];
+  contractors: contractor[] = [];
   designs: design[] = [];
   colors: color[] = [];
   qualityList: quality[] = [];
@@ -83,7 +83,7 @@ export class CreateContractorChallan implements OnInit {
   getContractor = () => {
     this.dataService.get('contractors?active=true')
       .subscribe((res: requestResponse) => {
-        this.constructors = res.data;
+        this.contractors = res.data;
       })
   }
 
@@ -234,7 +234,7 @@ export class CreateContractorChallan implements OnInit {
       "challanNumber": this.contractorChallanObj.challanNumber,
       "challanDate": this.utilsService.formatDate_dd_MM_YYYY(this.challanDate),
       "contractor": {
-        "id": this.contractorChallanObj.party
+        "id": this.contractorChallanObj.contractorName
       },
       "challanType": this.contractorChallanObj.challanType,
       "challanItems": this.buildItemsData(),

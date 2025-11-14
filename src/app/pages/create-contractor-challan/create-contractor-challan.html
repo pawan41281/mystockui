@@ -54,11 +54,11 @@
                     <div class="dropdown">
                         <label for="contractor" class="form-label fw-bold">Contractor <span
                                 class="text-danger">*</span></label>
-                        <select class="form-select" name="contractor" [(ngModel)]="contractorChallanObj.party"
-                            #contractor="ngModel" name="contractor" #party="ngModel">
+                        <select class="form-select" name="contractor" [(ngModel)]="contractorChallanObj.contractorName"
+                            #contractor="ngModel" id="contractor">
                             <option value="">Select Options</option>
-                            @for (party of constructors; track party.id) {
-                            <option [value]="party.id">{{ party.contractorName }}</option>
+                            @for (contractor of contractors; track contractor.id) {
+                            <option [value]="contractor.id">{{ contractor.contractorName }}</option>
                             }
                         </select>
 
@@ -88,8 +88,9 @@
                 <!-- Quality -->
                 <div class="col-md-3">
                     <label for="quality" class="form-label fw-bold">Quality</label>
-                    <select class="form-select" name="color" (blur)="onInputBlur()"
-                        [(ngModel)]="contractorChallanObj.quality" id="quality">
+                    <select class="form-select" name="quality" [(ngModel)]="contractorChallanObj.quality"
+                        (blur)="onInputBlur()" name="quality" id="quality">
+                        <option value="0">Select Options</option>
                         @for (quality of qualityList; track quality.id) {
                         <option [value]="quality.id">{{ quality.qualityName }}</option>
                         }
@@ -102,6 +103,7 @@
                     <label for="design" class="form-label fw-bold">Desing</label>
                     <select class="form-select" name="design" (blur)="onInputBlur()"
                         [(ngModel)]="contractorChallanObj.design" id="design">
+                        <option value="0">Select Options</option>
                         @for (design of designs; track design.id) {
                         <option [value]="design.id">{{ design.designName }}</option>
                         }
@@ -115,6 +117,7 @@
                     <label for="color" class="form-label fw-bold">Color</label>
                     <select class="form-select" name="color" (blur)="onInputBlur()"
                         [(ngModel)]="contractorChallanObj.color" id="color">
+                        <option value="0">Select Options</option>
                         @for (color of colors; track color.id) {
                         <option [value]="color.id">{{ color.colorName }}</option>
                         }

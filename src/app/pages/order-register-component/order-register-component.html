@@ -62,6 +62,7 @@
             <div class="col-md-3">
                 <label for="design" class="form-label fw-bold">Quality</label>
                 <select id="quality" class="form-select" name="quality" [(ngModel)]="filterObj.qualityId">
+                    <option value="0">Select Options</option>
                     @for (quality of qualityList; track quality.id) {
                     <option [value]="quality.id">{{ quality.qualityName }}</option>
                     }
@@ -74,6 +75,7 @@
             <div class="col-md-3">
                 <label for="design" class="form-label fw-bold">Design</label>
                 <select id="design" class="form-select" name="design" [(ngModel)]="filterObj.designId">
+                    <option value="0">Select Options</option>
                     @for (design of designs; track $index) {
                     <option [value]="design.id">{{ design.designName }}</option>
                     }
@@ -86,6 +88,7 @@
             <div class="col-md-3">
                 <label for="color" class="form-label fw-bold">Color</label>
                 <select id="color" class="form-select" name="color" [(ngModel)]="filterObj.colorId">
+                    <option value="0">Select Options</option>
                     @for (color of colors; track $index) {
                     <option [value]="color.id">{{ color.colorName }}</option>
                     }

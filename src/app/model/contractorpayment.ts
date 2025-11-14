@@ -10,7 +10,7 @@ export class contractorpayment {
     createdOn: string;
     paymentAmount: number;
     user: userData;
-    party: string;
+    contractorName: string;
     constructor() {
         this.id = 0;
         this.contractor = new contractor();
@@ -18,7 +18,7 @@ export class contractorpayment {
         this.remarks = '';
         this.paymentAmount = 0;
         this.user = new userData()
-        this.party = ''
+        this.contractorName = ''
     }
 
 }

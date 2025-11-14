@@ -44,7 +44,7 @@
             <div class="col-md-3">
                 <label for="color" class="form-label fw-bold">Color</label>
                 <select id="color" class="form-select" name="color" [(ngModel)]="filterObj.colorName">
-                    <option value="">Any</option>
+                    <option value="">Select Options</option>
                     <option *ngFor="let color of colors" [value]="color.colorName">{{ color.colorName }}</option>
                 </select>
                 <div class="invalid-feedback">Please select a color.</div>

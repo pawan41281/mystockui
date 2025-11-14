@@ -21,6 +21,7 @@
             <div class="col-md-2">
                 <label for="design" class="form-label fw-bold">Quality</label>
                 <select id="quality" class="form-select" name="quality" [(ngModel)]="filterObj.quality">
+                    <option value="0">Select Options</option>
                     @for (quality of qualityList; track quality.id) {
                     <option [value]="quality.id">{{ quality.qualityName }}</option>
                     }

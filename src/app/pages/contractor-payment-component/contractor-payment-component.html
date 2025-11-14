@@ -37,11 +37,11 @@
                     <div class="dropdown">
                         <label for="contractor" class="form-label fw-bold">Contractor <span
                                 class="text-danger">*</span></label>
-                        <select class="form-select" name="contractor" [(ngModel)]="contractorPyamentObj.party"
-                            #contractor="ngModel" name="contractor" #party="ngModel">
-                            <option va>Select Options</option>
-                            @for (party of constructors; track party.id) {
-                            <option [value]="party.id">{{ party.contractorName }}</option>
+                        <select class="form-select" name="contractor" [(ngModel)]="contractorPyamentObj.contractorName"
+                            #contractor="ngModel" name="contractor">
+                            <option value="">Select Options</option>
+                            @for (contractor of contractors; track contractor.id) {
+                            <option [value]="contractor.id">{{ contractor.contractorName }}</option>
                             }
                         </select>
 

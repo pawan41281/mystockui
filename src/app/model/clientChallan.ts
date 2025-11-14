@@ -18,7 +18,7 @@ export class clientChallan {
     quantity: number;
     rate: number;
     createdOn: string;
-    orderNumber?: number;
+    orderNumber: number;
     quality: number;
 
     constructor() {
@@ -35,5 +35,6 @@ export class clientChallan {
         this.color = 0;
         this.quantity = 0;
         this.quality = 0;
+        this.orderNumber = 0;
     }
 }

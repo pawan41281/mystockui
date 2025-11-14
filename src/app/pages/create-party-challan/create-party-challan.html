@@ -91,9 +91,10 @@
                 <!-- Order Number -->
                 <div class="col-md-2">
                     <label for="orderNumber" class="form-label fw-bold">Order Number </label>
-                    <select id="orderNumber" class="form-select" name="orderNumber"
-                        [(ngModel)]="clientChallanObj.orderNumber">
-                        @for (order of orders; track $index) {
+                    <select class="form-select" name="orderNumber" [(ngModel)]="clientChallanObj.orderNumber"
+                        id="orderNumber">
+                        <option value="0">Select Options</option>
+                        @for (order of orders; track order.id) {
                         <option [value]="order.id">{{ order.orderNumber }}</option>
                         }
                     </select>
@@ -102,8 +103,9 @@
                 <!-- Quality -->
                 <div class="col-md-3">
                     <label for="quality" class="form-label fw-bold">Quality</label>
-                    <select class="form-select" name="color" (blur)="onInputBlur()"
-                        [(ngModel)]="clientChallanObj.quality" id="color">
+                    <select class="form-select" name="color" [(ngModel)]="clientChallanObj.quality" id="quality"
+                        (blur)="onInputBlur()">
+                        <option value="0">Select Options</option>
                         @for (quality of qualityList; track quality.id) {
                         <option [value]="quality.id">{{ quality.qualityName }}</option>
                         }
@@ -116,6 +118,7 @@
                     <label for="design" class="form-label fw-bold">Design</label>
                     <select id="design" class="form-select" name="design" [(ngModel)]="clientChallanObj.design"
                         [disabled]="action === 'view'" (blur)="onInputBlur()">
+                        <option value="0">Select Options</option>
                         @for (design of designs; track $index) {
                         <option [value]="design.id">{{ design.designName }}</option>
                         }
@@ -129,6 +132,7 @@
                     <label for="color" class="form-label fw-bold">Color</label>
                     <select id="color" class="form-select" name="color" [(ngModel)]="clientChallanObj.color"
                         [disabled]="action === 'view'" (blur)="onInputBlur()">
+                        <option value="0">Select Options</option>
                         @for (color of colors; track $index) {
                         <option [value]="color.id">{{ color.colorName }}</option>
                         }
