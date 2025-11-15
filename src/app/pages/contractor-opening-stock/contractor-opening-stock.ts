@@ -92,7 +92,6 @@ export class ContractorOpeningStock implements OnInit {
   }
 
   ngOnInit() {
-    console.log("ngOnInit() invoked.....")
     if (this.id) {
       this.dataService.get(`${this.id}/${this.url}`)
         .subscribe((res: any) => {

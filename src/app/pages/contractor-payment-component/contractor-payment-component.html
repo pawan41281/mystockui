@@ -14,19 +14,19 @@
 
             <form #form="ngForm" class="row g-3 needs-validation" novalidate>
                 <div class="col-md-2">
-                    <label for="challanDate" class="form-label fw-bold">Payment Date <span
+                    <label for="paymentDate" class="form-label fw-bold">Payment Date <span
                             class="text-danger">*</span></label>
                     <div class="input-group">
-                        <input matInput [matDatepicker]="picker" id="challanDate" [(ngModel)]="challanDate"
-                            name="challanDate" class="form-control height-39" #challanDateModel="ngModel" />
+                        <input matInput [matDatepicker]="picker" id="paymentDate" [(ngModel)]="paymentDate"
+                            name="paymentDate" class="form-control height-39" #paymentDateModel="ngModel" />
                         <span class="input-group-text height-39" style="cursor: pointer;">
                             <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
                         </span>
                     </div>
                     <mat-datepicker #picker></mat-datepicker>
                     <div class="text-danger">
-                        @if(challanDateModel.errors?.['required'] && challanDateModel.touched &&
-                        challanDateModel.dirty) {
+                        @if(paymentDateModel.errors?.['required'] && paymentDateModel.touched &&
+                        paymentDateModel.dirty) {
                         <span>This field is mendatory</span>
                         }
                     </div>
@@ -54,8 +54,8 @@
                 </div>
                 <div class="col-md-1">
                     <label for="amount" class="form-label fw-bold">Amount</label>
-                    <input type="text" (keypress)="utilsService.numberOnly($event)" (keyup)="onInputBlur()"
-                        class="form-control" name="amount" [(ngModel)]="contractorPyamentObj.paymentAmount" id="amount">
+                    <input type="text" (keypress)="utilsService.numberOnly($event)" class="form-control" name="amount"
+                        [(ngModel)]="contractorPyamentObj.paymentAmount" id="amount">
                 </div>
                 <div class="col-md-5">
                     <label for="remark" class="form-label fw-bold">Remarks</label>

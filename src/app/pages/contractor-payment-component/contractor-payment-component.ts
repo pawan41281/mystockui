@@ -37,7 +37,7 @@ export class ContractorPaymentComponent {
   utilsService: UtilService = inject(UtilService);
   private gridApi!: GridApi;
   rowCnt: number;
-  challanDate: Date = new Date();
+  paymentDate: Date = new Date();
   items: any[] = [];
   contractors: contractor[] = [];
   disableAdd: boolean = true;
@@ -95,23 +95,14 @@ export class ContractorPaymentComponent {
         }
       })
   }
-  // onSave = () => {
-  //   console.log('on save call')
 
-  //   const finalUrl = this.url + this.utilsService.buildUrl(this.filterObj);
-  //   this.dataService.get(finalUrl)
-  //     .subscribe((res: requestResponse) => {
-  //       if (res.data.length <= 0) {
-  //         this.save()
-  //       }
-  //     })
-  // }
+
 
   buildReqObj = () => {
 
     const obj = {
 
-      "paymentDate": this.utilsService.formatDate_dd_MM_YYYY(this.challanDate),
+      "paymentDate": this.utilsService.formatDate_dd_MM_YYYY(this.paymentDate),
       "contractor": {
         "id": this.contractorPyamentObj.contractorName
       },
@@ -124,20 +115,7 @@ export class ContractorPaymentComponent {
     return obj;
   }
 
-  // buildItemsData = () => {
-  //   let arr: any = []
 
-  //   this.items.forEach(e => {
-  //     arr.push({
-  //       design: { id: e.designId },
-  //       color: { id: e.colorId },
-  //       quality: { id: e.quality },
-  //       quantity: e.quantity,
-  //       rate: e.rate,
-  //     });
-  //   });
-  //   return arr;
-  // }
 
   updateForm = (key: string, event: any) => {
     this.clientChallanFromData.update((data: clientChallanInfo) =>
@@ -150,10 +128,5 @@ export class ContractorPaymentComponent {
     this.gridApi = params.api;
   }
 
-  onInputBlur = () => {
-    // const { design, color, quality, rate } = this.contractorPyamentObj;
-    // this.disableAdd = !(design && color && quality && rate && !this.isItemExist);
-
-  }
   challanTypes = [{ val: "I", name: "Issue" }, { val: "R", name: "Recieve" }]
 }
