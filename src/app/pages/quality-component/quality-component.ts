@@ -57,7 +57,7 @@ export class QualityComponent implements OnInit {
   colDefs: ColDef<quality>[] = [
     {
       headerName: "Status",
-      cellClass: 'margin-top-8',
+      //cellClass: 'margin-top-8',
       sortable: false,
       filter: false,
       cellRenderer: this.utilsService.getStatus

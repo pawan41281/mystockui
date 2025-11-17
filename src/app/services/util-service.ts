@@ -43,16 +43,25 @@ export class UtilService {
   }
   public getStatus(params) {
 
+    // const isActive = params.node.data.active;
+    // const statusDotClass = isActive ? 'dot-green' : 'dot-red';
+    // return `<span class="${statusDotClass}"></span>`;
+
     const isActive = params.node.data.active;
-    const statusDotClass = isActive ? 'dot-green' : 'dot-red';
-    return `<span class="${statusDotClass}"></span>`;
+    const statusImage = isActive ? 'assets/images/green.png' : 'assets/images/red.png';
+    return `<img src="${statusImage}">`;
+
   }
 
   public getUserStatus(params) {
 
+    // const isLocked = params.node.data.locked;
+    // const statusDotClass = isLocked ? 'dot-red' : 'dot-green';
+    // return `<span class="${statusDotClass}"></span>`;
+
     const isLocked = params.node.data.locked;
-    const statusDotClass = isLocked ? 'dot-red' : 'dot-green';
-    return `<span class="${statusDotClass}"></span>`;
+    const statusImage = isLocked ? 'assets/images/red.png' : 'assets/images/green.png';
+    return `<img src="${statusImage}">`;
   }
 
   public validateGST(gstNo: string) {

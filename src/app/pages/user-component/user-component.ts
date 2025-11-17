@@ -61,7 +61,7 @@ export class UserComponent implements OnInit {
   colDefs: ColDef<user>[] = [
     {
       headerName: "Status",
-      cellClass: 'margin-top-8',
+      //cellClass: 'margin-top-8',
       sortable: false,
       filter: false,
       cellRenderer: this.utilsService.getUserStatus
@@ -74,14 +74,14 @@ export class UserComponent implements OnInit {
       headerName: "Name",
       field: "name",
     },
-    {
-      headerName: "Mobile",
-      field: "mobile",
-    },
-    {
-      headerName: "Email",
-      field: "email",
-    },
+    // {
+    //   headerName: "Mobile",
+    //   field: "mobile",
+    // },
+    // {
+    //   headerName: "Email",
+    //   field: "email",
+    // },
     {
       headerName: "Role",
       cellRenderer: this.myCellRendererAction.bind(this),
@@ -97,7 +97,6 @@ export class UserComponent implements OnInit {
         this.actionLabel = 'Update';
         this.userObj = this.utilsService.commondata.data;
         this.userObj.role = this.utilsService.commondata.data.roles[0].name
-        //}
         this.userObjEdit = JSON.parse(JSON.stringify(this.userObj))
         this.isSameEditObj = this.utilsService.compareObjects(this.userObjEdit, this.userObj)
       },

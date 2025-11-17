@@ -57,7 +57,7 @@ export class ColorComponent implements OnInit {
   colDefs: ColDef<color>[] = [
     {
       headerName: "Status",
-      cellClass: 'margin-top-8',
+      //cellClass: 'margin-top-8',
       sortable: false,
       filter: false,
       cellRenderer: this.utilsService.getStatus

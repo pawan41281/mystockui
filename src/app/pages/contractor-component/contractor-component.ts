@@ -49,7 +49,7 @@ export class ContractorComponent implements OnInit {
   colDefs: ColDef<contractor>[] = [
     {
       headerName: "Status",
-      cellClass: 'margin-top-8',
+      //cellClass: 'margin-top-8',
       sortable: false,
       filter: false,
       cellRenderer: this.utilsService.getStatus

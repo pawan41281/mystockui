@@ -49,7 +49,7 @@ export class PartyComponent implements OnInit {
   colDefs: ColDef<client>[] = [
     {
       headerName: "Status",
-      cellClass: 'margin-top-8',
+      //cellClass: 'margin-top-8',
       sortable: false,
       filter: false,
       cellRenderer: this.utilsService.getStatus
