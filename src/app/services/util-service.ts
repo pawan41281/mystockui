@@ -41,6 +41,12 @@ export class UtilService {
     const regex = /^\d{4}-\d{2}-\d{2}$/;
     return regex.test(dateStr);
   }
+
+  dateFromate_dd_MM_YY(date: Date) {
+    return date && !this.isValidDateFormat(date.toString()) ? this.formatDate_dd_MM_YYYY(date) : '';
+  }
+
+
   public getStatus(params) {
 
     // const isActive = params.node.data.active;

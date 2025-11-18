@@ -76,8 +76,9 @@ export class AccountStatement implements OnInit {
 
   searchContractorPayment = () => {
 
-    this.filterObj.fromDate = this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
-    this.filterObj.toDate = this.toDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
+    this.filterObj.fromDate = this.utilsService.dateFromate_dd_MM_YY(this.fromDate);
+    this.filterObj.toDate = this.utilsService.dateFromate_dd_MM_YY(this.toDate);
+
     let url = '';
     url = this.paymentUrl + this.utilsService.buildUrl(this.filterObj);
     this.dataService.get(url)
@@ -90,8 +91,8 @@ export class AccountStatement implements OnInit {
 
   searchContractorChallan = () => {
 
-    this.filterObj.fromDate = this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
-    this.filterObj.toDate = this.toDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
+    this.filterObj.fromDate = this.utilsService.dateFromate_dd_MM_YY(this.fromDate); // this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
+    this.filterObj.toDate = this.utilsService.dateFromate_dd_MM_YY(this.toDate);  //this.toDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
     let url = '';
     url = this.contractorChallanUrl + this.utilsService.buildUrl(this.filterObj);
     this.dataService.get(url)
@@ -113,11 +114,6 @@ export class AccountStatement implements OnInit {
 
         }
 
-
-        // (res: requestResponse) => {
-        // this.contractorChallans = res.data;
-        // this.contractorChallans.forEach(e1 => { e1.challanType = this.utilsService.challanTypes?.find(e => e.val === e1.challanType)?.name ?? '' })
-        // this.totalRecord = res.metadata.recordcount;
       })
   }
 
