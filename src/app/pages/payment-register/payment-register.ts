@@ -40,7 +40,7 @@ export class PaymentRegister {
   utilsService: UtilService = inject(UtilService);
   router: ActivatedRoute = inject(ActivatedRoute);
   route: Router = inject(Router);
-  contractorChallans: contractorpayment[] = [];
+  contractorPayments: contractorpayment[] = [];
   contractorChallanObj: contractorpayment = new contractorpayment();
   private readonly downloadService = inject(DownloadSerivceService);
   private gridApi!: GridApi;
@@ -81,7 +81,7 @@ export class PaymentRegister {
   getClientData = () => {
     this.dataService.get(this.url)
       .subscribe((res: requestResponse) => {
-        this.contractorChallans = res.data;
+        this.contractorPayments = res.data;
         this.totalRecord = res.metadata.recordcount
       })
 
@@ -143,7 +143,7 @@ export class PaymentRegister {
   deletePayment() {
     this.dataService.delete(`${this.url}/${this.id}`)
       .subscribe((res: requestResponse) => {
-        this.contractorChallans = res.data;
+        this.contractorPayments = res.data;
         this.totalRecord = res.metadata.recordcount;
         this.searchContractorPayment()
       })
@@ -152,14 +152,14 @@ export class PaymentRegister {
 
   searchContractorPayment = () => {
 
-    this.filterObj.frompaymentdate = this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
-    this.filterObj.topaymentdate = this.toDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
+    this.filterObj.fromDate = this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
+    this.filterObj.toDate = this.toDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
     let url = '';
     url = this.url + this.utilsService.buildUrl(this.filterObj);
     this.dataService.get(url)
       .subscribe((res: requestResponse) => {
-        this.contractorChallans = res.data;
-        // this.contractorChallans.forEach(e1 => { e1.challanType = this.utilsService.challanTypes?.find(e => e.val === e1.challanType)?.name ?? '' })
+        this.contractorPayments = res.data;
+        // this.contractorPayments.forEach(e1 => { e1.challanType = this.utilsService.challanTypes?.find(e => e.val === e1.challanType)?.name ?? '' })
         this.totalRecord = res.metadata.recordcount;
       })
   }
@@ -192,7 +192,7 @@ export class PaymentRegister {
   }
 
   getReportData() {
-    return this.contractorChallans.map(e => ({
+    return this.contractorPayments.map(e => ({
 
       'Payment Date': e.paymentDate,
       'Contractor Name': e.contractor.contractorName,
@@ -220,12 +220,12 @@ export class PaymentRegister {
 
 class challanFilter {
   contractorid: string;
-  frompaymentdate: string;
-  topaymentdate: string;
+  fromDate: string;
+  toDate: string;
   constructor() {
     this.contractorid = '';
-    this.frompaymentdate = '';
-    this.topaymentdate = '';
+    this.fromDate = '';
+    this.toDate = '';
   }
 }
 

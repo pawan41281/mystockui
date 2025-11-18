@@ -1,5 +1,5 @@
 <div class="col-sm-12">
-    <app-card cardTitle="Contractor Challan Register">
+    <app-card cardTitle="Account Statement">
 
         <form #form="ngForm" class="row g-3 needs-validation" novalidate>
 
@@ -83,11 +83,63 @@
                     [pagination]="true" [paginationPageSize]="10" [paginationPageSizeSelector]="[10, 20, 50]" />
             </div>
         </div>
+        @if (contractorChallans.length > 0) {
+        <div class="row  margin-top-30">
+            <h3 class="modal-title" style="margin-top: 0px; margin-bottom: 0px;" id="exampleModalLabel">Challan</h3>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <ag-grid-angular class="ag-theme-quartz grid-height" [rowData]="contractorChallans"
+                    [columnDefs]="challanDetailsColDefs" [defaultColDef]="defaultColDef"
+                    (gridReady)="onGridReady($event)" [pagination]="true" [paginationPageSize]="10"
+                    [paginationPageSizeSelector]="[10, 20, 50]" />
+            </div>
+        </div>
+        }
+
+        @if (contractorChallans.length > 0) {
+        <div class="row  margin-top-30">
+            <h3 class="modal-title" style="margin-top: 0px; margin-bottom: 0px;" id="exampleModalLabel">Payments</h3>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <ag-grid-angular class="ag-theme-quartz grid-height" [rowData]="contractorPayments"
+                    [columnDefs]="paymentColDefs" [defaultColDef]="defaultColDef" (gridReady)="onGridReady($event)"
+                    [pagination]="true" [paginationPageSize]="10" [paginationPageSizeSelector]="[10, 20, 50]" />
+            </div>
+        </div>
+        }
     </app-card>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content model-width-1000">
+            <div class="modal-header">
+                <h2 class="modal-title" style="margin-top: 0px; margin-bottom: 0px;" id="exampleModalLabel">Challan
+                    Details</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <ag-grid-angular class="ag-theme-quartz grid-height" [rowData]="contractorChallans"
+                            [columnDefs]="challanDetailsColDefs" [defaultColDef]="defaultColDef"
+                            (gridReady)="onGridReady($event)" [pagination]="true" [paginationPageSize]="10"
+                            [paginationPageSizeSelector]="[10, 20, 50]" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- Modal -->
+<div class="modal fade" id="challanItemsModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content model-width-800">
             <div class="modal-header">
@@ -96,19 +148,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h3>Challan Received </h3>
-                <div class="modal-body">
-                    <ag-grid-angular class="ag-theme-quartz" style="height: 300px;" [rowData]="itemDetails"
-                        [columnDefs]="itemDetailsColDefs" [defaultColDef]="defaultColDef"
-                        (gridReady)="onGridReady($event)" />
-                </div>
-
-                <h3>Payment</h3>
-                <div class="modal-body">
-                    <ag-grid-angular class="ag-theme-quartz" style="height: 300px;" [rowData]="itemDetails"
-                        [columnDefs]="itemDetailsColDefs" [defaultColDef]="defaultColDef"
-                        (gridReady)="onGridReady($event)" />
-                </div>
+                <ag-grid-angular class="ag-theme-quartz" style="height: 300px;" [rowData]="itemDetails"
+                    [columnDefs]="itemDetailsColDefs" [defaultColDef]="defaultColDef"
+                    (gridReady)="onGridReady($event)" />
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>

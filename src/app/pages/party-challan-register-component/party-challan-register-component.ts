@@ -259,6 +259,10 @@ export class PartyChallanRegisterComponent implements OnInit {
     {
       headerName: "Quantity",
       field: "quantity",
+    },
+    {
+      headerName: "Rate",
+      field: "rate",
     }
   ];
 }

@@ -23,6 +23,7 @@ import { userData } from 'src/app/model/userData';
 import { AccountStatementModel } from 'src/app/model/AccountStatementModel';
 import { contractorChallan } from 'src/app/model/contractorChallan';
 import { challanFilter } from 'src/app/model/challanFilter';
+import { contractorpayment } from 'src/app/model/contractorpayment';
 
 @Component({
   selector: 'app-account-statement',
@@ -49,17 +50,18 @@ export class AccountStatement implements OnInit {
   contractors: contractor[] = [];
   dropdownData: contractor[] = [];
   itemDetails: challanItems[] | undefined = [];
-  fromDate: Date = new Date();
+  now = new Date();
+  fromDate: Date = new Date(this.now.getFullYear(), this.now.getMonth(), 1);
   toDate: Date = new Date();
   filterObj: AccountStmtFilter = new AccountStmtFilter();
   isAdmin: boolean = false;
   userInfo: userData;
   invalidDateRange: boolean = false;
   errorMessage: string = '';
-  conctractorId: number = 0;
+
   challanItemDetails: challanItems[] | undefined = [];
   contractorChallans: contractorChallan[] = [];
-  paymentFilterObj: PaymentFilter = new PaymentFilter();
+  contractorPayments: contractorpayment[] = [];
 
   constructor() {
     this.getClients();
@@ -70,28 +72,26 @@ export class AccountStatement implements OnInit {
     this.searchAccountStatement()
     this.userInfo = this.utilsService.getCurrentUserInfo()
     this.isAdmin = this.userInfo.roles.filter(e => e.adminrole).length > 0
-    this.searchContractorChallan()
-    this.searchContractorPayment()
   }
 
   searchContractorPayment = () => {
 
-    this.paymentFilterObj.frompaymentdate = this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
-    this.paymentFilterObj.topaymentdate = this.toDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
+    this.filterObj.fromDate = this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
+    this.filterObj.toDate = this.toDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
     let url = '';
-    url = this.paymentUrl + this.utilsService.buildUrl(this.paymentFilterObj);
+    url = this.paymentUrl + this.utilsService.buildUrl(this.filterObj);
     this.dataService.get(url)
       .subscribe((res: requestResponse) => {
-        this.contractorChallans = res.data;
-        // this.contractorChallans.forEach(e1 => { e1.challanType = this.utilsService.challanTypes?.find(e => e.val === e1.challanType)?.name ?? '' })
+        this.contractorPayments = res.data;
+        // this.contractorPayments.forEach(e1 => { e1.challanType = this.utilsService.challanTypes?.find(e => e.val === e1.challanType)?.name ?? '' })
         this.totalRecord = res.metadata.recordcount;
       })
   }
 
   searchContractorChallan = () => {
 
-    this.filterObj.fromchallandate = this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
-    this.filterObj.tochallandate = this.toDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
+    this.filterObj.fromDate = this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
+    this.filterObj.toDate = this.toDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
     let url = '';
     url = this.contractorChallanUrl + this.utilsService.buildUrl(this.filterObj);
     this.dataService.get(url)
@@ -120,6 +120,7 @@ export class AccountStatement implements OnInit {
         // this.totalRecord = res.metadata.recordcount;
       })
   }
+
 
   getClients = () => {
     this.dataService.get('contractors')
@@ -153,19 +154,14 @@ export class AccountStatement implements OnInit {
       filter: false,
       cellRenderer: this.myCellRendererAction.bind(this),
       onCellClicked: (event) => {
-        this.conctractorId = event.data?.contractorId;
+        this.searchContractorChallan();
+        this.searchContractorPayment();
       }
     }];
 
-
-  myCellRendererAction(params: any) {
-    this.id = params.node.data.id;
-
-
-    return `<img src="assets/images/find.png" style="width: 20px; height: 20px;" (click)="searchContractorChallan()" data-bs-toggle="modal" data-bs-target="#exampleModal">`;
-
+  myCellRendererAction() {
+    return `<img src="assets/images/find.png" style="width: 20px; height: 20px;" data-bs-toggle="modal" data-bs-target="#exampleModal">`;
   }
-
 
   renderDate(params: any) {
     return formatDate(params.node.data.challanDate, 'dd-MM-yyyy', 'en-US');
@@ -185,11 +181,10 @@ export class AccountStatement implements OnInit {
 
   };
 
-
   searchAccountStatement = () => {
 
-    this.filterObj.fromchallandate = this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
-    this.filterObj.tochallandate = this.toDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
+    this.filterObj.fromDate = this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
+    this.filterObj.toDate = this.toDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
     let url = '';
     url = this.url + this.utilsService.buildUrl(this.filterObj);
     this.dataService.get(url)
@@ -232,15 +227,105 @@ export class AccountStatement implements OnInit {
 
   //=================Items details =============
 
-  itemDetailsColDefs: ColDef<challanItems>[] = [
-    {
-      headerName: "Challan Date",
-      field: "design.designName",
-    },
+  // Column Definitions: Defines & controls grid columns.
+  challanDetailsColDefs: ColDef<contractorChallan>[] = [
     {
       headerName: "Challan Number",
-      field: "quality.qualityName",
+      field: "challanNumber",
     },
+    {
+      headerName: "Challan Date",
+      cellRenderer: this.renderDate
+    },
+    {
+      headerName: "Contractor Name",
+      field: "contractor.contractorName",
+    },
+    {
+      headerName: "Challan Type",
+      field: 'challanType'
+    },
+    {
+      headerName: "Pices Count",
+      cellRenderer: this.myItemCellRenderer
+    },
+    {
+      headerName: "Amount",
+      cellRenderer: this.calculateChallanAmount
+    },
+    {
+      headerName: '',
+      sortable: false,
+      filter: false,
+      cellRenderer: this.myCellRendererChallanAction.bind(this),
+      onCellClicked: (event) => {
+        this.itemDetails = event.data?.challanItems;
+        //console.log('item details ', this.itemDetails)
+      }
+    }
+  ];
+
+
+  paymentColDefs: ColDef<contractorpayment>[] = [
+
+    {
+      headerName: "Payment Date",
+      cellRenderer: this.renderPaymentDate
+    },
+    {
+      headerName: "Contractor Name",
+      field: "contractor.contractorName",
+    },
+
+    {
+      headerName: "Payment Amount",
+      field: "paymentAmount"
+    },
+    {
+      headerName: "Remarks",
+      field: "remarks"
+    }
+  ];
+
+
+  renderPaymentDate(params: any) {
+    return formatDate(params.node.data.paymentDate, 'dd-MM-yyyy', 'en-US');
+  }
+  calculateChallanAmount(params: any) {
+    let totalAmount = 0;
+    params.node.data.challanItems.forEach((e: { rate: number, quantity: number; }) => totalAmount += (e.rate * e.quantity));
+    return `<span>${totalAmount}</span>`;
+  }
+
+  myCellRendererChallanAction(params: any) {
+    this.id = params.node.data.id;
+    console.log('this.isAdmin ', this.isAdmin)
+    return `<div style="text-align: right">
+         <img src="assets/images/find.png" style="width: 20px; height: 20px;" (click)="searchContractorChallan()" data-bs-toggle="modal" data-bs-target="#challanItemsModel">         
+       
+       </div>`
+  }
+
+
+
+  myItemCellRenderer(params: any) {
+    let totalQuantity = 0;
+    params.node.data.challanItems.forEach((e: { quantity: number; }) => totalQuantity += e.quantity);
+    return `<span>${totalQuantity}</span>`;
+  }
+
+
+
+  getTotal(value: any) {
+    console.log('data :: ', value.data)
+
+    return `<img src="assets/images/find.png" style="width: 20px; height: 20px;" data-bs-toggle="modal" data-bs-target="#exampleModal">`;
+  }
+
+
+  //------------- For Challan Items -------------------
+
+  itemDetailsColDefs: ColDef<challanItems>[] = [
     {
       headerName: "Quality",
       field: "quality.qualityName",
@@ -262,6 +347,8 @@ export class AccountStatement implements OnInit {
       field: "rate",
     }
   ];
+
+  //---------------------------------------------------
 
   onBtnExport() {
     this.downloadService.exportToCSV(this.getReportData(), 'account_statements_data.csv')
@@ -293,25 +380,13 @@ export class AccountStatement implements OnInit {
 
 class AccountStmtFilter {
   contractorid: string;
-  fromchallandate: string;
-  tochallandate: string;
+  fromDate: string;
+  toDate: string;
 
   constructor() {
     this.contractorid = '';
-    this.fromchallandate = '';
-    this.tochallandate = '';
+    this.fromDate = '';
+    this.toDate = '';
 
-  }
-}
-
-
-class PaymentFilter {
-  contractorid: string;
-  frompaymentdate: string;
-  topaymentdate: string;
-  constructor() {
-    this.contractorid = '';
-    this.frompaymentdate = '';
-    this.topaymentdate = '';
   }
 }

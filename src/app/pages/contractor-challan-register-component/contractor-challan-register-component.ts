@@ -193,8 +193,8 @@ export class ContractorChallanRegisterComponent implements OnInit {
 
   searchContractorChallan = () => {
 
-    this.filterObj.fromchallandate = this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
-    this.filterObj.tochallandate = this.toDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
+    this.filterObj.fromDate = this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
+    this.filterObj.toDate = this.toDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
     let url = '';
     url = this.url + this.utilsService.buildUrl(this.filterObj);
     this.dataService.get(url)
@@ -302,15 +302,15 @@ export class ContractorChallanRegisterComponent implements OnInit {
 class challanFilter {
   challannumber: string;
   contractorid: string;
-  fromchallandate: string;
-  tochallandate: string;
+  fromDate: string;
+  toDate: string;
   challantype: string;
 
   constructor() {
     this.challannumber = "";
     this.contractorid = '';
-    this.fromchallandate = '';
-    this.tochallandate = '';
+    this.fromDate = '';
+    this.toDate = '';
     this.challantype = '';
   }
 }
