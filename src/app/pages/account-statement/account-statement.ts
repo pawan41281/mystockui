@@ -78,6 +78,10 @@ export class AccountStatement implements OnInit {
     this.isAdmin = this.userInfo.roles.filter(e => e.adminrole).length > 0
   }
 
+  getContractorName(id: string) {
+    return this.dropdownData.find(e => e.id + '' === id).contractorName
+  }
+
   searchContractorPayment = () => {
 
     this.filterObj.fromDate = this.utilsService.dateFromate_dd_MM_YY(this.fromDate);
@@ -243,10 +247,10 @@ export class AccountStatement implements OnInit {
       headerName: "Challan Date",
       cellRenderer: this.renderDate
     },
-    {
-      headerName: "Contractor Name",
-      field: "contractor.contractorName",
-    },
+    // {
+    //   headerName: "Contractor Name",
+    //   field: "contractor.contractorName",
+    // },
     {
       headerName: "Challan Type",
       field: 'challanType'
@@ -278,10 +282,10 @@ export class AccountStatement implements OnInit {
       headerName: "Payment Date",
       cellRenderer: this.renderPaymentDate
     },
-    {
-      headerName: "Contractor Name",
-      field: "contractor.contractorName",
-    },
+    // {
+    //   headerName: "Contractor Name",
+    //   field: "contractor.contractorName",
+    // },
 
     {
       headerName: "Payment Amount",
