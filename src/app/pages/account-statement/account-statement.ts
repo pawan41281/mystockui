@@ -50,7 +50,7 @@ export class AccountStatement implements OnInit {
   private readonly downloadService = inject(DownloadSerivceService);
   private gridApi!: GridApi;
   contractors: contractor[] = [];
-  dropdownData: contractor[] = [];
+  contractorList: contractor[] = [];
   itemDetails: challanItems[] | undefined = [];
   now = new Date();
   fromDate: Date = new Date(this.now.getFullYear(), this.now.getMonth(), 1);
@@ -68,18 +68,17 @@ export class AccountStatement implements OnInit {
   contractorPayments: contractorpayment[] = [];
 
   constructor() {
-    this.getClients();
+    this.getContractors();
   }
 
   ngOnInit() {
-
     //this.searchAccountStatement()
     this.userInfo = this.utilsService.getCurrentUserInfo()
     this.isAdmin = this.userInfo.roles.filter(e => e.adminrole).length > 0
   }
 
   getContractorName(id: string) {
-    return this.dropdownData.find(e => e.id + '' === id).contractorName
+    return this.contractorList.find(e => e.id + '' === id).contractorName
   }
 
   searchContractorPayment = () => {
@@ -126,11 +125,11 @@ export class AccountStatement implements OnInit {
   }
 
 
-  getClients = () => {
+  getContractors = () => {
     this.dataService.get('contractors')
       .subscribe((res: requestResponse) => {
         this.contractors = res.data;
-        this.dropdownData = this.contractors;
+        this.contractorList = this.contractors;
       })
   }
 
@@ -227,7 +226,7 @@ export class AccountStatement implements OnInit {
   formatter = (result: any) => result.clientName;
 
   filterData(event: any) {
-    this.dropdownData = this.contractors.filter(e => e.contractorName.includes(event.target.value.toUpperCase()))
+    this.contractorList = this.contractors.filter(e => e.contractorName.includes(event.target.value.toUpperCase()))
   }
 
   onGridReady(params: GridReadyEvent) {
@@ -247,10 +246,10 @@ export class AccountStatement implements OnInit {
       headerName: "Challan Date",
       cellRenderer: this.renderDate
     },
-    // {
-    //   headerName: "Contractor Name",
-    //   field: "contractor.contractorName",
-    // },
+    {
+      headerName: "Contractor Name",
+      field: "contractor.contractorName",
+    },
     {
       headerName: "Challan Type",
       field: 'challanType'
@@ -282,11 +281,10 @@ export class AccountStatement implements OnInit {
       headerName: "Payment Date",
       cellRenderer: this.renderPaymentDate
     },
-    // {
-    //   headerName: "Contractor Name",
-    //   field: "contractor.contractorName",
-    // },
-
+    {
+      headerName: "Contractor Name",
+      field: "contractor.contractorName",
+    },
     {
       headerName: "Payment Amount",
       field: "paymentAmount"
@@ -405,14 +403,15 @@ export class AccountStatement implements OnInit {
 }
 
 class AccountStmtFilter {
-  contractorid: string;
-  fromDate: string;
-  toDate: string;
+  contractorid: string
+  fromDate: string
+  toDate: string
+  challantype: string
 
   constructor() {
-    this.contractorid = '';
-    this.fromDate = '';
-    this.toDate = '';
-
+    this.contractorid = ''
+    this.fromDate = ''
+    this.toDate = ''
+    this.challantype = 'R'
   }
 }

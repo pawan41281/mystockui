@@ -50,7 +50,7 @@
                 <div class="input-group has-validation">
                     <select class="form-select" name="contractor" [(ngModel)]="filterObj.contractorid" id="contractor">
                         <option value="">Select Options</option>
-                        @for (contractor of dropdownData; track contractor.id) {
+                        @for (contractor of contractorList; track contractor.id) {
                         <option [value]="contractor.id">{{ contractor.contractorName }}</option>
                         }
                     </select>
