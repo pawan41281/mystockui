@@ -67,12 +67,15 @@
                     Search </button>
             </div>
         </form>
+
+        @if(showAccountStatement && !showChallans && !showPayments){
+
         <div class="row margin-top-30">
-            <div class="col-2 div-margin-top align-left font-bold">Record Count : {{totalRecord}}</div>
-            <div class="col-8"></div>
-            <div class="col-2 align-right">
-                <i class="bi bi-filetype-csv font-size-30" (click)="onBtnExport()"></i>
-                <i class="bi bi-filetype-xls font-size-30" (click)="onBtnExportExcel()"></i>
+            <!-- <div class="col-6 div-margin-top align-left font-bold">Record Count : {{totalRecord}}</div> -->
+            <div class="col-12 align-right">
+                <i class="bi bi-filetype-csv font-size-24" (click)="onBtnExport()"></i>
+                <i class="bi bi-filetype-xls font-size-24" (click)="onBtnExportExcel()"></i>
+                <i class="bi bi-x-square-fill font-size-24 text-danger" (click)="hideStatement()"></i>
             </div>
         </div>
 
@@ -83,9 +86,18 @@
                     [pagination]="true" [paginationPageSize]="10" [paginationPageSizeSelector]="[10, 20, 50]" />
             </div>
         </div>
-        @if (contractorChallans.length > 0) {
+
+        }
+
+        @if (showChallans) {
         <div class="row  margin-top-30">
-            <h3 class="modal-title" style="margin-top: 0px; margin-bottom: 0px;" id="exampleModalLabel">Challan</h3>
+            <!-- <h3 class="modal-title font-bold" style="margin-top: 0px; margin-bottom: 0px;" id="exampleModalLabel">
+                Contractor Challan</h3> -->
+            <!-- <div class="col-6 div-margin-top align-left font-bold">Record Count : {{challanCount}}</div> -->
+            <div class="col-6 div-margin-top align-left font-bold">Contractor Challan</div>
+            <div class="col-6 align-right">
+                <i class="bi bi-x-square-fill font-size-24 text-danger" (click)="hideChallans()"></i>
+            </div>
         </div>
         <div class="row">
             <div class="col-12">
@@ -97,9 +109,15 @@
         </div>
         }
 
-        @if (contractorChallans.length > 0) {
+        @if (showPayments) {
         <div class="row  margin-top-30">
-            <h3 class="modal-title" style="margin-top: 0px; margin-bottom: 0px;" id="exampleModalLabel">Payments</h3>
+            <!-- <h3 class="modal-title font-bold" style="margin-top: 0px; margin-bottom: 0px;" id="exampleModalLabel">
+                Contractor Payments</h3> -->
+            <div class="col-6 div-margin-top align-left font-bold">Contractor Payments</div>
+            <!-- <div class="col-6 div-margin-top align-left font-bold">Record Count : {{paymentCount}}</div> -->
+            <div class="col-6 align-right">
+                <i class="bi bi-x-square-fill font-size-24 text-danger" (click)="hidePayments()"></i>
+            </div>
         </div>
         <div class="row">
             <div class="col-12">

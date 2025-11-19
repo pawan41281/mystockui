@@ -39,6 +39,8 @@ export class AccountStatement implements OnInit {
   paymentUrl: string = 'contractorpayments';
   contractorChallanUrl: string = 'contractorchallans';
   totalRecord: number = 0;
+  challanCount: number = 0
+  paymentCount: number = 0
   http = inject(HttpClient)
   dataService = inject(DataService)
   utilsService: UtilService = inject(UtilService);
@@ -58,7 +60,9 @@ export class AccountStatement implements OnInit {
   userInfo: userData;
   invalidDateRange: boolean = false;
   errorMessage: string = '';
-
+  showAccountStatement: boolean = false
+  showChallans: boolean = false
+  showPayments: boolean = false
   challanItemDetails: challanItems[] | undefined = [];
   contractorChallans: contractorChallan[] = [];
   contractorPayments: contractorpayment[] = [];
@@ -69,7 +73,7 @@ export class AccountStatement implements OnInit {
 
   ngOnInit() {
 
-    this.searchAccountStatement()
+    //this.searchAccountStatement()
     this.userInfo = this.utilsService.getCurrentUserInfo()
     this.isAdmin = this.userInfo.roles.filter(e => e.adminrole).length > 0
   }
@@ -85,7 +89,7 @@ export class AccountStatement implements OnInit {
       .subscribe((res: requestResponse) => {
         this.contractorPayments = res.data;
         // this.contractorPayments.forEach(e1 => { e1.challanType = this.utilsService.challanTypes?.find(e => e.val === e1.challanType)?.name ?? '' })
-        this.totalRecord = res.metadata.recordcount;
+        this.paymentCount = res.metadata.recordcount;
       })
   }
 
@@ -102,7 +106,7 @@ export class AccountStatement implements OnInit {
           this.contractorChallans.forEach(e1 => {
             e1.challanType = this.utilsService.challanTypes?.find(e => e.val === e1.challanType)?.name ?? '';
           });
-          this.totalRecord = res.metadata.recordcount;
+          this.challanCount = res.metadata.recordcount;
         },
         error: (err) => {
           this.invalidDateRange = false;
@@ -152,6 +156,9 @@ export class AccountStatement implements OnInit {
       onCellClicked: (event) => {
         this.searchContractorChallan();
         this.searchContractorPayment();
+        this.showAccountStatement = false
+        this.showPayments = true
+        this.showChallans = true
       }
     }];
 
@@ -178,7 +185,8 @@ export class AccountStatement implements OnInit {
   };
 
   searchAccountStatement = () => {
-
+    this.showChallans = false
+    this.showPayments = false
     this.filterObj.fromDate = this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
     this.filterObj.toDate = this.toDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
     let url = '';
@@ -188,6 +196,7 @@ export class AccountStatement implements OnInit {
         next: (res: requestResponse) => {
           this.accountStatements = res.data;
           this.totalRecord = res.metadata.recordcount;
+          this.showAccountStatement = true
         },
         error: (err) => {
           this.invalidDateRange = false;
@@ -195,6 +204,7 @@ export class AccountStatement implements OnInit {
             // Handle 400 Bad Request
             console.error('Bad Request:', err.message);
             this.errorMessage = err.message;
+            this.showAccountStatement = false
           }
 
         }
@@ -352,6 +362,22 @@ export class AccountStatement implements OnInit {
 
   onBtnExportExcel() {
     this.downloadService.exportToExcel(this.getReportData(), 'account_statements_data.xlsx')
+  }
+
+  hideStatement() {
+    this.accountStatements = []
+    this.totalRecord = 0
+    this.showAccountStatement = false
+  }
+
+  hideChallans() {
+    this.showAccountStatement = true
+    this.showChallans = false
+  }
+
+  hidePayments() {
+    this.showAccountStatement = true
+    this.showPayments = false
   }
 
   getReportData() {
