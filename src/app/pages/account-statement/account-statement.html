@@ -46,13 +46,12 @@
 
 
             <div class="col-md-4">
-                <label for="party" class="form-label fw-bold">Contractor</label>
+                <label for="contractor" class="form-label fw-bold">Contractor</label>
                 <div class="input-group has-validation">
-                    <!-- <span class="input-group-text" id="inputGroupPrepend">&#64;</span> -->
-                    <select class="form-select" name="party" [(ngModel)]="filterObj.contractorid" id="party">
+                    <select class="form-select" name="contractor" [(ngModel)]="filterObj.contractorid" id="contractor">
                         <option value="">Select Options</option>
-                        @for (party of dropdownData; track party.id) {
-                        <option [value]="party.id">{{ party.contractorName }}</option>
+                        @for (contractor of dropdownData; track contractor.id) {
+                        <option [value]="contractor.id">{{ contractor.contractorName }}</option>
                         }
                     </select>
                     <div class="invalid-feedback">
@@ -73,8 +72,8 @@
         <div class="row margin-top-30">
             <!-- <div class="col-6 div-margin-top align-left font-bold">Record Count : {{totalRecord}}</div> -->
             <div class="col-12 align-right">
-                <i class="bi bi-filetype-csv font-size-24" (click)="onBtnExport()"></i>
-                <i class="bi bi-filetype-xls font-size-24" (click)="onBtnExportExcel()"></i>
+                <!-- <i class="bi bi-filetype-csv font-size-24" (click)="onBtnExport()"></i>
+                <i class="bi bi-filetype-xls font-size-24" (click)="onBtnExportExcel()"></i> -->
                 <i class="bi bi-x-square-fill font-size-24 text-danger" (click)="hideStatement()"></i>
             </div>
         </div>
