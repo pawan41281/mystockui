@@ -66,6 +66,7 @@ export class AccountStatement implements OnInit {
   challanItemDetails: challanItems[] | undefined = [];
   contractorChallans: contractorChallan[] = [];
   contractorPayments: contractorpayment[] = [];
+  contractorId: string = ''
 
   constructor() {
     this.getContractors();
@@ -96,10 +97,11 @@ export class AccountStatement implements OnInit {
       })
   }
 
-  searchContractorChallan = () => {
+  searchContractorChallan = (id: number) => {
 
     this.filterObj.fromDate = this.utilsService.dateFromate_dd_MM_YY(this.fromDate); // this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
     this.filterObj.toDate = this.utilsService.dateFromate_dd_MM_YY(this.toDate);  //this.toDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
+    this.filterObj.contractorid = id.toString()
     let url = '';
     url = this.contractorChallanUrl + this.utilsService.buildUrl(this.filterObj);
     this.dataService.get(url)
@@ -157,7 +159,8 @@ export class AccountStatement implements OnInit {
       filter: false,
       cellRenderer: this.myCellRendererAction.bind(this),
       onCellClicked: (event) => {
-        this.searchContractorChallan();
+        const id = event.data.contractorId;
+        this.searchContractorChallan(id);
         this.searchContractorPayment();
         this.showAccountStatement = false
         this.showPayments = true
@@ -166,7 +169,7 @@ export class AccountStatement implements OnInit {
     }];
 
   myCellRendererAction() {
-    return `<img src="assets/images/find.png" style="width: 20px; height: 20px;" data-bs-toggle="modal" data-bs-target="#exampleModal">`;
+    return '<img src="assets/images/find.png" style="width: 20px; height: 20px;" data-bs-toggle="modal" data-bs-target="#exampleModal">';
   }
 
   renderDate(params: any) {
@@ -192,12 +195,15 @@ export class AccountStatement implements OnInit {
     this.showPayments = false
     this.filterObj.fromDate = this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
     this.filterObj.toDate = this.toDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
+    this.filterObj.contractorid = this.contractorId
+
     let url = '';
     url = this.url + this.utilsService.buildUrl(this.filterObj);
     this.dataService.get(url)
       .subscribe({
         next: (res: requestResponse) => {
           this.accountStatements = res.data;
+          //this.contractorId = this.accountStatements.contractorId
           this.totalRecord = res.metadata.recordcount;
           this.showAccountStatement = true
         },
@@ -407,6 +413,7 @@ class AccountStmtFilter {
   fromDate: string
   toDate: string
   challantype: string
+
 
   constructor() {
     this.contractorid = ''
