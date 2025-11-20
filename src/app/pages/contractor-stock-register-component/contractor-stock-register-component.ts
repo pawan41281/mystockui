@@ -35,7 +35,7 @@ export class ContractorStockRegisterComponent implements OnInit {
   private readonly downloadService = inject(DownloadSerivceService);
   designs: design[] = [];
   colors: color[] = [];
-  constructors: contractor[] = [];
+  contractors: contractor[] = [];
   private gridApi!: GridApi;
   stockRegister: stockRegisger[] = [];
   private url: string = 'contractorstockreports'
@@ -79,7 +79,7 @@ export class ContractorStockRegisterComponent implements OnInit {
   getContractor = () => {
     this.dataService.get('contractors')
       .subscribe((res: requestResponse) => {
-        this.constructors = res.data;
+        this.contractors = res.data;
       })
   }
   searchStock() {
@@ -133,15 +133,15 @@ export class ContractorStockRegisterComponent implements OnInit {
 }
 
 class StockFilter {
-  colorName: string;
-  designName: string;
-  contractorName: string;
-  quality: number;
+  colorId: number;
+  designId: number;
+  contractorId: number;
+  qualityId: number;
 
   constructor() {
-    this.colorName = "";
-    this.designName = '';
-    this.contractorName = '';
-    this.quality = 0;
+    this.colorId = 0;
+    this.designId = 0;
+    this.contractorId = 0;
+    this.qualityId = 0;
   }
 }
