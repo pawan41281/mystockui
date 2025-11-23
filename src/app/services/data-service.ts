@@ -12,13 +12,8 @@ export class DataService {
   private baseUrl = 'http://localhost:9090/v1';
 
   get<T>(endpoint: string): Observable<T> {
-    const token = localStorage.getItem('token')
-    let headers = new HttpHeaders();
-    if (token) {
-      headers = headers.set('Authorization', `Bearer ${token}`);
-    }
 
-    return this.http.get<T>(`${this.baseUrl}/${endpoint}`, { headers }).pipe(
+    return this.http.get<T>(`${this.baseUrl}/${endpoint}`).pipe(
       catchError(error => {
         console.error(`Error fetching data from ${endpoint}:`, error);
         return throwError(() => new Error(`Failed to fetch data from ${endpoint}`));

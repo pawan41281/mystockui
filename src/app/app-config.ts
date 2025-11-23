@@ -4,13 +4,14 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 import { routes } from './app-routing.module';
 import { tokenInterceptor } from './demo/auth/token-interceptor';
+import { errorInterceptor } from './demo/auth/error-interceptor';
 
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideRouter(routes),
         provideHttpClient(
-            withInterceptors([tokenInterceptor]) // Register your functional interceptor here
+            withInterceptors([tokenInterceptor, errorInterceptor]) // Register your functional interceptor here
         )
     ]
 };

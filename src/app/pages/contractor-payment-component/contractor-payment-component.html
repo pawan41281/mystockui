@@ -38,7 +38,7 @@
                         <label for="contractor" class="form-label fw-bold">Contractor <span
                                 class="text-danger">*</span></label>
                         <select class="form-select" name="contractor" [(ngModel)]="contractorPyamentObj.contractorName"
-                            #contractor="ngModel" name="contractor">
+                            #contractor="ngModel" name="contractor" required>
                             <option value="">Select Options</option>
                             @for (contractor of contractors; track contractor.id) {
                             <option [value]="contractor.id">{{ contractor.contractorName }}</option>
@@ -53,9 +53,15 @@
                     </div>
                 </div>
                 <div class="col-md-1">
-                    <label for="amount" class="form-label fw-bold">Amount</label>
-                    <input type="text" (keypress)="utilsService.numberOnly($event)" class="form-control" name="amount"
-                        [(ngModel)]="contractorPyamentObj.paymentAmount" id="amount">
+                    <label for="amount" class="form-label fw-bold">Amount<span class="text-danger">*</span></label>
+                    <input type="text" (keypress)="utilsService.numberOnly($event)" class="form-control"
+                        #amount="ngModel" name="amount" id="amount" [(ngModel)]="contractorPyamentObj.paymentAmount"
+                        id="amount" required>
+                    <div class="text-danger">
+                        @if(amount.errors?.['required'] && amount.touched && amount.dirty) {
+                        <span>This field is mendatory</span>
+                        }
+                    </div>
                 </div>
                 <div class="col-md-5">
                     <label for="remark" class="form-label fw-bold">Remarks</label>

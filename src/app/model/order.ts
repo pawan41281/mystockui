@@ -26,7 +26,7 @@ export class order {
     this.design = 0;
     this.createdOn = "";
     this.color = 0;
-    this.quantity = 0;
-    this.rate = 0
+    this.quantity = null;
+    this.rate = null
   }
 }

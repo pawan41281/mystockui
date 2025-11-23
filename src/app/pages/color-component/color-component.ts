@@ -13,6 +13,7 @@ import { color } from 'src/app/model/color';
 import { ResponseData } from 'src/app/model/Response';
 import { requestResponse } from 'src/app/model/requestResponse';
 import { userData } from 'src/app/model/userData';
+import { CommonService } from 'src/app/services/common-service';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class ColorComponent implements OnInit {
   private utilsService: UtilService = inject(UtilService);
   private dataService = inject(DataService);
   private downloadService = inject(DownloadSerivceService)
+  private commonService = inject(CommonService)
   private gridApi!: GridApi;
   private url: string = 'colors';
 
@@ -44,6 +46,12 @@ export class ColorComponent implements OnInit {
   ngOnInit(): void {
     this.getColorData();
     this.userInfo = this.utilsService.getCurrentUserInfo()
+
+    this.commonService.tokenRecieved$.subscribe(res => {
+      if (res) {
+        this.getColorData();
+      }
+    })
   }
 
   getColorData = () => {

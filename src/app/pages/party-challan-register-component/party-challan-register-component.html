@@ -40,8 +40,8 @@
                 <label for="party" class="form-label fw-bold">Party</label>
                 <div class="input-group has-validation">
                     <!-- <span class="input-group-text" id="inputGroupPrepend">&#64;</span> -->
-                    <select class="form-select" name="party" [(ngModel)]="filterObj.clientName" name="party">
-                        <option value="">Select Options</option>
+                    <select class="form-select" name="party" [(ngModel)]="filterObj.clientid" name="party">
+                        <option value=0>Select Options</option>
                         @for (party of dropdownData; track party.id) {
                         <option [value]="party.id">{{ party.clientName }}</option>
                         }

@@ -33,7 +33,7 @@ export class clientChallan {
         this.createdOn = "";
         this.challanType = "I";
         this.color = 0;
-        this.quantity = 0;
+        this.quantity = null;
         this.quality = 0;
         this.orderNumber = 0;
     }

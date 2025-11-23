@@ -55,7 +55,7 @@
                         <label for="contractor" class="form-label fw-bold">Contractor <span
                                 class="text-danger">*</span></label>
                         <select class="form-select" name="contractor" [(ngModel)]="contractorChallanObj.contractorName"
-                            #contractor="ngModel" id="contractor">
+                            #contractor="ngModel" id="contractor" required>
                             <option value="">Select Options</option>
                             @for (contractor of contractors; track contractor.id) {
                             <option [value]="contractor.id">{{ contractor.contractorName }}</option>

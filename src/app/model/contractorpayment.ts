@@ -16,7 +16,7 @@ export class contractorpayment {
         this.contractor = new contractor();
         this.paymentDate = "";
         this.remarks = '';
-        this.paymentAmount = 0;
+        this.paymentAmount = null;
         this.user = new userData()
         this.contractorName = ''
     }

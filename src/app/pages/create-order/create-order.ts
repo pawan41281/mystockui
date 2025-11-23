@@ -294,10 +294,10 @@ export class CreateOrder implements OnInit {
   clearItemInputs() {
     this.clientOrder.design = 0;
     this.clientOrder.color = 0
-    this.clientOrder.quantity = 0
+    this.clientOrder.quantity = null
     this.disableAdd = true;
     this.clientOrder.quality = 0;
-    this.clientOrder.rate = 0;
+    this.clientOrder.rate = null;
   }
 
   itemExist() {
@@ -307,13 +307,13 @@ export class CreateOrder implements OnInit {
   onInputBlur(): void {
     //this.clientOrder.quantity = Number(this.clientOrder.quantity)
     this.isItemExist = this.itemExist();
-    const { design, color, quality } = this.clientOrder;
-    this.disableAdd = !(design && color && quality && !this.isItemExist);
+    const { design, color, quality, quantity } = this.clientOrder;
+    this.disableAdd = !(design && color && quality && quantity > 0 && !this.isItemExist);
   }
 
   challanTypes = this.utilsService.challanTypes;
 
-  selectedParty(selectedParty: any) {
-    const obj: client | undefined = this.clients.find(e => e.clientName == selectedParty);
-  }
+  // selectedParty(selectedParty: any) {
+  //   const obj: client | undefined = this.clients.find(e => e.clientName == selectedParty);
+  // }
 }
