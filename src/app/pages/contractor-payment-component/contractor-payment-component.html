@@ -27,7 +27,7 @@
                     <div class="text-danger">
                         @if(paymentDateModel.errors?.['required'] && paymentDateModel.touched &&
                         paymentDateModel.dirty) {
-                        <span>This field is mendatory</span>
+                        <span>This field is mandatory</span>
                         }
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                     <div class="dropdown">
                         <label for="contractor" class="form-label fw-bold">Contractor <span
                                 class="text-danger">*</span></label>
-                        <select class="form-select" name="contractor" [(ngModel)]="contractorPyamentObj.contractorName"
+                        <select class="form-select" name="contractor" [(ngModel)]="contractorPaymenttObj.contractorName"
                             #contractor="ngModel" name="contractor" required>
                             <option value="">Select Options</option>
                             @for (contractor of contractors; track contractor.id) {
@@ -55,7 +55,7 @@
                 <div class="col-md-1">
                     <label for="amount" class="form-label fw-bold">Amount<span class="text-danger">*</span></label>
                     <input type="text" (keypress)="utilsService.numberOnly($event)" class="form-control"
-                        #amount="ngModel" name="amount" id="amount" [(ngModel)]="contractorPyamentObj.paymentAmount"
+                        #amount="ngModel" name="amount" id="amount" [(ngModel)]="contractorPaymenttObj.paymentAmount"
                         id="amount" required>
                     <div class="text-danger">
                         @if(amount.errors?.['required'] && amount.touched && amount.dirty) {
@@ -66,7 +66,7 @@
                 <div class="col-md-5">
                     <label for="remark" class="form-label fw-bold">Remarks</label>
                     <input type="text" maxlength="200" class="form-control" name="remark"
-                        [(ngModel)]="contractorPyamentObj.remarks" id="remark">
+                        [(ngModel)]="contractorPaymenttObj.remarks" id="remark">
                 </div>
 
 

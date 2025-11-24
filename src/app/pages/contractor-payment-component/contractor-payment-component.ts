@@ -33,7 +33,7 @@ export class ContractorPaymentComponent {
   http = inject(HttpClient)
   clientChallanFromData = signal(new clientChallanInfo())
   dataService = inject(DataService)
-  contractorPyamentObj: contractorpayment = new contractorpayment();
+  contractorPaymenttObj: contractorpayment = new contractorpayment();
   utilsService: UtilService = inject(UtilService);
   private gridApi!: GridApi;
   rowCnt: number;
@@ -57,7 +57,7 @@ export class ContractorPaymentComponent {
     if (this.id) {
       this.dataService.get(`${this.id}/${this.url}`)
         .subscribe((res: any) => {
-          this.contractorPyamentObj = res;
+          this.contractorPaymenttObj = res;
         })
     }
     this.userInfo = this.utilsService.getCurrentUserInfo()
@@ -85,7 +85,7 @@ export class ContractorPaymentComponent {
 
           this.successMessage = 'Data saved successfully!';
           this.showSuccessMessage = true;
-          this.contractorPyamentObj = new contractorpayment();
+          this.contractorPaymenttObj = new contractorpayment();
           setTimeout(() => {
             this.showSuccessMessage = false;
             this.successMessage = '';
@@ -104,13 +104,13 @@ export class ContractorPaymentComponent {
 
       "paymentDate": this.utilsService.formatDate_dd_MM_YYYY(this.paymentDate),
       "contractor": {
-        "id": this.contractorPyamentObj.contractorName
+        "id": this.contractorPaymenttObj.contractorName
       },
-      "paymentAmount": this.contractorPyamentObj.paymentAmount,
+      "paymentAmount": this.contractorPaymenttObj.paymentAmount,
       "user": {
         "id": this.userInfo.id
       },
-      "remarks": this.contractorPyamentObj.remarks
+      "remarks": this.contractorPaymenttObj.remarks
     }
     return obj;
   }
