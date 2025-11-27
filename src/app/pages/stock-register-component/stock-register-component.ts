@@ -100,10 +100,13 @@ export class StockRegisterComponent implements OnInit {
     { headerName: "Quality", field: "qualityName" },
     { headerName: "Design", field: "designName" },
     { headerName: "Color", field: "colorName" },
-    { headerName: "Opening Balance", field: "openingBalance" },
-    { headerName: "Current Balance", field: "closingBalance" }
+    { headerName: "Current Balance", cellRenderer: this.myItemCellRenderer }
   ];
 
+  myItemCellRenderer(params: any) {
+    const currentBalance = params.node.data.closingBalance;
+    return params.node.data.closingBalance >= 0 ? `<span>${currentBalance}</span>` : `<span class="color-red">${currentBalance}</span>`;
+  }
   onBtnExport() {
     this.downloadService.exportToCSV(this.getReportData(), 'stock_report.csv')
   }

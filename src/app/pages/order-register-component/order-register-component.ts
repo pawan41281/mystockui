@@ -129,12 +129,12 @@ export class OrderRegisterComponent implements OnInit {
   // Column Definitions: Defines & controls grid columns.
   colDefs: ColDef<order>[] = [
     {
-      headerName: "Order Number",
-      field: "orderNumber",
-    },
-    {
       headerName: "Order Date",
       field: "orderDate",
+    },
+    {
+      headerName: "Order Number",
+      field: "orderNumber",
     },
     {
       headerName: "Client Name",

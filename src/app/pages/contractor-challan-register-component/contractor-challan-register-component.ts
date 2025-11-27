@@ -91,21 +91,21 @@ export class ContractorChallanRegisterComponent implements OnInit {
 
   // Column Definitions: Defines & controls grid columns.
   colDefs: ColDef<contractorChallan>[] = [
+
     {
+      headerName: "Challan Date",
+      cellRenderer: this.renderDate
+    }, {
       headerName: "Challan Number",
       field: "challanNumber",
     },
     {
-      headerName: "Challan Date",
-      cellRenderer: this.renderDate
+      headerName: "Challan Type",
+      field: 'challanType'
     },
     {
       headerName: "Contractor Name",
       field: "contractor.contractorName",
-    },
-    {
-      headerName: "Challan Type",
-      field: 'challanType'
     },
     {
       headerName: "Pices Count",

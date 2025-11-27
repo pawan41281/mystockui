@@ -88,25 +88,22 @@ export class PartyChallanRegisterComponent implements OnInit {
 
   // Column Definitions: Defines & controls grid columns.
   colDefs: ColDef<clientChallan>[] = [
-    {
-      headerName: "Challan Number",
-      field: "challanNumber",
-    },
+
     {
       headerName: "Challan Date",
       field: "challanDate",
     },
     {
-      headerName: "Party Name",
-      field: "client.clientName",
-    },
-    {
-      headerName: "Party Mobile",
-      field: "client.mobile",
+      headerName: "Challan Number",
+      field: "challanNumber",
     },
     {
       headerName: "Challan Type",
       cellRenderer: this.challanType
+    },
+    {
+      headerName: "Party Name",
+      field: "client.clientName",
     },
     {
       headerName: "Pices Count",
