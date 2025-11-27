@@ -275,7 +275,7 @@ export class OpeningStock implements OnInit {
   }
 
   onInputBlur = () => {
-    console.log("onInputBlus...")
+    //console.log("onInputBlus...")
     this.contractorChallanObj.quality = Number(this.contractorChallanObj.quality)
     this.isItemExist = this.itemExist();
     const { design, color, quality, quantity } = this.contractorChallanObj;

@@ -150,7 +150,7 @@ export class CreateOrder implements OnInit {
   ];
 
   myCellRendererAction(params: any) {
-    console.log('params :: ', params)
+    //console.log('params :: ', params)
     return this.qualityList.filter(e => e.id == params.data.quality)[0].qualityName;
   }
   buttonRenderer(params: any): HTMLElement {

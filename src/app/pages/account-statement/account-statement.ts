@@ -275,7 +275,7 @@ export class AccountStatement implements OnInit {
       cellRenderer: this.myCellRendererChallanAction.bind(this),
       onCellClicked: (event) => {
         this.itemDetails = event.data?.challanItems;
-        //console.log('item details ', this.itemDetails)
+        ////console.log('item details ', this.itemDetails)
       }
     }
   ];
@@ -313,7 +313,7 @@ export class AccountStatement implements OnInit {
 
   myCellRendererChallanAction(params: any) {
     this.id = params.node.data.id;
-    console.log('this.isAdmin ', this.isAdmin)
+    //console.log('this.isAdmin ', this.isAdmin)
     return `<div style="text-align: right">
          <img src="assets/images/find.png" style="width: 20px; height: 20px;" (click)="searchContractorChallan()" data-bs-toggle="modal" data-bs-target="#challanItemsModel">         
        
@@ -331,7 +331,7 @@ export class AccountStatement implements OnInit {
 
 
   getTotal(value: any) {
-    console.log('data :: ', value.data)
+    //console.log('data :: ', value.data)
 
     return `<img src="assets/images/find.png" style="width: 20px; height: 20px;" data-bs-toggle="modal" data-bs-target="#exampleModal">`;
   }

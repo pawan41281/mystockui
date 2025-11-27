@@ -150,7 +150,7 @@ export class CreateContractorChallan implements OnInit {
   ];
 
   myCellRendererAction(params: any) {
-    console.log('params :: ', params)
+    //console.log('params :: ', params)
     return this.qualityList.filter(e => e.id == params.data.quality)[0].qualityName;
   }
 
@@ -191,7 +191,7 @@ export class CreateContractorChallan implements OnInit {
   }
 
   save = () => {
-    console.log('save call')
+    //console.log('save call')
     const obj = this.buildReqObj();
     this.dataService.post(this.url, obj)
       .subscribe((res: requestResponse) => {
@@ -215,7 +215,7 @@ export class CreateContractorChallan implements OnInit {
   }
 
   onSave = () => {
-    console.log('on save call')
+    //console.log('on save call')
     this.filterObj.challannumber = this.contractorChallanObj.challanNumber
     const finalUrl = this.url + this.utilsService.buildUrl(this.filterObj);
     this.dataService.get(finalUrl)

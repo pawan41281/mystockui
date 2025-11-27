@@ -122,7 +122,7 @@ export class ContractorChallanRegisterComponent implements OnInit {
       cellRenderer: this.myCellRendererAction.bind(this),
       onCellClicked: (event) => {
         this.itemDetails = event.data?.challanItems;
-        //console.log('item details ', this.itemDetails)
+        ////console.log('item details ', this.itemDetails)
       }
     }
   ];
@@ -147,7 +147,7 @@ export class ContractorChallanRegisterComponent implements OnInit {
 
   myCellRendererAction(params: any) {
     this.id = params.node.data.id;
-    console.log('this.isAdmin ', this.isAdmin)
+    //console.log('this.isAdmin ', this.isAdmin)
     return this.isAdmin ?
       // `
       //  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> 
