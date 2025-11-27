@@ -11,6 +11,8 @@ export class CommonService {
   tokenExpired$: Subject<boolean> = new Subject<boolean>();
   tokenRecieved$: Subject<boolean> = new Subject<boolean>();
   private dataService = inject(DataService);
+  after5min = null;
+
   constructor() { }
 
   async getColorData(): Promise<ResponseData> {

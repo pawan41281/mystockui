@@ -92,7 +92,7 @@ export class NavRightComponent implements OnInit {
     this.dataService.post(this.url, this.auth)
       .subscribe((res: any) => {
         if (res.status === 'success') {
-          localStorage.removeItem('token');
+          localStorage.removeItem('access_token');
           //this.getColorData();
           this.router.navigate(['']);
         }

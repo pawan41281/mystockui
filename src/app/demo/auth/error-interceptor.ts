@@ -16,12 +16,12 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
         if (isContinue) {
           commonService.tokenExpired$.next(true)
           const auth = {
-            refreshToken: localStorage.getItem("token")
+            refreshToken: localStorage.getItem("access_token")
           }
           http.post(`http://localhost:9090/v1/auth/refresh-token`, auth)
             .subscribe((res: any) => {
               if (res.status === 'success') {
-                localStorage.setItem('token', res.data.accessToken);
+                localStorage.setItem('access_token', res.data.accessToken);
                 commonService.tokenRecieved$.next(true);
               }
             })
