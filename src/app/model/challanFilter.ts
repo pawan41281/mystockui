@@ -2,8 +2,8 @@ export class challanFilter {
     challannumber: string;
     clientid: number;
     clientName: string
-    fromchallandate: string;
-    tochallandate: string;
+    fromDate: string;
+    toDate: string;
     challantype: "";
     orderid?: string;
 
@@ -11,8 +11,8 @@ export class challanFilter {
         this.challannumber = "";
         this.clientid = 0;
         this.clientName = '';
-        this.fromchallandate = '';
-        this.tochallandate = '';
+        this.fromDate = '';
+        this.toDate = '';
         this.challantype = '';
     }
 }
