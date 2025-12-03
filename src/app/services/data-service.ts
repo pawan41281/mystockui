@@ -39,4 +39,13 @@ export class DataService {
   delete = (url: string) => {
     return this.http.delete(`${this.baseUrl}/${url}`);
   }
+
+  refreshToken(): Observable<any> {
+    const refreshToken = localStorage.getItem('refresh_token')
+
+    return this.http.post(`${this.baseUrl}/auth/refresh-token`, {
+      refreshToken: refreshToken
+    });
+  }
+
 }

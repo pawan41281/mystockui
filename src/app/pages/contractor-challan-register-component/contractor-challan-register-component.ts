@@ -122,7 +122,6 @@ export class ContractorChallanRegisterComponent implements OnInit {
       cellRenderer: this.myCellRendererAction.bind(this),
       onCellClicked: (event) => {
         this.itemDetails = event.data?.challanItems;
-        //console.log('item details ', this.itemDetails)
       }
     }
   ];
@@ -147,26 +146,12 @@ export class ContractorChallanRegisterComponent implements OnInit {
 
   myCellRendererAction(params: any) {
     this.id = params.node.data.id;
-    console.log('this.isAdmin ', this.isAdmin)
     return this.isAdmin ?
-      // `
-      //  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> 
-      //   <i class="bi bi-search"></i> 
-      //  </button>
-      //  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal">
-      //   <i class="bi bi-trash"></i> 
-      //  </button>
-      // `
       `<div style="text-align: right">
          <img src="assets/images/find.png" style="width: 20px; height: 20px;" (click)="searchContractorChallan()" data-bs-toggle="modal" data-bs-target="#exampleModal">          
          <img src="assets/images/delete.png" style="width: 20px; height: 20px;" (click)="cancelChallan()" data-bs-toggle="modal" data-bs-target="#deleteModal">
        </div>`
       :
-      // `
-      //  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> 
-      //   <i class="bi bi-search"></i> 
-      //  </button>
-      // `
       `<div style="text-align: right">
          <img src="assets/images/find.png" style="width: 20px; height: 20px;" (click)="searchContractorChallan()" data-bs-toggle="modal" data-bs-target="#exampleModal">
        </div>`
@@ -193,8 +178,8 @@ export class ContractorChallanRegisterComponent implements OnInit {
 
   searchContractorChallan = () => {
 
-    this.filterObj.fromDate = this.utilsService.dateFromate_dd_MM_YY(this.fromDate);//this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
-    this.filterObj.toDate = this.utilsService.dateFromate_dd_MM_YY(this.toDate);// this.toDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
+    this.filterObj.fromDate = this.utilsService.dateFromate_dd_MM_YY(this.fromDate);
+    this.filterObj.toDate = this.utilsService.dateFromate_dd_MM_YY(this.toDate);
     let url = '';
     url = this.url + this.utilsService.buildUrl(this.filterObj);
     this.dataService.get(url)
@@ -209,7 +194,7 @@ export class ContractorChallanRegisterComponent implements OnInit {
         error: (err) => {
           this.invalidDateRange = false;
           if (err.status === 400) {
-            // Handle 400 Bad Request
+
             console.error('Bad Request:', err.message);
             this.errorMessage = err.message;
           }
@@ -217,10 +202,6 @@ export class ContractorChallanRegisterComponent implements OnInit {
         }
 
 
-        // (res: requestResponse) => {
-        // this.contractorChallans = res.data;
-        // this.contractorChallans.forEach(e1 => { e1.challanType = this.utilsService.challanTypes?.find(e => e.val === e1.challanType)?.name ?? '' })
-        // this.totalRecord = res.metadata.recordcount;
       })
   }
 

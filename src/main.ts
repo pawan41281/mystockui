@@ -10,7 +10,7 @@ import { AppComponent } from './app/app.component';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
 import { tokenInterceptor } from './app/demo/auth/token-interceptor';
-import { errorInterceptor } from './app/demo/auth/error-interceptor';
+import { refreshInterceptorInterceptor } from './app/demo/auth/refresh-interceptor-interceptor';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -19,5 +19,5 @@ if (environment.production) {
 }
 
 bootstrapApplication(AppComponent, {
-  providers: [importProvidersFrom(BrowserModule, AppRoutingModule), provideAnimations(), provideHttpClient(withInterceptors([tokenInterceptor]))]//, errorInterceptor
+  providers: [importProvidersFrom(BrowserModule, AppRoutingModule), provideAnimations(), provideHttpClient(withInterceptors([tokenInterceptor, refreshInterceptorInterceptor]))]//, errorInterceptor
 }).catch((err) => console.error(err));

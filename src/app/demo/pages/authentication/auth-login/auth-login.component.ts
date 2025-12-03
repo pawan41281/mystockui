@@ -40,6 +40,7 @@ export class AuthLoginComponent {
       .subscribe((res: any) => {
         if (res.status === 'success') {
           localStorage.setItem('access_token', res.data.accessToken);
+          localStorage.setItem('refresh_token', res.data.refreshToken);
           this.router.navigate(['/dashboard/default']);
         }
       })
