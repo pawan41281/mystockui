@@ -3,11 +3,16 @@
 
         <form #form="ngForm" class="row g-3 needs-validation" novalidate>
 
+            @if (errorMsg?.length) {
+            <div class="alert alert-danger mt-2 font-size-16" role="alert">
+                {{ errorMsg }}
+            </div>
+            }
             <div class="col-md-2">
                 <label for="fromDate" class="form-label fw-bold">From Date</label>
                 <div class="input-group">
                     <input matInput [matDatepicker]="picker1" id="fromDate" [(ngModel)]="fromDate" name="fromDate"
-                        class="form-control height-39" #challanDate="ngModel" />
+                        class="form-control height-39" (dateChange)="formatDateChange()" #challanDate="ngModel" />
                     <span class="input-group-text height-39" style="cursor: pointer;">
                         <mat-datepicker-toggle [for]="picker1"></mat-datepicker-toggle>
                     </span>
@@ -23,7 +28,7 @@
                 <label for="toDate" class="form-label fw-bold">To Date</label>
                 <div class="input-group">
                     <input matInput [matDatepicker]="picker" id="toDate" [(ngModel)]="toDate" name="toDate"
-                        class="form-control height-39" #challanDate="ngModel" />
+                        class="form-control height-39" #challanDate="ngModel" (dateChange)="toDateChange()" />
                     <span class="input-group-text height-39" style="cursor: pointer;">
                         <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
                     </span>
@@ -78,7 +83,8 @@
                     id="orderid">
             </div>
             <div class="col-md-1 align-right">
-                <button class="margin-top-30 btn btn-primary" name="search" (click)="searchClientChallan()" id="search">
+                <button class="margin-top-30 btn btn-primary" name="search" [disabled]="disableSearch"
+                    (click)="searchClientChallan()" id="search">
                     Search
                 </button>
             </div>

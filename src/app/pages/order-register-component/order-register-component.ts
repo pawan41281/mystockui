@@ -56,6 +56,8 @@ export class OrderRegisterComponent implements OnInit {
   isAdmin: boolean = false;
   userInfo: userData;
   maxDate: Date;
+  disableSearch: boolean = false;
+  errorMsg: string = ''
 
   constructor() {
     this.getClients();
@@ -77,11 +79,16 @@ export class OrderRegisterComponent implements OnInit {
     this.getDesignts();
     this.getColors();
     this.getQualityList();
-
+    this.disableSearch = this.fromDate > this.toDate ? true : false
   }
 
-  calculateMaxDate() {
+  dateChange() {
+    this.disableSearch = this.fromDate > this.toDate ? true : false
     this.maxDate = this.utilsService.getMaxDate(this.fromDate)
+  }
+
+  toDateChange() {
+    this.disableSearch = this.fromDate > this.toDate ? true : false
   }
 
   // fetch quality list
@@ -124,13 +131,6 @@ export class OrderRegisterComponent implements OnInit {
       })
   }
 
-
-  // onInputBlur(): void {
-  //   this.clientOrder.quantity = Number(this.clientOrder.quantity)
-  //   this.isItemExist = this.itemExist();
-  //   const { design, color, quantity } = this.clientOrder;
-  //   this.disableAdd = !(design && color && quantity > 0 && !this.isItemExist);
-  // }
   // Column Definitions: Defines & controls grid columns.
   colDefs: ColDef<order>[] = [
     {
@@ -167,30 +167,16 @@ export class OrderRegisterComponent implements OnInit {
 
   myCellRendererAction(params: any) {
     this.id = params.node.data.id;
-    // return this.isAdmin ? `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="bi bi-search"></i> </button>
-    //  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"> <i class="bi bi-trash"></i> </button>`
-    //   : `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="bi bi-search"></i> </button>`;
 
     return this.isAdmin ?
-      // `
-      //  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> 
-      //   <i class="bi bi-search"></i> 
-      //  </button>
-      //  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal">
-      //   <i class="bi bi-trash"></i> 
-      //  </button>
-      // `
+
       `
        <img src="assets/images/find.png" style="width: 20px; height: 20px;" (click)="searchContractorChallan()" data-bs-toggle="modal" data-bs-target="#exampleModal">
        &nbsp;
        <img src="assets/images/delete.png" style="width: 20px; height: 20px;" (click)="cancelChallan()" data-bs-toggle="modal" data-bs-target="#deleteModal">
       `
       :
-      // `
-      //  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> 
-      //   <i class="bi bi-search"></i> 
-      //  </button>
-      // `
+
       `
        <img src="assets/images/find.png" style="width: 20px; height: 20px;" (click)="searchContractorChallan()" data-bs-toggle="modal" data-bs-target="#exampleModal">
       `
@@ -231,8 +217,14 @@ export class OrderRegisterComponent implements OnInit {
 
     this.dataService.get(finalUrl)
       .subscribe((res: any) => {
-        this.clientOrders = res.data;
-        this.totalRecord = res.metadata.recordcount;
+
+        if (res.data) {
+          this.clientOrders = res.data;
+          this.totalRecord = res.metadata.recordcount;
+        } else {
+          this.errorMsg = res.message
+        }
+
       })
 
   }

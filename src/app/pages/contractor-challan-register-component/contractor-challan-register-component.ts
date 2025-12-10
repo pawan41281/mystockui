@@ -54,6 +54,8 @@ export class ContractorChallanRegisterComponent implements OnInit {
   invalidDateRange: boolean = false;
   errorMessage: string = '';
   maxDate: Date;
+  disableSearch: boolean = false;
+  errorMsg: string = ''
 
   constructor() {
     this.getClients();
@@ -72,6 +74,10 @@ export class ContractorChallanRegisterComponent implements OnInit {
     this.userInfo = this.utilsService.getCurrentUserInfo()
     this.isAdmin = this.userInfo.roles.filter(e => e.adminrole).length > 0
     this.maxDate = this.utilsService.getMaxDate(this.fromDate)
+  }
+
+  toDateChange() {
+    this.disableSearch = this.fromDate > this.toDate ? true : false
   }
 
   getClients = () => {
@@ -187,11 +193,15 @@ export class ContractorChallanRegisterComponent implements OnInit {
     this.dataService.get(url)
       .subscribe({
         next: (res: requestResponse) => {
-          this.contractorChallans = res.data;
-          this.contractorChallans.forEach(e1 => {
-            e1.challanType = this.utilsService.challanTypes?.find(e => e.val === e1.challanType)?.name ?? '';
-          });
-          this.totalRecord = res.metadata.recordcount;
+          if (res.data) {
+            this.contractorChallans = res.data;
+            this.contractorChallans.forEach(e1 => {
+              e1.challanType = this.utilsService.challanTypes?.find(e => e.val === e1.challanType)?.name ?? '';
+            });
+            this.totalRecord = res.metadata.recordcount;
+          } else {
+            this.errorMsg = res.message
+          }
         },
         error: (err) => {
           this.invalidDateRange = false;
@@ -250,11 +260,10 @@ export class ContractorChallanRegisterComponent implements OnInit {
     return `${totalQuantity}`;
   }
 
-  formatDate(event: any) {
-    const [day, month, year] = formatDate(event.value, 'dd-MM-yyyy', 'en-US').split('-').map(Number);
-    const dateObj = new Date(year, month - 1, day)
-    this.fromDate = dateObj;
-    this.maxDate = new Date(year, month, day + 90)
+  formatDate() {
+
+    this.maxDate = this.utilsService.getMaxDate(this.fromDate)
+    this.disableSearch = this.fromDate > this.toDate ? true : false
   }
   //=================Items details =============
 

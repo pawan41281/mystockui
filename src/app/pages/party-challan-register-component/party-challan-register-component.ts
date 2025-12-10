@@ -49,6 +49,9 @@ export class PartyChallanRegisterComponent implements OnInit {
   filterObj: challanFilter = new challanFilter();
   isAdmin: boolean = false;
   userInfo: userData;
+  maxDate: Date;
+  disableSearch: boolean = false;
+  errorMsg: string = ''
 
   constructor() {
     this.getClients();
@@ -61,6 +64,7 @@ export class PartyChallanRegisterComponent implements OnInit {
         this.filterObj.challantype = params['challanType'];
         this.fromDate = new Date(params['fromDate']);
         this.toDate = new Date(params['toDate']);
+        this.maxDate = this.utilsService.getMaxDate(this.fromDate)
       }
 
     });
@@ -68,6 +72,16 @@ export class PartyChallanRegisterComponent implements OnInit {
     this.searchClientChallan()
     this.userInfo = this.utilsService.getCurrentUserInfo()
     this.isAdmin = this.userInfo.roles.filter(e => e.adminrole).length > 0
+  }
+
+  formatDateChange() {
+
+    this.maxDate = this.utilsService.getMaxDate(this.fromDate)
+    this.disableSearch = this.fromDate > this.toDate ? true : false
+  }
+
+  toDateChange() {
+    this.disableSearch = this.fromDate > this.toDate ? true : false
   }
 
   getClients = () => {
@@ -138,30 +152,15 @@ export class PartyChallanRegisterComponent implements OnInit {
 
   myCellRendererAction(params: any) {
     this.id = params.node.data.id;
-    // return this.isAdmin ? `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="bi bi-search"></i> </button>
-    //  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"> <i class="bi bi-trash"></i> </button>`
-    //   : `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="bi bi-search"></i> </button>`;
 
     return this.isAdmin ?
-      // `
-      //  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> 
-      //   <i class="bi bi-search"></i> 
-      //  </button>
-      //  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal">
-      //   <i class="bi bi-trash"></i> 
-      //  </button>
-      // `
+
       `
        <img src="assets/images/find.png" style="width: 20px; height: 20px;" (click)="searchContractorChallan()" data-bs-toggle="modal" data-bs-target="#exampleModal">
        &nbsp;
        <img src="assets/images/delete.png" style="width: 20px; height: 20px;" (click)="cancelChallan()" data-bs-toggle="modal" data-bs-target="#deleteModal">
       `
       :
-      // `
-      //  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> 
-      //   <i class="bi bi-search"></i> 
-      //  </button>
-      // `
       `
        <img src="assets/images/find.png" style="width: 20px; height: 20px;" (click)="searchContractorChallan()" data-bs-toggle="modal" data-bs-target="#exampleModal">
       `
@@ -188,14 +187,18 @@ export class PartyChallanRegisterComponent implements OnInit {
   searchClientChallan = () => {
     this.filterObj.fromDate = this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
     this.filterObj.toDate = this.toDate && !this.utilsService.isValidDateFormat(this.toDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
-    //this.filterObj.clientid = this.dropdownData.find(e => e.clientName === this.filterObj.clientName)?.id
+
     let finalUrl = '';
     finalUrl = this.url + this.utilsService.buildUrl(this.filterObj);
 
     this.dataService.get(finalUrl)
       .subscribe((res: any) => {
-        this.clientChallans = res.data;
-        this.totalRecord = res.metadata.recordcount;
+        if (res.data) {
+          this.clientChallans = res.data;
+          this.totalRecord = res.metadata.recordcount;
+        } else {
+          this.errorMsg = res.message
+        }
       })
 
   }

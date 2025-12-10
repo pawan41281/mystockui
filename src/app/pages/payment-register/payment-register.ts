@@ -29,7 +29,7 @@ import { contractorpayment } from 'src/app/model/contractorpayment';
   templateUrl: './payment-register.html',
   styleUrl: './payment-register.scss'
 })
-export class PaymentRegister {
+export class PaymentRegister implements OnInit {
 
 
   id: string = '';
@@ -52,22 +52,19 @@ export class PaymentRegister {
   filterObj: challanFilter = new challanFilter();
   isAdmin: boolean = false;
   userInfo: userData;
+  maxDate: Date;
+  disableSearch: boolean = false;
+  errorMsg: string = ''
 
   constructor() {
     this.getClients();
   }
 
   ngOnInit() {
-    // this.router.queryParams.subscribe(params => {
-    //   if (params['challanType']) {
-    //     this.fromDate = new Date(params['fromDate']);
-    //     this.toDate = new Date(params['toDate']);
-    //   }
-
-    // });
     this.searchContractorPayment()
     this.userInfo = this.utilsService.getCurrentUserInfo()
     this.isAdmin = this.userInfo.roles.filter(e => e.adminrole).length > 0
+    this.maxDate = this.utilsService.getMaxDate(this.fromDate)
   }
 
   getClients = () => {
@@ -152,15 +149,18 @@ export class PaymentRegister {
 
   searchContractorPayment = () => {
 
-    this.filterObj.fromDate = this.utilsService.dateFromate_dd_MM_YY(this.fromDate);// this.fromDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.fromDate) : '';
-    this.filterObj.toDate = this.utilsService.dateFromate_dd_MM_YY(this.toDate);// this.toDate && !this.utilsService.isValidDateFormat(this.fromDate.toString()) ? this.utilsService.formatDate_dd_MM_YYYY(this.toDate) : '';
+    this.filterObj.fromDate = this.utilsService.dateFromate_dd_MM_YY(this.fromDate);
+    this.filterObj.toDate = this.utilsService.dateFromate_dd_MM_YY(this.toDate);
     let url = '';
     url = this.url + this.utilsService.buildUrl(this.filterObj);
     this.dataService.get(url)
       .subscribe((res: requestResponse) => {
-        this.contractorPayments = res.data;
-        // this.contractorPayments.forEach(e1 => { e1.challanType = this.utilsService.challanTypes?.find(e => e.val === e1.challanType)?.name ?? '' })
-        this.totalRecord = res.metadata.recordcount;
+        if (res.data) {
+          this.contractorPayments = res.data
+          this.totalRecord = res.metadata.recordcount;
+        } else {
+          this.errorMsg = res.message
+        }
       })
   }
 
@@ -201,19 +201,15 @@ export class PaymentRegister {
     }));
   }
 
-  // peaceCount(params: any) {
-  //   let totalQuantity = 0;
-  //   params.challanItems.forEach((e: { quantity: number; }) => totalQuantity += e.quantity);
-  //   return `${totalQuantity}`;
-  // }
 
-  formatDate(event: any) {
-    const [day, month, year] = formatDate(event.value, 'dd-MM-yyyy', 'en-US').split('-').map(Number);
-    const dateObj = new Date(year, month - 1, day)
-    this.fromDate = dateObj;
+  formatDate() {
+    this.disableSearch = this.fromDate > this.toDate ? true : false
+    this.maxDate = this.utilsService.getMaxDate(this.fromDate)
   }
-  //=================Items details =============
 
+  toDateChange() {
+    this.disableSearch = this.fromDate > this.toDate ? true : false
+  }
 
 
 }
