@@ -53,6 +53,7 @@ export class ContractorChallanRegisterComponent implements OnInit {
   userInfo: userData;
   invalidDateRange: boolean = false;
   errorMessage: string = '';
+  maxDate: Date;
 
   constructor() {
     this.getClients();
@@ -70,6 +71,8 @@ export class ContractorChallanRegisterComponent implements OnInit {
     this.searchContractorChallan()
     this.userInfo = this.utilsService.getCurrentUserInfo()
     this.isAdmin = this.userInfo.roles.filter(e => e.adminrole).length > 0
+    const [day, month, year] = formatDate(this.fromDate, 'dd-MM-yyyy', 'en-US').split('-').map(Number);
+    this.maxDate = new Date(year, month, day + 90);
   }
 
   getClients = () => {
@@ -252,6 +255,7 @@ export class ContractorChallanRegisterComponent implements OnInit {
     const [day, month, year] = formatDate(event.value, 'dd-MM-yyyy', 'en-US').split('-').map(Number);
     const dateObj = new Date(year, month - 1, day)
     this.fromDate = dateObj;
+    this.maxDate = new Date(year, month, day + 90)
   }
   //=================Items details =============
 

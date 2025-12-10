@@ -77,7 +77,11 @@ export class NavRightComponent implements OnInit {
   profileoptions = [
     {
       icon: 'user',
-      title: 'My Profile'
+      title: 'My Profile1111'
+    },
+    {
+      icon: 'email',
+      title: 'usertest@data.com'
     }
   ];
 

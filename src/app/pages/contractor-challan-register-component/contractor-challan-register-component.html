@@ -34,7 +34,7 @@
                     <label for="toDate" class="form-label fw-bold">To Date</label>
                     <div class="input-group">
                         <input matInput [matDatepicker]="picker" id="toDate" [(ngModel)]="toDate" name="toDate"
-                            class="form-control height-39" #challanDate="ngModel" />
+                            class="form-control height-39" #challanDate="ngModel" [max]="maxDate" />
                         <span class="input-group-text height-39" style="cursor: pointer;">
                             <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
                         </span>
