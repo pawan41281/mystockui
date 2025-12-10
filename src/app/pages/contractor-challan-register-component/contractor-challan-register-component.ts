@@ -71,8 +71,7 @@ export class ContractorChallanRegisterComponent implements OnInit {
     this.searchContractorChallan()
     this.userInfo = this.utilsService.getCurrentUserInfo()
     this.isAdmin = this.userInfo.roles.filter(e => e.adminrole).length > 0
-    const [day, month, year] = formatDate(this.fromDate, 'dd-MM-yyyy', 'en-US').split('-').map(Number);
-    this.maxDate = new Date(year, month, day + 90);
+    this.maxDate = this.utilsService.getMaxDate(this.fromDate)
   }
 
   getClients = () => {

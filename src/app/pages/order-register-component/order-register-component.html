@@ -6,7 +6,7 @@
                 <label for="fromDate" class="form-label fw-bold">From Date</label>
                 <div class="input-group">
                     <input matInput [matDatepicker]="picker1" id="fromDate" [(ngModel)]="fromDate" name="fromDate"
-                        class="form-control height-39" #orderDate="ngModel" />
+                        class="form-control height-39" #orderDate="ngModel" (dateChange)="calculateMaxDate()" />
                     <span class="input-group-text height-39" style="cursor: pointer;">
                         <mat-datepicker-toggle [for]="picker1"></mat-datepicker-toggle>
                     </span>
@@ -22,7 +22,7 @@
                 <label for="toDate" class="form-label fw-bold">To Date</label>
                 <div class="input-group">
                     <input matInput [matDatepicker]="picker" id="toDate" [(ngModel)]="toDate" name="toDate"
-                        class="form-control height-39" #orderDate="ngModel" />
+                        class="form-control height-39" #orderDate="ngModel" [max]="maxDate" />
                     <span class="input-group-text height-39" style="cursor: pointer;">
                         <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
                     </span>

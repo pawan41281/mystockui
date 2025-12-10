@@ -55,6 +55,7 @@ export class OrderRegisterComponent implements OnInit {
   filterObj: orderFilter = new orderFilter();
   isAdmin: boolean = false;
   userInfo: userData;
+  maxDate: Date;
 
   constructor() {
     this.getClients();
@@ -67,7 +68,7 @@ export class OrderRegisterComponent implements OnInit {
         this.fromDate = new Date(params['fromDate']);
         this.toDate = new Date(params['toDate']);
       }
-
+      this.maxDate = this.utilsService.getMaxDate(this.fromDate)
     });
 
     this.searchClientOrder()
@@ -77,6 +78,10 @@ export class OrderRegisterComponent implements OnInit {
     this.getColors();
     this.getQualityList();
 
+  }
+
+  calculateMaxDate() {
+    this.maxDate = this.utilsService.getMaxDate(this.fromDate)
   }
 
   // fetch quality list

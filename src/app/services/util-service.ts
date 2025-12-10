@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { commonData } from '../model/commonData';
+import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -88,4 +89,9 @@ export class UtilService {
     return JSON.parse(localStorage.getItem('userInfo'));
   }
 
+  public getMaxDate(date: Date) {
+
+    const [day, month, year] = formatDate(date, 'dd-MM-yyyy', 'en-US').split('-').map(Number);
+    return new Date(year, month + 2, day - 1);
+  }
 }
