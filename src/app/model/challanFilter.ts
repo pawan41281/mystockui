@@ -6,6 +6,7 @@ export class challanFilter {
     toDate: string;
     challantype: "";
     orderid?: string;
+    orderNumber?: string;
 
     constructor() {
         this.challannumber = "";
