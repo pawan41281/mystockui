@@ -119,7 +119,10 @@ export const routes: Routes = [
         path: 'paymentregister',
         loadComponent: () => import('./pages/payment-register/payment-register').then((c) => c.PaymentRegister)
       },
-
+      {
+        path: 'changePassword',
+        loadComponent: () => import('./pages/change-password/change-password').then((c) => c.ChangePassword)
+      },
 
     ]
   },

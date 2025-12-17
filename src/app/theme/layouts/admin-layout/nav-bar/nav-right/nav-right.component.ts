@@ -30,7 +30,7 @@ import { UtilService } from 'src/app/services/util-service';
 
 @Component({
   selector: 'app-nav-right',
-  imports: [IconDirective, RouterModule, NgScrollbarModule, NgbNavModule, NgbDropdownModule],
+  imports: [IconDirective, RouterModule, NgScrollbarModule, NgbNavModule, NgbDropdownModule, RouterModule],
   templateUrl: './nav-right.component.html',
   styleUrls: ['./nav-right.component.scss']
 })
@@ -74,16 +74,16 @@ export class NavRightComponent implements OnInit {
   ngOnInit(): void {
     this.userInfo = this.utilsService.getCurrentUserInfo()
   }
-  profileoptions = [
-    {
-      icon: 'user',
-      title: 'My Profile1111'
-    },
-    {
-      icon: 'email',
-      title: 'usertest@data.com'
-    }
-  ];
+  // profileoptions = [
+  //   {
+  //     icon: 'user',
+  //     title: 'My Profile1111'
+  //   },
+  //   {
+  //     icon: 'email',
+  //     title: 'usertest@data.com'
+  //   }
+  // ];
 
   settingoptions = [
     {
@@ -96,7 +96,8 @@ export class NavRightComponent implements OnInit {
     this.dataService.post(this.url, this.auth)
       .subscribe((res: any) => {
         if (res.status === 'success') {
-          localStorage.removeItem('access_token');
+          ///localStorage.removeItem('access_token');
+          localStorage.clear();
           //this.getColorData();
           this.router.navigate(['']);
         }

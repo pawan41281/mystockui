@@ -34,16 +34,6 @@
               <div class="margin-left-10">
                 <b> Mobile </b> - {{userInfo['mobile']}}
               </div>
-
-              <!-- @for (task of profileoptions; track task) {
-            <div>
-              <a href="javascript:" class="dropdown-item">
-                <i class="text-muted" antIcon theme="outline" type="{{ task.icon }}"></i>
-                <span>{{ task.title }}</span>
-              </a>
-
-            </div>
-            } -->
             </ng-template>
           </li>
           <li ngbNavItem="2">
@@ -54,8 +44,7 @@
             <ng-template ngbNavContent>
               @for (task of settingoptions; track task) {
               <div>
-                <a href="javascript:" class="dropdown-item">
-                  <!-- data-bs-toggle="modal" data-bs-target="#exampleModal" -->
+                <a [routerLink]="'/changePassword'" class="dropdown-item">
                   <i class="text-muted" antIcon theme="outline" type="{{ task.icon }}"></i>
                   <span>{{ task.title }}</span>
                 </a>
@@ -73,7 +62,7 @@
   </ul>
 </div>
 
-<!-- Modal -->
+<!-- Modal
 <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content  model-width-800">
@@ -90,4 +79,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
