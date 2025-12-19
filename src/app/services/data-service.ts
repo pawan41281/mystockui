@@ -32,6 +32,16 @@ export class DataService {
     );
   }
 
+  update<T>(endpoint: string, data: any): Observable<T> {
+
+    return this.http.patch<T>(`${this.baseUrl}/${endpoint}`, data).pipe(
+      catchError(error => {
+        console.error(`Error posting data to ${endpoint}:`, error);
+        return throwError(() => new Error(`Failed to post data to ${endpoint}`));
+      })
+    );
+  }
+
   patch<T>(endpoint: string, id: number, status: boolean): Observable<T> {
     const fullUrl = `${this.baseUrl}/${endpoint}/${id}/${status}`;
     return this.http.patch<T>(fullUrl, null);

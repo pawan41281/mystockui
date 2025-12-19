@@ -8,8 +8,8 @@ import { CommonModule } from '@angular/common';
 import { ResponseData } from 'src/app/model/Response';
 import { requestResponse } from 'src/app/model/requestResponse';
 import { userData } from 'src/app/model/userData';
-import { CommonService } from 'src/app/services/common-service';
 import { resetPassword } from 'src/app/model/resetPassword';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-change-password',
@@ -22,13 +22,13 @@ export class ChangePassword implements OnInit {
 
   private utilsService: UtilService = inject(UtilService);
   private dataService = inject(DataService);
-  private commonService = inject(CommonService)
-  private url: string = 'colors';
-
-  isSameEditObj: boolean = false
+  private router = inject(Router);
+  private url: string = 'users/updatepassword';
+  isPwdNotMatch: boolean = false
   resetPwd: resetPassword = new resetPassword();
   userInfo: userData;
   saveLabel: string = "Save"
+  errorMsg: string = '';
 
   delObj: design = new design();
   colorObj1: Promise<ResponseData>;
@@ -38,23 +38,38 @@ export class ChangePassword implements OnInit {
   }
 
 
-
+  matchPwd = () => {
+    this.isPwdNotMatch = this.resetPwd.newPassword != this.resetPwd.confirmPassword;
+  }
 
 
   onSave = () => {
-    // if (this.saveLabel == "Save")
-    //   this.colorObj.user.id = this.userInfo.id;
-
-    // this.dataService.post(this.url, this.colorObj)
-    //   .subscribe((res: requestResponse) => {
-    //     if (res.status === 'success') {
-    //       //this.colorObj = new color();
-    //       //this.getColorData();
-    //     }
-    //   })
+    const obj = {
+      'id': this.userInfo.id,
+      'oldPassword': this.resetPwd.oldPassword,
+      'newPassword': this.resetPwd.newPassword
+    }
+    this.dataService.update(this.url, obj)
+      .subscribe((res: requestResponse) => {
+        if (res.status === 'success') {
+          alert(res.message)
+          this.logout()
+        } else {
+          this.errorMsg = res.message
+        }
+      })
     this.saveLabel = "Save"
   }
 
+  logout = () => {
+    this.dataService.post('auth/logout', null)
+      .subscribe((res: any) => {
+        if (res.status === 'success') {
+          localStorage.clear();
+          this.router.navigate(['']);
+        }
+      })
+  }
 
 
 

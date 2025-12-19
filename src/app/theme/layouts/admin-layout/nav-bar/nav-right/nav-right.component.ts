@@ -74,17 +74,6 @@ export class NavRightComponent implements OnInit {
   ngOnInit(): void {
     this.userInfo = this.utilsService.getCurrentUserInfo()
   }
-  // profileoptions = [
-  //   {
-  //     icon: 'user',
-  //     title: 'My Profile1111'
-  //   },
-  //   {
-  //     icon: 'email',
-  //     title: 'usertest@data.com'
-  //   }
-  // ];
-
   settingoptions = [
     {
       icon: 'setting',
@@ -93,12 +82,10 @@ export class NavRightComponent implements OnInit {
   ];
 
   logout = () => {
-    this.dataService.post(this.url, this.auth)
+    this.dataService.post('auth/logout', this.auth)
       .subscribe((res: any) => {
         if (res.status === 'success') {
-          ///localStorage.removeItem('access_token');
           localStorage.clear();
-          //this.getColorData();
           this.router.navigate(['']);
         }
       })
