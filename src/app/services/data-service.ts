@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
@@ -27,7 +27,7 @@ export class DataService {
     return this.http.post<T>(`${this.baseUrl}/${endpoint}`, data).pipe(
       catchError(error => {
         console.error(`Error posting data to ${endpoint}:`, error);
-        return throwError(() => new Error(`Failed to post data to ${endpoint}`));
+        return throwError(() => error);
       })
     );
   }

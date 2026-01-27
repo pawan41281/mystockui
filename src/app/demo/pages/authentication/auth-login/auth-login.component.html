@@ -20,6 +20,12 @@
             <input type="password" class="form-control" id="password" [(ngModel)]="auth.password" placeholder="Password"
               value="123456789" />
           </div>
+          @if (errorMessage) {
+          <div class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+          }
+
           <div class="d-flex mt-1 justify-content-between">
             <div class="form-check">
               <!-- <input class="form-check-input input-primary" type="checkbox" id="customCheckc1" checked="" />

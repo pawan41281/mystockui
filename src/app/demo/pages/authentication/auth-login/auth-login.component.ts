@@ -6,7 +6,9 @@ import { Router, RouterModule } from '@angular/router';
 import { Auth } from 'src/app/model/login';
 import { requestResponse } from 'src/app/model/requestResponse';
 import { DataService } from 'src/app/services/data-service';
-import { filter, switchMap, tap } from 'rxjs/operators';
+//import { filter, switchMap, tap } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
+import { catchError, filter, switchMap, tap, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-auth-login',
@@ -19,7 +21,7 @@ export class AuthLoginComponent {
   auth: Auth = new Auth()
   dataService = inject(DataService);
   router = inject(Router);
-
+  errorMessage: string = ''
   url: string = 'auth/login';
   // public method
   SignInOptions = [
@@ -38,20 +40,36 @@ export class AuthLoginComponent {
   ];
 
   login() {
-
     this.dataService.post(this.url, this.auth).pipe(
-      filter((res: any) => res.status === 'success'),
-      tap(res => {
-        localStorage.setItem('access_token', res.data.accessToken);
-        localStorage.setItem('refresh_token', res.data.refreshToken);
+
+      tap((res: any) => {
+        if (res.status === 'success') {
+          localStorage.setItem('access_token', res.data.accessToken);
+          localStorage.setItem('refresh_token', res.data.refreshToken);
+        }
       }),
-      switchMap(() => this.getCurrentUserInfo())
+
+      filter((res: any) => res.status === 'success'),
+
+      switchMap(() => this.getCurrentUserInfo()),
+
+      catchError((err: HttpErrorResponse) => {
+
+        if (err.status === 401) {
+          // ✅ message sent by backend
+          this.errorMessage =
+            err.error?.message || 'Invalid username or password';
+        } else {
+          this.errorMessage = 'Something went wrong. Please try again.';
+        }
+
+        console.error('Login failed:', err);
+        return throwError(() => err); // optional
+      })
+
     ).subscribe({
       next: () => {
         this.router.navigate(['/dashboard/default']);
-      },
-      error: err => {
-        console.error('Login flow failed', err);
       }
     });
   }
