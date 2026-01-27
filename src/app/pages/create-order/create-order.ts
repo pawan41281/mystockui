@@ -50,7 +50,6 @@ export class CreateOrder implements OnInit {
   disableAdd: boolean = true;
   showSuccessMessage: boolean = false;
   successMessage: string = '';
-  selectedClient: string = ''
   isItemExist: boolean = false;
   isDuplicateOrder: boolean = false;
   filterObj: orderFilter = new orderFilter();
@@ -184,7 +183,6 @@ export class CreateOrder implements OnInit {
 
   save = () => {
     const obj = this.buildRequestObject();
-
     this.dataService.post(this.url, obj).subscribe((res: requestResponse) => {
       if (res.status === 'success') {
 
@@ -223,7 +221,7 @@ export class CreateOrder implements OnInit {
     return {
       orderNumber: this.clientOrder.orderNumber,
       orderDate: this.utilsService.formatDate_dd_MM_YYYY(this.orderDate),
-      client: { id: this.selectedClient },
+      client: { id: this.clientOrder.party },
       orderItems: this.items.map(item => ({
         quality: { id: item.qualityId },
         design: { id: item.designId },

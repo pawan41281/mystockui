@@ -49,11 +49,11 @@
                         <div class="col-5">
 
                             <div class="dropdown">
-                                <label for="selectedClient" class="form-label fw-bold">Party <span
+                                <label for="party" class="form-label fw-bold">Party <span
                                         class="text-danger">*</span></label>
-                                <select class="form-select" name="party" [(ngModel)]="selectedClient"
-                                    name="selectedClient" #party="ngModel">
-                                    <option value="">Select Options</option>
+                                <select class="form-select" name="party" [(ngModel)]="clientOrder.party"
+                                    #party="ngModel">
+                                    <option value="0">Select Options</option>
                                     @for (party of clients; track party.id) {
                                     <option [value]="party.id">{{ party.clientName }}</option>
                                     }
