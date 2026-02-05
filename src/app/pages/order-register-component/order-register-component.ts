@@ -284,6 +284,10 @@ export class OrderRegisterComponent implements OnInit {
     {
       headerName: "Quantity",
       field: "quantity",
+    },
+    {
+      headerName: "Rate",
+      field: "rate",
     }
   ];
 }

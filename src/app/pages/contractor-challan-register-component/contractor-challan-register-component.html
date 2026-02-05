@@ -4,19 +4,21 @@
         <form #form="ngForm" class="row g-3 needs-validation" novalidate>
 
             <div class="row">
-                @if (invalidDateRange) {
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    {{errorMessage}}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div class="col-12">
+                    @if (invalidDateRange) {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ errorMessage }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    }
+                    @if (errorMsg?.length) {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{errorMsg}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    }
                 </div>
-                }
             </div>
-            @if (errorMsg?.length) {
-            <div class="alert alert-danger mt-2 font-size-16" role="alert">
-                {{ errorMsg }}
-            </div>
-            }
-
             <div class="row">
                 <div class="col-2">
                     <label for="fromDate" class="form-label fw-bold">From Date</label>
