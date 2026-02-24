@@ -10,6 +10,8 @@ import { requestResponse } from 'src/app/model/requestResponse';
 import { userData } from 'src/app/model/userData';
 import { resetPassword } from 'src/app/model/resetPassword';
 import { Router } from '@angular/router';
+import * as bootstrap from 'bootstrap';
+import { ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-change-password',
@@ -19,6 +21,7 @@ import { Router } from '@angular/router';
 })
 export class ChangePassword implements OnInit {
 
+  @ViewChild('exampleModal') exampleModal!: ElementRef;
 
   private utilsService: UtilService = inject(UtilService);
   private dataService = inject(DataService);
@@ -29,7 +32,8 @@ export class ChangePassword implements OnInit {
   userInfo: userData;
   saveLabel: string = "Save"
   errorMsg: string = '';
-
+  successMsg: string = ''
+  processLogout: boolean = false;
   delObj: design = new design();
   colorObj1: Promise<ResponseData>;
 
@@ -42,6 +46,16 @@ export class ChangePassword implements OnInit {
     this.isPwdNotMatch = this.resetPwd.newPassword != this.resetPwd.confirmPassword;
   }
 
+  showConfirmation = () => {
+    this.errorMsg = '';
+    this.isPwdNotMatch = this.resetPwd.newPassword != this.resetPwd.confirmPassword;
+    if (this.isPwdNotMatch) {
+      this.errorMsg = "password and confirm password should be same"
+      return
+    }
+    const modal = new bootstrap.Modal(this.exampleModal.nativeElement);
+    modal.show();
+  }
 
   onSave = () => {
     const obj = {
@@ -52,7 +66,7 @@ export class ChangePassword implements OnInit {
     this.dataService.update(this.url, obj)
       .subscribe((res: requestResponse) => {
         if (res.status === 'success') {
-          alert(res.message)
+          this.successMsg = res.message;
           this.logout()
         } else {
           this.errorMsg = res.message
@@ -71,6 +85,9 @@ export class ChangePassword implements OnInit {
       })
   }
 
-
+  closePopup = () => {
+    const modal = new bootstrap.Modal(this.exampleModal.nativeElement);
+    modal.hide();
+  }
 
 }

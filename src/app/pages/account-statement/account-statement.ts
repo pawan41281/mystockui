@@ -22,7 +22,6 @@ import { CardComponent } from 'src/app/theme/shared/components/card/card.compone
 import { userData } from 'src/app/model/userData';
 import { AccountStatementModel } from 'src/app/model/AccountStatementModel';
 import { contractorChallan } from 'src/app/model/contractorChallan';
-import { challanFilter } from 'src/app/model/challanFilter';
 import { contractorpayment } from 'src/app/model/contractorpayment';
 
 @Component({
@@ -73,7 +72,6 @@ export class AccountStatement implements OnInit {
   }
 
   ngOnInit() {
-    //this.searchAccountStatement()
     this.userInfo = this.utilsService.getCurrentUserInfo()
     this.isAdmin = this.userInfo.roles.filter(e => e.adminrole).length > 0
   }
@@ -409,13 +407,10 @@ class AccountStmtFilter {
   contractorid: string
   fromDate: string
   toDate: string
-  challantype: string
-
 
   constructor() {
     this.contractorid = ''
     this.fromDate = ''
     this.toDate = ''
-    this.challantype = 'R'
   }
 }
